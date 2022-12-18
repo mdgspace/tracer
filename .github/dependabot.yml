@@ -1,0 +1,23 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "BURG3R5"
+    assignees:
+      - "Ommanimesh2"
+      - "nik-55"
+    commit-message:
+      prefix: "chore(dep)"
+      include: "scope"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "BURG3R5"
+    commit-message:
+      prefix: "chore(repo)"
+      include: "scope"
