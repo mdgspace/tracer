@@ -1,0 +1,11 @@
+Expected Structure:
+
+pages/
+├── auth/
+│     ├── index.tsx
+│     ├── ForgotPasswordButton.tsx
+│     └── LoginButton.tsx
+└── home/
+      ├── index.tsx
+      ├── Leaderboard.tsx
+      └── ProjectBox.tsx

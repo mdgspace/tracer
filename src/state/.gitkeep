@@ -1,0 +1,10 @@
+Expected Structure:
+
+state/
+├── auth/
+│     ├── AuthActions.ts
+│     └── AuthReducer.ts
+├── user/
+│     ├── UserActions.ts
+│     └── UserReducer.ts
+└── store.ts
