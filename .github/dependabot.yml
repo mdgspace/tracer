@@ -10,7 +10,7 @@ updates:
       - "Ommanimesh2"
       - "nik-55"
     commit-message:
-      prefix: "chore(dep)"
+      prefix: "chore"
       include: "scope"
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -19,5 +19,5 @@ updates:
     reviewers:
       - "BURG3R5"
     commit-message:
-      prefix: "chore(repo)"
+      prefix: "chore"
       include: "scope"
