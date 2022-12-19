@@ -1,9 +1,10 @@
 .home-header {
   display: flex;
-}
-
-.searchbar-cont {
-  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1.3em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
 }
 
 .home-main-cont {
