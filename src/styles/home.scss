@@ -1,0 +1,35 @@
+.home-header {
+  display: flex;
+}
+
+.searchbar-cont {
+  flex-grow: 1;
+}
+
+.home-main-cont {
+  display: flex;
+}
+
+.projectcard-cont {
+  flex-grow: 1;
+}
+
+.leaderboard-cont {
+  max-width: 25%;
+}
+
+@media only screen and (max-width: 860px) {
+  .home-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-main-cont {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .leaderboard-cont {
+    max-width: 100%;
+  }
+}

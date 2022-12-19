@@ -1,0 +1,91 @@
+.projectcard {
+  border-radius: 1em;
+  background-color: #263b47;
+  box-shadow: 1px 1px 8px 0 rgba(255, 255, 255, 0.3);
+  padding: 0.8em;
+  max-width: 400px;
+  margin: 1em;
+}
+
+.projectcard:hover {
+  cursor: pointer;
+}
+
+.projectcard h1 {
+  color: #ededed;
+  margin-bottom: 0.2em;
+}
+
+.projectcard p {
+  color: #bfbfbf;
+  margin-bottom: 0.4em;
+}
+
+.projectcard-status {
+  display: flex;
+  justify-content: space-between;
+  font-size: small;
+  margin-bottom: 0.5em;
+}
+
+.projectcard-status div {
+  background: #1b262c;
+  padding-left: 0.5em;
+  border-radius: 0.8em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 32%;
+}
+
+.projectcard-status div span:last-child {
+  box-shadow: 0 0 0.5em 0 #406a80;
+  padding: 1em;
+  border-radius: 0.8em;
+}
+
+.projectcard-contributor {
+  list-style: none;
+  width: fit-content;
+}
+
+.projectcard-contributor li {
+  border-radius: 50%;
+  padding: 0.2em;
+  display: inline-block;
+  position: relative;
+  font-size: medium;
+  border: 1px solid white;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.projectcard-contributor li:last-child {
+  font-size: smaller;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+}
+
+.projectcard-contributor li:nth-child(n + 2) {
+  margin-left: -0.6em;
+}
+
+.projectcard-contributor:hover li:nth-child(n + 2) {
+  margin-left: -0.3em;
+}
+
+.projectcard-contributor li:nth-child(4n) {
+  background: #e95744;
+}
+
+.projectcard-contributor li:nth-child(4n-1) {
+  background: #db1b24;
+}
+
+.projectcard-contributor li:nth-child(4n-2) {
+  background: #586266;
+}
+
+.projectcard-contributor li:nth-child(4n-3) {
+  background: #e8aa0a;
+}
