@@ -1,0 +1,25 @@
+@import "./projectCard.scss";
+@import "./home.scss";
+@import "./projectcardcont.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins";
+  font-style: normal;
+  background: #1b262c;
+  color: white;
+}
+
+@media only screen and (max-width: 860px) {
+  //  use this break point
+}
+
+// Only for development
+.bd-white {
+  border: 1px solid white;
+}
