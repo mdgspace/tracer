@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import search_icon from "../assets/images/search_icon.svg";
 import { useDispatch } from "react-redux";
-import { search } from "../state/search/searchActions";
+import { searchAction } from "../state/search/searchActions";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const SearchBar = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (srchRef.current && srchRef.current.value !== "")
-      dispatch(search(srchRef.current.value));
+      dispatch(searchAction(srchRef.current.value));
   };
 
   return (

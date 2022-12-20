@@ -1,3 +1,3 @@
-export type timeperiodmodel = {
-  timeperiod: boolean;
+export type timeRangeModel = {
+  timeRangeReducer: boolean;
 };

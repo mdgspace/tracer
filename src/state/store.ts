@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { timeperiod } from "./time-range/timeRangeReducer";
-import { search } from "./search/searchReducer";
+import { timeRangeReducer } from "./time-range/timeRangeReducer";
+import { searchReducer } from "./search/searchReducer";
 
-const rootreducer = combineReducers({ timeperiod, search });
+const rootreducer = combineReducers({ timeRangeReducer, searchReducer });
 
 const store = configureStore({
   reducer: rootreducer,

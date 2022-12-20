@@ -1,23 +1,25 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { timeRangeActions } from "../state/constants";
-import { timeperiodmodel } from "../models/basicStateType";
+import { timeRangeModel } from "../models/basicStateType";
+import { weekAction, monthAction } from "../state/time-range/timeRangeActions";
 
 const TimeRangeSwitch = () => {
   const dispatch = useDispatch();
-  const timeperiod = useSelector((state: timeperiodmodel) => state.timeperiod);
+  const isWeekly = useSelector(
+    (state: timeRangeModel) => state.timeRangeReducer
+  );
 
   return (
     <div className="timerange-cont">
       <button
-        onClick={() => dispatch({ type: timeRangeActions.WEEKLY })}
-        className={timeperiod ? "active" : ""}
+        onClick={() => dispatch(weekAction())}
+        className={isWeekly ? "active" : ""}
       >
         Weekly
       </button>
       <button
-        onClick={() => dispatch({ type: timeRangeActions.MONTHLY })}
-        className={timeperiod ? "" : "active"}
+        onClick={() => dispatch(monthAction())}
+        className={isWeekly ? "" : "active"}
       >
         Monthly
       </button>
