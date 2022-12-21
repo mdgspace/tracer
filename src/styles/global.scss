@@ -1,6 +1,9 @@
 @import "./projectCard.scss";
 @import "./home.scss";
 @import "./projectcardcont.scss";
+@import "./navbar.scss";
+@import "./searchbar.scss";
+@import "./timerange.scss";
 
 * {
   margin: 0;
@@ -17,6 +20,11 @@ body {
 
 @media only screen and (max-width: 860px) {
   //  use this break point
+}
+
+button:hover,
+a:hover {
+  cursor: pointer;
 }
 
 // Only for development

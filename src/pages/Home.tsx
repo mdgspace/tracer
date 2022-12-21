@@ -7,7 +7,7 @@ import TimeRangeSwitch from "../components/TimeRangeSwitch";
 const Home = () => {
   return (
     <>
-      <div className="home-header bd-white">
+      <div className="home-header">
         <SearchBar />
         <TimeRangeSwitch />
       </div>

@@ -1,0 +1,25 @@
+.searchbar-cont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4em;
+  width: 40%;
+  background: #24343d;
+  border-radius: 0.9em;
+}
+
+.searchbar-cont input {
+  flex-grow: 1;
+  margin-left: 1em;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: white;
+}
+
+@media only screen and (max-width: 860px) {
+  .searchbar-cont {
+    width: 70%;
+    margin-bottom: 0.8em;
+  }
+}
