@@ -1,3 +1,5 @@
+import {timeRange} from "../state/constants";
+
 export type timeRangeModel = {
-  timeRangeReducer: boolean;
+  timeRangeReducer: timeRange;
 };

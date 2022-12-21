@@ -1,13 +1,13 @@
-import { timeRangeConst } from "../constants";
+import {timeRange} from "../constants";
 
 export const weekAction = () => {
   return {
-    type: timeRangeConst.WEEKLY,
+    type: timeRange.WEEKLY,
   };
 };
 
 export const monthAction = () => {
   return {
-    type: timeRangeConst.MONTHLY,
+    type: timeRange.MONTHLY,
   };
 };

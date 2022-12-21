@@ -1,8 +1,6 @@
-export enum timeRangeConst {
-  WEEKLY = "WEEKLY",
-  MONTHLY = "MONTHLY",
+export enum timeRange {
+  WEEKLY,
+  MONTHLY,
 }
 
-export enum searchConst {
-  SEARCH = "SEARCH",
-}
+export const SEARCH = "SEARCH";

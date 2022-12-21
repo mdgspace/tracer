@@ -1,8 +1,8 @@
-import { searchConst } from "../constants";
+import {SEARCH} from "../constants";
 
-export const searchAction = (srch: string) => {
+export const searchAction = (query: string) => {
   return {
-    type: searchConst.SEARCH,
-    payload: srch,
+    type: SEARCH,
+    payload: query,
   };
 };
