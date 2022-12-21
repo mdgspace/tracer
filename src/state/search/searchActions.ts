@@ -1,4 +1,4 @@
-import {SEARCH} from "../constants";
+import { SEARCH } from "../constants";
 
 export const searchAction = (query: string) => {
   return {

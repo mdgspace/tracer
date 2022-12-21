@@ -1,4 +1,4 @@
-import {timeRange} from "../constants";
+import { timeRange } from "../constants";
 
 export const weekAction = () => {
   return {
