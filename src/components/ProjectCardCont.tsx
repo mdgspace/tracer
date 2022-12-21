@@ -5,7 +5,7 @@ const arr = [1, 2, 3, 4, 5];
 
 const ProjectCardCont = () => {
   return (
-    <div className="projectcard-cont bd-white">
+    <div className="projectcard-cont">
       {arr.map((ele) => {
         return <ProjectCard />;
       })}
