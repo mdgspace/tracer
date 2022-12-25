@@ -1,7 +1,7 @@
 type mockdatatypes = {
-    id: Number,
-    PR: Number,
-    Name: String
+  id: Number;
+  PR: Number;
+  Name: String;
+};
 
-}
-export default mockdatatypes
+export default mockdatatypes;

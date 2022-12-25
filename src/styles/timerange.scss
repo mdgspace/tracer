@@ -1,27 +1,24 @@
-.timerange-cont{
+.timerange-cont {
   display: flex;
   position: absolute;
   right: 2.5vw;
   bottom: 3vh;
-
 }
-.timerange-btns{
-display: flex;
-align-items: center;
-justify-content: center;
-width: 121px;
-height: 47px;
-box-shadow: inset 7px 7px 10px rgba(79, 136, 167, 0.3);
-border-radius: 27px;
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 30px;
-color: #FFFFFF;
-
+.timerange-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 121px;
+  height: 47px;
+  box-shadow: inset 7px 7px 10px rgba(79, 136, 167, 0.3);
+  border-radius: 27px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  color: #ffffff;
 }
-
 
 .timerange-cont div.active {
   background: linear-gradient(108.5deg, #3a5e72 4.95%, #5c93b1 132.43%);
