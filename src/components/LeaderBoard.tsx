@@ -11,7 +11,6 @@ import mockdatatypes from "../models/mockDataTypes";
 
 const LeaderBoard = () => {
   const newMockData = sortJSON(mockData, "PR");
- 
 
   return (
     <div className="leaderboard-cont">

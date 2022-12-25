@@ -14,13 +14,17 @@ const TimeRangeSwitch = () => {
     <div className="timerange-cont">
       <div
         onClick={() => dispatch(weekAction())}
-        className={`${selectedTimeRange === timeRange.WEEKLY ? "active" : ""} timerange-btns`}
+        className={`${
+          selectedTimeRange === timeRange.WEEKLY ? "active" : ""
+        } timerange-btns`}
       >
         Weekly
       </div>
       <div
         onClick={() => dispatch(monthAction())}
-        className={`${selectedTimeRange === timeRange.WEEKLY ? "" : "active"} timerange-btns`}
+        className={`${
+          selectedTimeRange === timeRange.WEEKLY ? "" : "active"
+        } timerange-btns`}
       >
         Monthly
       </div>
