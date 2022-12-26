@@ -3,4 +3,5 @@ type mockdatatypes = {
   PR: Number;
   Name: String;
 };
+
 export default mockdatatypes;
