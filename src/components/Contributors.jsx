@@ -1,6 +1,6 @@
 import React from "react";
 import ContributorCard from "./ContributorCard";
-import "../styles/contributor.scss";
+
 const Contributors = () => {
   return (
     <div className="contributors">

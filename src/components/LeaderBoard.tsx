@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/leaderboard.scss";
 import Gold from "../assets/images/Gold.svg";
 import { mockData } from "../utils/data";
 import { sortJSON } from "../utils/sort";

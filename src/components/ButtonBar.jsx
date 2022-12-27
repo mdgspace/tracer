@@ -1,6 +1,6 @@
 import React from "react";
 import TimeRangeSwitch from "./TimeRangeSwitch";
-import "../styles/buttonBar.scss";
+
 const ButtonBar = () => {
   return (
     <>
