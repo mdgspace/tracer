@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { searchAction } from "../state/search/searchActions";
+import { searchAction } from "../state/searchSlice";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
