@@ -3,28 +3,25 @@ import TimeRangeSwitch from "./TimeRangeSwitch";
 
 const ButtonBar = () => {
   return (
-    <>
+    <div className="project-upper-cont">
       <div className="button-bar">
-        <div className="back-btn">
-          <div>Back</div>
-        </div>
+        <button className="back-btn">&larr; Back</button>
         <TimeRangeSwitch />
       </div>
-      <h2>Appetizer</h2>
+      <h1>Appetizer</h1>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-        temporibus modi placeat non, rerum, architecto provident sunt ipsum
-        repellendus possimus et. Sunt corrupti suscipit quis voluptates vero,
-        magnam debitis tempore excepturi inventore ullam vel, placeat, dolores
-        dignissimos laborum. Quis impedit ab laboriosam fuga vel veritatis
-        veniam quo blanditiis obcaecati distinctio delectus illo accusamus ad
-        optio, in autem harum quia illum nobis consectetur molestias eius
-        provident. Labore fugit, quam fugiat est quidem recusandae veritatis
-        inventore voluptas esse saepe, rerum ducimus ad odit laudantium odio id.
-        Autem omnis officiis molestiae dolor ea, reiciendis expedita sit nobis
-        provident voluptates et necessitatibus voluptatibus magni!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
+        officiis aut. Expedita doloremque itaque quae perspiciatis ratione aut
+        tempora mollitia obcaecati saepe. Quam sapiente odio molestias eos at
+        nisi dolorum. At corporis dolore, explicabo et eveniet facilis amet sit
+        reiciendis quae officia quam vel quisquam in blanditiis ad, id
+        praesentium voluptates ipsum! Sunt magni placeat maiores libero non
+        fugiat veniam? Voluptatibus blanditiis ipsum enim eum, exercitationem
+        culpa quidem unde ex consectetur dignissimos quae libero cumque! Quis
+        eveniet unde, necessitatibus sit corrupti eius saepe nobis magnam et
+        tempore architecto libero dolorum?
       </p>
-    </>
+    </div>
   );
 };
 

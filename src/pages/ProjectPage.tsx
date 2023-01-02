@@ -10,8 +10,8 @@ const ProjectPage = () => {
     <>
       <div className="project-page">
         <ButtonBar />
+        <Contributors />
       </div>
-      <Contributors />
     </>
   );
 };

@@ -1,19 +1,35 @@
-.back-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 121px;
-  height: 47px;
-  box-shadow: inset 7px 7px 10px rgba(79, 136, 167, 0.3);
-  border-radius: 27px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 30px;
-  color: #ffffff;
+.button-bar .back-btn {
+  border: none;
+  outline: none;
+  padding: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 1em;
   background: linear-gradient(108.5deg, #3a5e72 4.95%, #5c93b1 132.43%);
+  color: white;
 }
+
 .button-bar {
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.project-upper-cont h1 {
+  color: #c99a2c;
+  margin-bottom: 0.35em;
+}
+
+@media only screen and (max-width: 600px) {
+  .button-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .button-bar .back-btn {
+    margin-bottom: 0.9em;
+    align-self: flex-start;
+  }
 }
