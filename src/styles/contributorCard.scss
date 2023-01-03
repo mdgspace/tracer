@@ -1,0 +1,82 @@
+.contributor-card {
+  border: 0.5px solid #ffffff;
+  backdrop-filter: blur(25px);
+  /* Note: backdrop-filter has minimal browser support */
+  margin-right: 40px;
+  border-radius: 20px;
+  position: relative;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-prs,
+.profile-commits,
+.profile-issues {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  height: 42px;
+  width: 10vw;
+  padding: 0 5px;
+  margin: 5px 0;
+  background: #1b262c;
+  border-radius: 7px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height */
+
+  color: #ffffff;
+}
+
+.no-of-prs,
+.no-of-commits,
+.no-of-issues {
+  border: 2px solid white;
+  min-width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #406a80;
+  border-radius: 7px;
+  padding: 5px;
+}
+
+.title-prs,
+.title-commits,
+.title-issues {
+  min-width: 120px;
+}
+
+.profile-image img {
+  width: 70px;
+  height: 72px;
+  border-radius: 50%;
+}
+
+.profile-name {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+
+  letter-spacing: 0.08em;
+  text-transform: capitalize;
+
+  color: #ededed;
+  padding: 15px 0;
+}
+
+.profile-image {
+  top: -40px;
+
+  position: absolute;
+}
