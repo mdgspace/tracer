@@ -1,9 +1,10 @@
 .leaderboard-cont {
-  width: 322px;
   background: #24353e;
   box-shadow: 10px 9px 70px rgba(36, 53, 62, 0.4);
   border-radius: 20px;
-  margin: 2vh 2.5vw;
+  margin-right: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
   padding: 0 1vw;
   max-height: 646px;
 }
@@ -87,9 +88,6 @@
   font-weight: bolder;
 }
 
-.left-btn,
-.right-btn {
-}
 .next-leaderboard-page,
 .prev-leaderboard-page {
   margin: 0 1.5vw;

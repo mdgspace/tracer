@@ -1,10 +1,10 @@
 .home-header {
   display: flex;
-  position: relative;
-}
-
-.searchbar-cont {
-  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1.3em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
 }
 
 .home-main-cont {
@@ -16,28 +16,27 @@
 }
 
 .leaderboard-cont {
-  max-width: 25%;
+  width: 25%;
 }
 
 @media only screen and (max-width: 860px) {
   .home-header {
-    position: relative;
     flex-direction: column;
     align-items: center;
-    height: 30vh;
-    margin: 0;
-    padding: 0;
   }
 
   .home-main-cont {
     flex-direction: column;
     align-items: center;
   }
-  .timerange-cont {
-    position: absolute;
-    left: 120px;
-  }
+
   .leaderboard-cont {
-    max-width: 100%;
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .leaderboard-cont {
+    width: 80%;
   }
 }
