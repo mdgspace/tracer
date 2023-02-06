@@ -1,13 +1,13 @@
-@import "./projectCard.scss";
-@import "./home.scss";
-@import "./projectcardcont.scss";
-@import "./navbar.scss";
-@import "./searchbar.scss";
-@import "./timerange.scss";
-@import "./buttonBar.scss";
-@import "./contributor.scss";
-@import "./leaderboard.scss";
-@import "./projectPage.scss";
+@import './projectCard.scss';
+@import './home.scss';
+@import './projectcardcont.scss';
+@import './navbar.scss';
+@import './searchbar.scss';
+@import './timerange.scss';
+@import './buttonBar.scss';
+@import './contributor.scss';
+@import './leaderboard.scss';
+@import './projectPage.scss';
 
 * {
   margin: 0;
@@ -16,7 +16,7 @@
 }
 
 body {
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   background: #1b262c;
   color: white;

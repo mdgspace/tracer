@@ -1,11 +1,11 @@
-import React from "react";
-import TimeRangeSwitch from "./TimeRangeSwitch";
+import React from 'react';
+import TimeRangeSwitch from './TimeRangeSwitch';
 
 const ButtonBar = () => {
   return (
-    <div className="project-upper-cont">
-      <div className="button-bar">
-        <button className="back-btn">&larr; Back</button>
+    <div className='project-upper-cont'>
+      <div className='button-bar'>
+        <button className='back-btn'>&larr; Back</button>
         <TimeRangeSwitch />
       </div>
       <h1>Appetizer</h1>

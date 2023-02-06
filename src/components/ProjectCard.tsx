@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 const ProjectCard = () => {
   return (
-    <div className="projectcard">
+    <div className='projectcard'>
       <h1>Appitizer</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum
@@ -10,7 +10,7 @@ const ProjectCard = () => {
         ab ratione recusandae atque quaerat. Voluptatem incidunt illo optio
         aperiam consequuntur.
       </p>
-      <div className="projectcard-status">
+      <div className='projectcard-status'>
         <div>
           <span>Pull Requests</span>
           <span>2</span>
@@ -25,7 +25,7 @@ const ProjectCard = () => {
         </div>
       </div>
 
-      <ul className="projectcard-contributor">
+      <ul className='projectcard-contributor'>
         <li>A</li>
         <li>B</li>
         <li>C</li>
