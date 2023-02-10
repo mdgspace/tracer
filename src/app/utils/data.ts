@@ -1,13 +1,13 @@
 import mockdatatypes from 'app/models/mockDataTypes';
 
-export const mockData: Array<mockdatatypes> = [
+export const mockData = Array.from<mockdatatypes>([
   {
     id: '7',
     PR: 115,
     Issues: 2,
     Commits: 3,
     Name: 'Laurène',
-    Rank: 1,
+    Rank: 7,
   },
   {
     id: '10',
@@ -15,7 +15,7 @@ export const mockData: Array<mockdatatypes> = [
     Issues: 2,
     Commits: 3,
     Name: 'Thérèsa',
-    Rank: 2,
+    Rank: 10,
   },
   {
     id: '9',
@@ -23,7 +23,7 @@ export const mockData: Array<mockdatatypes> = [
     Issues: 2,
     Commits: 3,
     Name: 'Sòng',
-    Rank: 3,
+    Rank: 9,
   },
   {
     id: '5',
@@ -31,7 +31,7 @@ export const mockData: Array<mockdatatypes> = [
     Issues: 2,
     Commits: 3,
     Name: 'Marie-noël',
-    Rank: 4,
+    Rank: 5,
   },
   {
     id: '1',
@@ -39,7 +39,7 @@ export const mockData: Array<mockdatatypes> = [
     Issues: 2,
     Commits: 3,
     Name: 'Håkan',
-    Rank: 5,
+    Rank: 1,
   },
   {
     id: '8',
@@ -47,7 +47,7 @@ export const mockData: Array<mockdatatypes> = [
     Issues: 2,
     Commits: 3,
     Name: 'Laurélie',
-    Rank: 6,
+    Rank: 8,
   },
   {
     id: '4',
@@ -55,7 +55,7 @@ export const mockData: Array<mockdatatypes> = [
     Issues: 2,
     Commits: 3,
     Name: 'Sòng',
-    Rank: 7,
+    Rank: 4,
   },
   {
     id: '2',
@@ -63,7 +63,7 @@ export const mockData: Array<mockdatatypes> = [
     Issues: 2,
     Commits: 3,
     Name: 'Clémentine',
-    Rank: 8,
+    Rank: 2,
   },
   {
     id: '6',
@@ -71,7 +71,7 @@ export const mockData: Array<mockdatatypes> = [
     Issues: 2,
     Commits: 3,
     Name: 'Desirée',
-    Rank: 9,
+    Rank: 6,
   },
   {
     id: '3',
@@ -79,6 +79,6 @@ export const mockData: Array<mockdatatypes> = [
     Issues: 2,
     Commits: 3,
     Name: 'Loïs',
-    Rank: 10,
+    Rank: 3,
   },
-];
+]);
