@@ -5,10 +5,7 @@ updates:
     schedule:
       interval: "weekly"
     reviewers:
-      - "BURG3R5"
-    assignees:
-      - "Ommanimesh2"
-      - "nik-55"
+      - "anand817"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -17,7 +14,7 @@ updates:
     schedule:
       interval: "weekly"
     reviewers:
-      - "BURG3R5"
+      - "anand817"
     commit-message:
       prefix: "chore"
       include: "scope"
