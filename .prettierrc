@@ -9,6 +9,5 @@
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "always",
-  "endOfLine": "lf",
-  "editorconfig": false
+  "endOfLine": "lf"
 }

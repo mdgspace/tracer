@@ -1,8 +1,8 @@
 type mockdatatypes = {
-  id: Number;
-  PR: Number;
-  Issues: Number;
-  Commits: Number;
-  Name: String;
+  id: number;
+  PR: number;
+  Issues: number;
+  Commits: number;
+  Name: string;
 };
 export default mockdatatypes;

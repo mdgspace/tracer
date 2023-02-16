@@ -10,10 +10,11 @@ const Contributors = () => {
     <div className='contributors'>
       <span className='contributor-title'>Contributor</span>
       <div className='contributor-cards'>
-        {mockData.map((e: mockdatatypes) => {
+        {mockData.map((e: mockdatatypes, index: number) => {
           if (e.id < 5) {
             return (
               <ContributorCard
+                key={index}
                 Name={e.Name}
                 PR={e.PR}
                 Issues={e.Issues}

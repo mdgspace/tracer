@@ -1,7 +1,7 @@
 type contributorPropTypes = {
-  PR: Number;
-  Issues: Number;
-  Commits: Number;
-  Name: String;
+  PR: number;
+  Issues: number;
+  Commits: number;
+  Name: string;
 };
 export default contributorPropTypes;
