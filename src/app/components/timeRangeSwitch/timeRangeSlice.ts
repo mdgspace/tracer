@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TIMERANGE } from 'app/constants/constants';
+import { TIMERANGE } from 'app/constants/sliceNames';
 
 export const timeRangeSlice = createSlice({
   name: TIMERANGE,

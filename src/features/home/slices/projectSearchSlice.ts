@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SEARCH } from 'app/constants/constants';
+import { SEARCH } from 'app/constants/sliceNames';
 
 export const searchSlice = createSlice({
   name: SEARCH,

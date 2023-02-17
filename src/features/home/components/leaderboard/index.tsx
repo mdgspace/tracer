@@ -4,8 +4,8 @@ import { mockData } from 'app/utils/data';
 import { sortJSON } from 'app/utils/sort';
 import Silver from 'app/assets/images/Silver.svg';
 import Bronze from 'app/assets/images/Bronze.svg';
-import leftNavButton from 'app/assets/images/leftNavButton.svg';
-import rightNavButton from 'app/assets/images/rightNavButton.svg';
+import leftNavButton from 'app/assets/images/left_navigation_button.svg';
+import rightNavButton from 'app/assets/images/right_navigation_button.svg';
 import mockdatatypes from 'app/models/mockDataTypes';
 import './index.scss';
 

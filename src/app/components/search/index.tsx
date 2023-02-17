@@ -6,18 +6,23 @@ import './index.scss';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const searchRef = useRef<HTMLInputElement>(null);
-
+  let search = '';
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    search = e.target.value;
+  };
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchRef.current && searchRef.current.value !== '')
-      dispatch(searchAction(searchRef.current.value));
+    if (search !== '') dispatch(searchAction(search));
   };
 
   return (
     <form className='search-container' onSubmit={handleSearch}>
       <img src={search_icon} alt='search-icon' />
-      <input ref={searchRef} className='search-input' placeholder='Search' />
+      <input
+        onChange={handleInputChange}
+        className='search-input'
+        placeholder='Search'
+      />
     </form>
   );
 };

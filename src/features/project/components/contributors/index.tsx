@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 import ContributorCard from '../contributorCard';
-import nextContributor from 'app/assets/images/nextContributor.svg';
+import nextContributor from 'app/assets/images/next_contributor.svg';
 import { mockData } from 'app/utils/data';
 import mockdatatypes from 'app/models/mockDataTypes';
 
