@@ -22,22 +22,20 @@ const LeaderBoard = () => {
       {newMockData.map((e: mockdatatypes) => {
         if (e.id == 1 || e.id == 2 || e.id == 3) {
           return (
-            <>
-              <div className='member'>
-                <div className='rank'>
-                  <img
-                    src={e.id == 1 ? Gold : e.id == 2 ? Silver : Bronze}
-                    alt=''
-                  />
-                </div>
-                <div className='name'>{e.Name}</div>
-                <div className='work'>{`${e.PR}`}</div>
+            <div className='member' key={e.Name}>
+              <div className='rank'>
+                <img
+                  src={e.id == 1 ? Gold : e.id == 2 ? Silver : Bronze}
+                  alt=''
+                />
               </div>
-            </>
+              <div className='name'>{e.Name}</div>
+              <div className='work'>{`${e.PR}`}</div>
+            </div>
           );
         } else {
           return (
-            <div className='member'>
+            <div className='member' key={e.Name}>
               <div className='rank'>{`${e.id}`}</div>
               <div className='name'>{e.Name}</div>
               <div className='work'>{`${e.PR}`}</div>

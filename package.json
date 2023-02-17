@@ -28,7 +28,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "npm run prettier-fix"
+    "*.{js,jsx,ts,tsx}": "npm run format"
   },
   "eslintConfig": {
     "extends": [

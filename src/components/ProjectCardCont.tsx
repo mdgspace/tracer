@@ -7,7 +7,7 @@ const ProjectCardCont = () => {
   return (
     <div className='projectcard-cont'>
       {arr.map((ele) => {
-        return <ProjectCard />;
+        return <ProjectCard key={ele} />;
       })}
     </div>
   );
