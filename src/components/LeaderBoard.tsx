@@ -9,7 +9,7 @@ import rightNavButton from '../assets/images/rightNavButton.svg';
 import mockdatatypes from '../models/mockDataTypes';
 
 const LeaderBoard = () => {
-  const newMockData = sortJSON(mockData, 'PR');
+  const newMockData = sortJSON(mockData);
 
   return (
     <div className='leaderboard-cont'>
@@ -20,38 +20,38 @@ const LeaderBoard = () => {
       </div>
 
       {newMockData.map((e: mockdatatypes) => {
-        if (e.id == 1 || e.id == 2 || e.id == 3) {
+        if (e.Rank <= 3) {
           return (
             <div className='member' key={e.Name}>
               <div className='rank'>
                 <img
-                  src={e.id == 1 ? Gold : e.id == 2 ? Silver : Bronze}
-                  alt=''
+                  src={e.Rank == 1 ? Gold : e.Rank == 2 ? Silver : Bronze}
+                  alt='top-rank-medal'
                 />
               </div>
               <div className='name'>{e.Name}</div>
-              <div className='work'>{`${e.PR}`}</div>
+              <div className='work'>{e.PR}</div>
             </div>
           );
         } else {
           return (
-            <div className='member' key={e.Name}>
-              <div className='rank'>{`${e.id}`}</div>
+            <div className='member' key={e.id}>
+              <div className='rank'>{e.Rank}</div>
               <div className='name'>{e.Name}</div>
-              <div className='work'>{`${e.PR}`}</div>
+              <div className='work'>{e.PR}</div>
             </div>
           );
         }
       })}
       <div className='leaderboard-nav'>
         <div className='left-btn'>
-          <img src={leftNavButton} alt='' />
+          <img src={leftNavButton} alt='leftNavbutton' />
         </div>
         <div className='prev-leaderboard-page'>1</div>
         <div className='current-leaderboard-page'>2</div>
         <div className='next-leaderboard-page'>3</div>
         <div className='right-btn'>
-          <img src={rightNavButton} alt='' />
+          <img src={rightNavButton} alt='rightNavbutton' />
         </div>
       </div>
     </div>

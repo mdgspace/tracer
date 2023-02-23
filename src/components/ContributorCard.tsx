@@ -14,15 +14,15 @@ const ContributorCard = (props: contributorPropTypes) => {
       <div className='profile-name'>{Name}</div>
       <div className='profile-prs'>
         <div className='title-prs'>PRs</div>
-        <div className='no-of-prs'>{`${PR}`}</div>
+        <div className='no-of-prs'>{PR}</div>
       </div>
       <div className='profile-commits'>
         <div className='title-commits'>Commits</div>
-        <div className='no-of-commits'>{`${Commits}`}</div>
+        <div className='no-of-commits'>{Commits}</div>
       </div>
       <div className='profile-issues'>
         <div className='title-issues'>Issues</div>
-        <div className='no-of-issues'>{`${Issues}`}</div>
+        <div className='no-of-issues'>{Issues}</div>
       </div>
     </div>
   );
