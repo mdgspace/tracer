@@ -1,6 +1,6 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import timeRangeReducer from "./timeRangeSlice";
-import searchReducer from "./searchSlice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import timeRangeReducer from './timeRangeSlice';
+import searchReducer from './searchSlice';
 
 const rootreducer = combineReducers({
   isWeekly: timeRangeReducer,

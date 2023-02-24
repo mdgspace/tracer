@@ -10,7 +10,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
       - name: Run Prettier
-        uses: creyD/prettier_action@v4.2
+        uses: creyD/prettier_action@v4.3
         with:
-          prettier_options: --write .
-          same_commit: True
+          dry: True
+          prettier_options: "--check ."
