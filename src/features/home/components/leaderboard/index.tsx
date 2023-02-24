@@ -1,9 +1,9 @@
 import React from 'react';
-import Gold from 'app/assets/images/Gold.svg';
+import gold from 'app/assets/images/gold.svg';
+import silver from 'app/assets/images/silver.svg';
+import bronze from 'app/assets/images/bronze.svg';
 import { mockData } from 'app/utils/data';
 import { sortJSON } from 'app/utils/sort';
-import Silver from 'app/assets/images/Silver.svg';
-import Bronze from 'app/assets/images/Bronze.svg';
 import leftNavButton from 'app/assets/images/left_navigation_button.svg';
 import rightNavButton from 'app/assets/images/right_navigation_button.svg';
 import mockdatatypes from 'app/models/mockDataTypes';
@@ -26,7 +26,7 @@ const LeaderBoard = () => {
             <div className='member' key={e.Name}>
               <div className='rank'>
                 <img
-                  src={e.Rank == 1 ? Gold : e.Rank == 2 ? Silver : Bronze}
+                  src={e.Rank == 1 ? gold : e.Rank == 2 ? silver : bronze}
                   alt='top-rank-medal'
                 />
               </div>
