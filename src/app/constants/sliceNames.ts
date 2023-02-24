@@ -1,2 +1,2 @@
-export const SEARCH = "SEARCH";
+export const SEARCH = 'SEARCH';
 export const TIMERANGE = 'TIMERANGE';

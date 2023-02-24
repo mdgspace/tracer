@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { searchAction } from 'features/home/slices/projectSearchSlice';
 import search_icon from 'app/assets/images/search_icon.svg';
