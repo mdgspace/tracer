@@ -1,5 +1,4 @@
-import mockdatatypes from 'app/models/mockDataTypes';
-
+import mockdatatypes from '../models/mockDataTypes';
 export function sortJSON(arr: Array<mockdatatypes>): Array<mockdatatypes> {
   return arr.sort(function (a, b) {
     const x = a['Rank'];
