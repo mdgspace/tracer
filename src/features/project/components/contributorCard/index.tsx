@@ -1,29 +1,27 @@
 import React from 'react';
 import './index.scss';
 import contributorPropTypes from 'app/models/contributorPropTypes';
+import dumy_profile from 'app/assets/images/dumy_profile.svg';
 
 const ContributorCard = (props: contributorPropTypes) => {
   const { Name, Commits, Issues, PR } = props;
   return (
     <div className='contributor-card'>
-      <div className='profile-image'>
-        <img
-          src='https://images.unsplash.com/photo-1668626317533-a2969d5b39be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1883&q=80'
-          alt=''
-        />
-      </div>
-      <div className='profile-name'>{Name}</div>
-      <div className='profile-prs'>
-        <div className='title-prs'>PRs</div>
-        <div className='no-of-prs'>{PR}</div>
-      </div>
-      <div className='profile-commits'>
-        <div className='title-commits'>Commits</div>
-        <div className='no-of-commits'>{Commits}</div>
-      </div>
-      <div className='profile-issues'>
-        <div className='title-issues'>Issues</div>
-        <div className='no-of-issues'>{Issues}</div>
+      <img className='contributor-image' alt='profile' src={dumy_profile} />
+      <h3 className='contributor-name'>{Name}</h3>
+      <div className='contributor-status'>
+        <div>
+          <span>Pull Requests</span>
+          <span>2</span>
+        </div>
+        <div>
+          <span>Commits</span>
+          <span>2</span>
+        </div>
+        <div>
+          <span>Issues</span>
+          <span>2</span>
+        </div>
       </div>
     </div>
   );
