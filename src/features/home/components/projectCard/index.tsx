@@ -26,13 +26,12 @@ const ProjectCard = () => {
         </div>
       </div>
 
-      <ul className='projectcard-contributor'>
+      {/* <ul className='projectcard-contributor'>
         <li>A</li>
         <li>B</li>
         <li>C</li>
         <li>D</li>
-        <li>+12</li>
-      </ul>
+      </ul> */}
     </div>
   );
 };

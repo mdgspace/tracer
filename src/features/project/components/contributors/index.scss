@@ -1,8 +1,8 @@
-.contributor-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 0.3fr;
-  width: 100%;
-}
+// .contributor-cards {
+//   display: grid;
+//   grid-template-columns: 1fr 1fr 1fr 1fr 0.3fr;
+//   width: 100%;
+// }
 
 .contributors {
   width: 90vw;
@@ -11,15 +11,10 @@
 }
 
 .contributor-title {
-  font-family: 'Poppins';
-  font-style: normal;
+  margin-top: 2em;
+  margin-bottom: 1em;
   font-weight: 600;
-  font-size: 24.9061px;
-  line-height: 37px;
   letter-spacing: 0.04em;
-  text-transform: capitalize;
-  color: #ffffff;
-  margin-bottom: 70px;
 }
 
 .next-contributors {

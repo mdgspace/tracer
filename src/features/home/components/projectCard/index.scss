@@ -1,7 +1,7 @@
 .projectcard {
   border-radius: 1em;
-  background-color: #263b47;
-  padding: 0.8em;
+  background-color: var(--home-page-card-bg);
+  padding: 1em;
 }
 
 .projectcard:hover {
@@ -15,18 +15,18 @@
 
 .projectcard p {
   color: #bfbfbf;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.6em;
 }
 
 .projectcard-status {
   display: flex;
   justify-content: space-between;
   font-size: small;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 .projectcard-status div {
-  background: #1b262c;
+  background: var(--home-page-card-tab-bg);
   padding-left: 0.5em;
   border-radius: 0.8em;
   display: flex;
@@ -36,31 +36,26 @@
 }
 
 .projectcard-status div span:last-child {
-  box-shadow: 0 0 0.5em 0 #406a80;
+  border: 1px solid #402aa4;
   padding: 1em;
   border-radius: 0.8em;
 }
 
 .projectcard-contributor {
   list-style: none;
-  width: fit-content;
 }
 
 .projectcard-contributor li {
   border-radius: 50%;
-  padding: 0.2em;
+  padding: 0.3em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
   display: inline-block;
   position: relative;
-  font-size: medium;
+  font-size: smaller;
   border: 1px solid white;
   color: white;
   transition: 0.2s ease;
-}
-
-.projectcard-contributor li:last-child {
-  font-size: smaller;
-  padding-top: 0.4em;
-  padding-bottom: 0.4em;
 }
 
 .projectcard-contributor li:nth-child(n + 2) {

@@ -1,3 +1,16 @@
+:root {
+  --bg: linear-gradient(116.82deg, #1d1d42 0%, #313178 100%);
+  --font-family: 'Poppins';
+  --home-page-card-bg: #141432;
+  --font-color: white;
+  --timerange-switch-btn-bg: linear-gradient(
+    108.5deg,
+    #402aa3 4.95%,
+    #3f29a4 132.43%
+  );
+  --home-page-card-tab-bg: #26264e;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,10 +18,10 @@
 }
 
 body {
-  font-family: 'Poppins';
+  font-family: var(--font-family);
   font-style: normal;
-  background: #1b262c;
-  color: white;
+  background: var(--bg);
+  color: var(--font-color);
 }
 
 @media only screen and (max-width: 860px) {
