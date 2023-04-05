@@ -12,11 +12,11 @@
 }
 
 .projectcard-cont {
-  flex-grow: 1;
+  width: 75%;
 }
 
 .leaderboard-cont {
-  width: 25%;
+  flex-grow: 1;
 }
 
 @media only screen and (max-width: 860px) {
@@ -30,13 +30,11 @@
     align-items: center;
   }
 
-  .leaderboard-cont {
-    width: 60%;
+  .projectcard-cont {
+    width: 100%;
   }
-}
 
-@media only screen and (max-width: 600px) {
   .leaderboard-cont {
-    width: 80%;
+    width: 90%;
   }
 }
