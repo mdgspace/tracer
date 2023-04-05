@@ -8,10 +8,10 @@ import mockdatatypes from 'app/models/mockDataTypes';
 const Contributors = () => {
   return (
     <div className='contributors'>
-      <span className='contributor-title'>Contributor</span>
-      <div className='contributor-cards'>
+      <h3 className='contributor-title'>Contributors</h3>
+      {/* <div className='contributor-cards'>
         {mockData.map((e: mockdatatypes, index: number) => {
-          if (index < 4) {
+          if (index < 1) {
             return (
               <ContributorCard
                 key={e.id}
@@ -25,11 +25,7 @@ const Contributors = () => {
             return <></>;
           }
         })}
-
-        <div className='next-contributors'>
-          <img src={nextContributor} alt='nextContributor' />
-        </div>
-      </div>
+      </div> */}
     </div>
   );
 };

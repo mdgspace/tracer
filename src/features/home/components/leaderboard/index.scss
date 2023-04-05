@@ -1,12 +1,14 @@
 .leaderboard-cont {
-  background: #24353e;
+  padding: 1em;
+}
+
+.leaderboard-main-cont {
+  max-height: 646px;
+  background: var(--home-page-card-bg);
   box-shadow: 10px 9px 70px rgba(36, 53, 62, 0.4);
   border-radius: 20px;
-  margin-right: 1em;
-  margin-top: 1em;
-  margin-bottom: 1em;
   padding: 0 1vw;
-  max-height: 646px;
+  padding-bottom: 0.5em;
 }
 
 .member {
