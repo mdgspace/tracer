@@ -30,7 +30,7 @@ const Contributors = () => {
           activeSlideIndex={activeSlideIndex}
           onRequestChange={setActiveSlideIndex}
           infinite={true}
-          itemsToShow={3}
+          itemsToShow={4}
           itemsToScroll={1}
           forwardBtnProps={{
             style: { ...btn_style },

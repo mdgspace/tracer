@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import gold from 'app/assets/images/gold.svg';
 import silver from 'app/assets/images/silver.svg';
 import bronze from 'app/assets/images/bronze.svg';
@@ -10,7 +10,22 @@ import mockdatatypes from 'app/models/mockDataTypes';
 import './index.scss';
 
 const LeaderBoard = () => {
+  const [itemOffset, setItemOffset] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const newMockData = sortJSON(mockData);
+
+  const [items, setItems] = useState(newMockData);
+  const itemsPerPage = 4;
+  const itemsLength = newMockData.length;
+  const pageCount = Math.ceil(itemsLength / itemsPerPage);
+
+  const handlePageClick = (_pageNumber: number) => {
+    if (_pageNumber >= 1 && _pageNumber <= pageCount) {
+      const newOffset = ((_pageNumber - 1) * itemsPerPage) % itemsLength;
+      setItemOffset(newOffset);
+      setPageNumber(_pageNumber);
+    }
+  };
 
   return (
     <div className='leaderboard-cont'>
@@ -21,39 +36,45 @@ const LeaderBoard = () => {
           <div className='work-title'>Work</div>
         </div>
 
-        {newMockData.map((e: mockdatatypes) => {
-          if (e.Rank <= 3) {
-            return (
-              <div className='member' key={e.Name}>
-                <div className='rank'>
-                  <img
-                    src={e.Rank == 1 ? gold : e.Rank == 2 ? silver : bronze}
-                    alt='top-rank-medal'
-                  />
+        {items
+          .slice(itemOffset, itemOffset + itemsPerPage)
+          .map((e: mockdatatypes) => {
+            if (e.Rank <= 3) {
+              return (
+                <div className='member' key={e.Name}>
+                  <div className='rank'>
+                    <img
+                      src={e.Rank == 1 ? gold : e.Rank == 2 ? silver : bronze}
+                      alt='top-rank-medal'
+                    />
+                  </div>
+                  <div className='name'>{e.Name}</div>
+                  <div className='work'>{e.PR}</div>
                 </div>
-                <div className='name'>{e.Name}</div>
-                <div className='work'>{e.PR}</div>
-              </div>
-            );
-          } else {
-            return (
-              <div className='member' key={e.id}>
-                <div className='rank'>{e.Rank}</div>
-                <div className='name'>{e.Name}</div>
-                <div className='work'>{e.PR}</div>
-              </div>
-            );
-          }
-        })}
-        <div className='leaderboard-nav'>
-          <div className='left-btn'>
-            <img src={leftNavButton} alt='leftNavbutton' />
-          </div>
-          <div className='prev-leaderboard-page'>1</div>
-          <div className='current-leaderboard-page'>2</div>
-          <div className='next-leaderboard-page'>3</div>
-          <div className='right-btn'>
-            <img src={rightNavButton} alt='rightNavbutton' />
+              );
+            } else {
+              return (
+                <div className='member' key={e.id}>
+                  <div className='rank'>{e.Rank}</div>
+                  <div className='name'>{e.Name}</div>
+                  <div className='work'>{e.PR}</div>
+                </div>
+              );
+            }
+          })}
+        <div>
+          <div className='leaderboard-footer'>
+            <img
+              src={leftNavButton}
+              alt='leftNavbutton'
+              onClick={() => handlePageClick(pageNumber - 1)}
+            />
+            <span>{pageNumber}</span>
+            <img
+              src={rightNavButton}
+              alt='rightNavbutton'
+              onClick={() => handlePageClick(pageNumber + 1)}
+            />
           </div>
         </div>
       </div>
