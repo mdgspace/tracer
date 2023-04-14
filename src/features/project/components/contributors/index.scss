@@ -7,3 +7,15 @@
   font-weight: 600;
   letter-spacing: 0.04em;
 }
+
+.contributor-container .contributor-navigation {
+  width: 40px;
+  margin: 0.4em;
+}
+
+@media only screen and (max-width: 860px) {
+  .contributor-container .contributor-navigation {
+    width: 25px;
+    margin: 0.1em;
+  }
+}
