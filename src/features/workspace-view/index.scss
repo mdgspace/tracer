@@ -1,0 +1,40 @@
+.workspaceview-header {
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.workspaceview-header button {
+  border: none;
+  outline: none;
+  margin-right: 1em;
+  padding: 0.7em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  border-radius: 2em;
+  color: white;
+  background: var(--timerange-switch-btn-bg);
+}
+
+.workspaceview-card-container {
+  background: linear-gradient(110.51deg, #141432 0.9%, #2a2a4b 101.51%);
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2em;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 2em;
+  column-gap: 2em;
+  padding: 1em;
+  justify-items: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 860px) {
+  .workspaceview-card-container {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+}

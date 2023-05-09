@@ -4,12 +4,14 @@ import Home from 'features/home';
 import ProjectPage from 'features/project';
 import AddProject from 'features/AddProject';
 import Error from 'features/Error';
+import WorkspaceView from 'features/workspace-view';
 const BasicRoutes = () => {
   return (
     <Routes>
       <Route path={'/'} element={<Home />} />
       <Route path={'/projects/:projectid'} element={<ProjectPage />} />
       <Route path={'/addproject'} element={<AddProject />} />
+      <Route path={'/workspace-view'} element={<WorkspaceView />} />
       <Route path={'/*'} element={<Error />} />
     </Routes>
   );
