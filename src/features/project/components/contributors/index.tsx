@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import './index.scss';
 import ContributorCard from '../contributorCard';
-import nextContributor from 'app/assets/images/next_contributor.svg';
+import next_contributor from 'app/assets/images/next_contributor.svg';
+import previous_contributor from 'app/assets/images/previous_contributor.svg';
 import { mockData } from 'app/utils/data';
 import mockdatatypes from 'app/models/mockDataTypes';
 import ReactSimplyCarousel from 'react-simply-carousel';
 
 const btn_style = {
   alignSelf: 'center',
-  background: 'white',
+  background: 'none',
   border: 'none',
-  borderRadius: '50%',
-  color: 'black',
-  cursor: 'pointer',
-  fontSize: '20px',
-  height: 30,
-  lineHeight: 1,
-  TextAlign: 'center',
-  width: 30,
 };
 
 const Contributors = () => {
@@ -27,20 +20,37 @@ const Contributors = () => {
       <h3 className='contributor-title'>Contributors</h3>
       <div className='contributor-card-container'>
         <ReactSimplyCarousel
+          containerProps={{
+            style: {
+              width: '100%',
+              justifyContent: 'flex-start',
+              userSelect: 'none',
+            },
+          }}
           activeSlideIndex={activeSlideIndex}
           onRequestChange={setActiveSlideIndex}
           infinite={true}
-          itemsToShow={3}
+          itemsToShow={4}
           itemsToScroll={1}
           forwardBtnProps={{
-            //here you can also pass className, or any other button element attributes
             style: { ...btn_style },
-            children: <span>{`>`}</span>,
+            children: (
+              <img
+                className='contributor-navigation'
+                src={next_contributor}
+                alt='next_contributor'
+              />
+            ),
           }}
           backwardBtnProps={{
-            //here you can also pass className, or any other button element attributes
             style: { ...btn_style },
-            children: <span>{`<`}</span>,
+            children: (
+              <img
+                className='contributor-navigation'
+                src={previous_contributor}
+                alt='previous_contributor'
+              />
+            ),
           }}
           responsiveProps={[
             {
@@ -54,7 +64,13 @@ const Contributors = () => {
         >
           {mockData.map((e: mockdatatypes) => {
             return (
-              <div key={e.id} style={{ padding: '1em', paddingTop: '2em' }}>
+              <div
+                key={e.id}
+                style={{
+                  padding: '1em',
+                  paddingTop: '2em',
+                }}
+              >
                 <ContributorCard
                   Name={e.Name}
                   PR={e.PR}
