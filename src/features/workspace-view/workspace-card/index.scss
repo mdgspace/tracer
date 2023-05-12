@@ -1,0 +1,86 @@
+.workspace-card {
+  background: #2b2b67;
+  position: relative;
+  border: 2px solid #402aa4;
+  border-radius: 20px;
+  width: 454px;
+  height: 256px;
+  padding: 12px 32px;
+}
+.workspace-logo img {
+  background: #402aa4;
+  border: 1.80667px solid #402aa4;
+  box-shadow: 0px 32.5201px 54.2001px rgba(131, 119, 198, 0.11);
+  border-radius: 20px;
+  width: 100px;
+  height: 100px;
+}
+.workspace-card-utils {
+  display: flex;
+}
+.workspace-members {
+  padding: 10px 17px;
+}
+.workspace-title {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+
+  color: #ededed;
+}
+.workspace-card-body {
+}
+.workspace-details-btn {
+  display: flex;
+  justify-content: end;
+  height: 30px;
+}
+.workspace-details-btn img {
+  border-radius: 20px;
+}
+
+.hide {
+  display: none;
+}
+.workspace-popup {
+  position: absolute;
+  right: 40px;
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 33px;
+  gap: 10px;
+
+  position: absolute;
+  width: 111px;
+  height: 110px;
+
+  background: rgba(26, 26, 57, 0.5);
+  border: 1px solid #402aa4;
+  backdrop-filter: blur(2px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 12px;
+}
+.workspace-popup-btn img {
+  position: absolute;
+  height: 30px;
+  right: 10px;
+  color: white;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -6,4 +6,5 @@ type mockdatatypes = {
   Name: string;
   Rank: number;
 };
+
 export default mockdatatypes;
