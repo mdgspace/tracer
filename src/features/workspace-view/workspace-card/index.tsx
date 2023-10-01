@@ -3,7 +3,7 @@ import './index.scss';
 import rightNavbtn from '../../../app/assets/images/right_navigation_button.svg';
 import workspaceCardProps from 'app/models/workSpaceCardTypes';
 const WorkspaceCard = (props: workspaceCardProps) => {
-  const { imgURL, title, description, id } = props;
+  const { imgURL, title, description } = props;
 
   const [showPopUp, setShowPopUp] = useState(false);
   return (

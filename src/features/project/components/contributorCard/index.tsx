@@ -4,7 +4,7 @@ import contributorPropTypes from 'app/models/contributorPropTypes';
 import dumy_profile from 'app/assets/images/dumy_profile.svg';
 
 const ContributorCard = (props: contributorPropTypes) => {
-  const { Name, Commits, Issues, PR } = props;
+  const { Name } = props;
   return (
     <div className='contributor-card'>
       <img className='contributor-image' alt='profile' src={dumy_profile} />
