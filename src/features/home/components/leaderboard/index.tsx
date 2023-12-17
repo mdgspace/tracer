@@ -14,7 +14,7 @@ const LeaderBoard = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const newMockData = sortJSON(mockData);
 
-  const [items, setItems] = useState(newMockData);
+  const [items] = useState(newMockData);
   const itemsPerPage = 4;
   const itemsLength = newMockData.length;
   const pageCount = Math.ceil(itemsLength / itemsPerPage);
