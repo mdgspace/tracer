@@ -20,7 +20,7 @@ export const uploadIcon = async (
 
 export const getIcon = async (authorizationToken: string, orgName: string) => {
   const url = BACKEND_URL + '/api/protected/file/getIcon/' + orgName;
-  const response = axios.get(url, {
+  const response = await axios.get(url, {
     headers: {
       Authorization: `Bearer ${authorizationToken}`,
     },
@@ -33,7 +33,7 @@ export const deleteFile = async (
   fileName: string
 ) => {
   const url = BACKEND_URL + '/api/protected/file/delete?fileName=' + fileName;
-  const respnse = axios.delete(url, {
+  const respnse = await axios.delete(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,
