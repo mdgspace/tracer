@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { login } from 'app/api/login';
 import { useQuery } from 'react-query';
 import {getUser } from 'app/api/user';
-
+import toast from 'react-hot-toast';
 
 
 const Login = () => {
@@ -18,8 +18,8 @@ const Login = () => {
     if(token!=null){
      try{
       const userData= await getUser(token);
-
        navigate('/')
+       
      }catch(e){
        navigate('/login')
      }
@@ -41,6 +41,7 @@ const Login = () => {
         const loginData= await login(code);
         const token= loginData.data.token
         localStorage.setItem('token',token)
+        toast.success('Login successfull')
         navigate("/")
       }
    
@@ -52,6 +53,7 @@ const Login = () => {
   })
 
   if(isError){
+    toast.error('Some error occured')
      navigate("/login")
   }
 

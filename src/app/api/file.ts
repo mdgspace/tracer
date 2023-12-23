@@ -1,15 +1,27 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { BACKEND_URL } from 'envConstants';
+
+
+export interface FileUpload{
+   
+  message: string,
+  isSuccessful: boolean,
+  statusCode: number,
+
+}
+
+
+
 
 export const uploadIcon = async (
   authorizationToken: string,
   orgName: string,
   file: File
-) => {
+):Promise<AxiosResponse<FileUpload>> => {
   const url = BACKEND_URL + '/api/protected/file/upload/' + orgName;
   const formData = new FormData();
   formData.append('file', file);
-  const respnse = await axios.post(url, formData, {
+  const respnse = await axios.post<FileUpload>(url, formData, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,
