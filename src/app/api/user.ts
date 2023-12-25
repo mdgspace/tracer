@@ -1,21 +1,40 @@
-import axios from 'axios';
+import axios,{AxiosResponse} from 'axios';
 import { BACKEND_URL } from 'envConstants';
 
-export const getUser = async (authorizationToken: string) => {
-  const url = BACKEND_URL + '/api/protected/user/getUser';
-  const respnse = await axios.get(url, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${authorizationToken}`,
-    },
-  });
 
-  return respnse;
+
+
+export interface UserData{
+  message: string
+}
+
+
+
+export interface AllUserData{
+  users: {
+    id: number,
+    username: string
+  }[]
+}
+
+export const getUser= async (authorizationToken: string):Promise<AxiosResponse<UserData>> => {
+  const url = BACKEND_URL + '/api/protected/user/getUser';
+
+    const respnse = await axios.get<UserData>(url, {
+      headers: {
+        Accept: 'application/json',
+  
+        Authorization: `Bearer ${authorizationToken}`,
+      },
+    });
+  
+    return respnse;
+
 };
 
-export const getAllUser = async (authorizationToken: string) => {
+export const getAllUser = async (authorizationToken: string):Promise<AxiosResponse<AllUserData>> => {
   const url = BACKEND_URL + '/api/protected/user/all';
-  const respnse = await axios.get(url, {
+  const respnse = await axios.get<AllUserData>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,

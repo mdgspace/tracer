@@ -1,9 +1,18 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { BACKEND_URL } from 'envConstants';
 
 export interface organizationBody {
   name: string;
   description: string;
+}
+
+
+export interface AllOrgs{
+  organizations: {
+    id: number,
+    name: string,
+    description: string|null
+  }[]
 }
 
 export const deleteOrg = async (
@@ -195,9 +204,9 @@ export const getOrg = async (authorizationToken: string, orgName: string) => {
   return respnse;
 };
 
-export const getAllOrgs = async (authorizationToken: string) => {
+export const getAllOrgs = async (authorizationToken: string): Promise<AxiosResponse<AllOrgs>> => {
   const url = BACKEND_URL + '/api/protected/org/getAllOrg';
-  const respnse = await axios.get(url, {
+  const respnse = await axios.get<AllOrgs>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,
