@@ -5,6 +5,12 @@ import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 import { addOrg, getAllOrgs } from 'app/api/organization';
 import { uploadIcon } from 'app/api/file';
+import { useSelector } from 'react-redux';
+import { Organization } from 'app/state/reducers/orgReducers';
+import { RootState } from 'app/state/reducers';
+
+
+
 
 const AddWorkspace = () => {
   const navigate = useNavigate();
@@ -20,6 +26,9 @@ const AddWorkspace = () => {
 
   const [users, setUsers] = useState<string[]>([]);
   const [orgs, setOrgs] = useState<string[]>([]);
+
+  const orgState= useSelector((state:RootState)=>state.organization);
+  
 
   const dataFetch = async () => {
     try {
@@ -47,7 +56,7 @@ const AddWorkspace = () => {
       const userData = await getUser(token);
       return userData.data
     } else {
-      toast.error("Session expired")
+      toast.error("Not authorized")
       navigate('/login');
     }
   };
@@ -91,6 +100,7 @@ const AddWorkspace = () => {
       specialCharacters.test(str) &&
       !str.endsWith('/userspace') &&
       !orgs.includes(str)
+      
     );
   }
 
@@ -118,25 +128,32 @@ const AddWorkspace = () => {
 
 
     if(validName&&description&&token&&name){
-      try{
-        const dataRes= await addOrg(token,{
-          name:name,
-          description:description
-        })
-      
-      }catch(e){
-           toast.error('Try again!')
-           return
-        }
-      try{
-        if(selectedFile!=null){
-          const fileRes= uploadIcon(token, name, selectedFile)
-        }
-        navigate("/workspace-view")
+    
+         const func= async():Promise<void>=>{
+          const dataRes= await addOrg(token,{
+            name:name,
+            description:description
+          })
+  
+          try{
+          if(selectedFile!=null){
+            const fileRes= uploadIcon(token, name, selectedFile)
+          }}catch(e){
+  
+          }
+          navigate("/workspace-view")
+         }
+
+         toast.promise(
+          func(),{
+            loading:'Saving...',
+            success: <b>Workspace Saved</b>,
+            error: <b>Could not save.</b>,
+
+          }
+         )
         
-      }catch(e){
-        navigate("/workspace-view")
-      }
+   
     }else{
       toast.error('Invalid inputs')
     }
@@ -144,14 +161,7 @@ const AddWorkspace = () => {
    
   }
 
-  toast.promise(
-    SubmitHandler(),
-     {
-       loading: 'Saving Workspace',
-       success: <b>Workspace saved</b>,
-       error: <b>Could not save</b>,
-     }
-   );
+  
   
 
   return (

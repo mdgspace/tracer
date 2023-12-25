@@ -6,6 +6,11 @@ import LeaderBoard from './components/leaderboard';
 import './index.scss';
 
 const Home = () => {
+
+
+
+
+
   return (
     <>
       <div className='home-header'>

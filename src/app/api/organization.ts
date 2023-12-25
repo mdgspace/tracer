@@ -15,6 +15,9 @@ export interface AllOrgs{
   }[]
 }
 
+
+
+
 export const deleteOrg = async (
   authorizationToken: string,
   orgName: string
