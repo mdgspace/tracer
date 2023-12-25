@@ -1,0 +1,61 @@
+.login_wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    position: absolute;
+    z-index: -2;
+    top: -6vh;
+}
+
+.hero_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 5vh;
+}
+
+.hero_content h1 {
+    color: rgba(255, 255, 255, 0.80);
+    font-family: Montserrat;
+    font-size: 59.815px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.hero_content h3 {
+    color: rgba(223, 223, 223, 0.80);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.hero_content button {
+    display: flex;
+    width: 372px;
+    height: 81px;
+    padding: 20px 0px 20px 30px;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: 0.8px solid var(--Button, #402AA4);
+    background: #402AA4;
+    color: #ADADFF;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+.hero_image img {
+    height: 105vh;
+}

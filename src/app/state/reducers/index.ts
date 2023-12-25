@@ -2,12 +2,14 @@ import { combineReducers } from 'redux';
 import { setAllUsernamesReducer, setUsernameReducer } from './usersReducers';
 import timeRangeReducer from 'app/components/timeRangeSwitch/timeRangeSlice';
 import searchReducer from 'features/home/slices/projectSearchSlice';
+import { orgReducer } from './orgReducers';
 
-const reducers = combineReducers({
+export const reducers = combineReducers({
   isWeekly: timeRangeReducer,
   searchKeyword: searchReducer,
   setUsername: setUsernameReducer,
   setAllUsernames: setAllUsernamesReducer,
+  organization: orgReducer
 });
 
-export default reducers;
+export type RootState= ReturnType<typeof reducers>
