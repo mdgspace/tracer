@@ -42,6 +42,7 @@ const Login = () => {
       const loginData = await login(code);
       const token = loginData.data.token;
       localStorage.setItem('token', token);
+      toast.success("Login success")
       navigate('/');
     }
   };

@@ -104,10 +104,21 @@ const AddWorkspace = () => {
     );
   }
 
+  const isNotOrgName= (orgName:string)=>{
+    orgState.forEach(el=>{
+      if(el.name==orgName){
+        return false
+      }
+    })
+    return true
+  }
+
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     SetName(event.target.value);
 
-    setValidName(() => valid_name(event.target.value));
+
+
+    setValidName(() => valid_name(event.target.value)&&isNotOrgName(event.target.value));
   };
 
   const handleDesriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
