@@ -1,10 +1,23 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { BACKEND_URL } from 'envConstants';
 
 export interface projectBody {
   name: string;
   description: string;
   link: string;
+}
+
+export interface GetProject{
+  id: number,
+  name: string, 
+  description: string
+}
+
+export interface Member{
+  [key: string]:string
+}
+export interface ProjectMembers{
+  members:Member
 }
 
 export const addProject = async (
@@ -146,14 +159,14 @@ export const getProject = async (
   authorizationToken: string,
   projectName: string,
   orgName: string
-) => {
+):Promise<AxiosResponse<GetProject>> => {
   const url =
     BACKEND_URL +
     '/api/protected/project/getProject/' +
     projectName +
     '/' +
     orgName;
-  const response = await axios.get(url, {
+  const response = await axios.get<GetProject>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,
@@ -166,14 +179,14 @@ export const getMembers = async (
   authorizationToken: string,
   projectName: string,
   orgName: string
-) => {
+) : Promise<AxiosResponse<ProjectMembers>>=> {
   const url =
     BACKEND_URL +
     '/api/protected/project/getMembers/' +
     projectName +
     '/' +
     orgName;
-  const response = await axios.get(url, {
+  const response = await axios.get<ProjectMembers>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,

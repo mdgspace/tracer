@@ -131,7 +131,7 @@ const Home = () => {
       </div>:
       
       <div className='home-main-cont'>
-        <ProjectCardCont weekly={weekly}  orgProjects={orgProjects}   monthlyOrgProjectsData={monthlyOrgProjectsData}  weeklyOrgProjectsData={weeklyOrgProjectsData}/>
+        <ProjectCardCont weekly={weekly} orgName={orgName}  orgProjects={orgProjects}   monthlyOrgProjectsData={monthlyOrgProjectsData}  weeklyOrgProjectsData={weeklyOrgProjectsData}/>
         <LeaderBoard />
       </div>
       }

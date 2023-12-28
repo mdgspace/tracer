@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
-
+import axios from 'axios';
+import { getMembers, getProject } from 'app/api/project';
+import { useQuery } from 'react-query';
+import { GetProject } from 'app/api/project';
+import { ProjectMembers } from 'app/api/project';
+import { AVATAR_URL } from 'app/constants/api';
+import { AVATAR_API } from 'envConstants';
  interface Props{
    projectName: string,
+   orgName: string,
    status: {
     archeive: boolean,
     bookmark: boolean,
@@ -16,15 +23,45 @@ import './index.scss';
 }
 
 
-const ProjectCard: React.FC<Props> = ({projectName, status, githubData}) => {
+
+
+
+const ProjectCard: React.FC<Props> = ({projectName,orgName ,status, githubData}) => {
+  const token= localStorage.getItem('token')
+  
+  const [ProjectData,SetProjectData]= useState<GetProject|null>(null)
+  const [projectMembers,setProjectMembers]= useState<ProjectMembers|null>(null)
+
+const fetchProjectData= async()=>{
+  if(token!=null){
+    const project_data= await getProject(token,projectName, orgName);
+    SetProjectData(project_data.data)
+    return project_data.data
+  }else{
+    return null
+  }
+}
+
+const fetchProjectMembers=async()=>{
+  if(token!=null){
+    const members= await getMembers(token,projectName,orgName);
+    setProjectMembers(members.data)
+    return members.data
+
+  }
+}
+
+
+const {data:project_data}= useQuery(`${projectName}${orgName}`,fetchProjectData)
+const {data: project_members}= useQuery(`${projectName}${orgName}Members`, fetchProjectMembers);
+
+
+
   return (
     <div className='projectcard'>
       <h1>{projectName}</h1>
       <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum
-        repudiandae ex corporis quasi sequi porro est, tenetur ipsam assumenda
-        ab ratione recusandae atque quaerat. Voluptatem incidunt illo optio
-        aperiam consequuntur.
+        {project_data?project_data.description:<></>}
       </p>
       <div className='projectcard-status'>
         <div>
@@ -41,12 +78,18 @@ const ProjectCard: React.FC<Props> = ({projectName, status, githubData}) => {
         </div>
       </div>
 
-      {/* <ul className='projectcard-contributor'>
-        <li>A</li>
+      <ul className='projectcard-contributor'>
+        {/* <li>A</li>
         <li>B</li>
         <li>C</li>
-        <li>D</li>
-      </ul> */}
+        <li>D</li> */}
+        {
+            project_members&&Object.entries(project_members).slice(0,4).map(([key,value])=>{
+              const url= AVATAR_URL+"/"+key+".png?apikey="+AVATAR_API
+              return <li><img src={url} /></li>
+            })
+        }
+      </ul>
     </div>
   );
 };
