@@ -24,6 +24,7 @@ const Login = () => {
        navigate('/')
        
      }catch(e){
+      localStorage.removeItem('token')
        navigate('/login')
      }
 
