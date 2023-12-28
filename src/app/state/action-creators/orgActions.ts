@@ -5,7 +5,6 @@ import { Organization } from "../reducers/orgReducers"
 
 
 
-
 export const AddOrganization= (org:Organization)=>{
     return(dispatch:Dispatch)=>{
        dispatch({ type:'add',
@@ -21,3 +20,4 @@ export const DeleteOrg=(org:Organization)=>{
       })
     }
 }
+

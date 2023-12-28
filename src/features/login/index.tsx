@@ -5,7 +5,7 @@ import { login } from 'app/api/login';
 import { useQuery } from 'react-query';
 import {getUser } from 'app/api/user';
 import toast from 'react-hot-toast';
-
+import loader from '../../app/assets/gifs/loader.gif'
 
 import heroImg from 'app/assets/images/login2.png';
 import github from 'app/assets/images/github.png';
@@ -34,10 +34,9 @@ const Login = () => {
     checklogin();
   }, []);
 
-
+ 
   const loginFunc = async () => {
     if (searchParam.get('code') !== null) {
-      console.log('hello');
       const code: string = searchParam.get('code')!;
       const loginData = await login(code);
       const token = loginData.data.token;
@@ -46,7 +45,6 @@ const Login = () => {
       navigate('/');
     }
   };
-
 
   const { isError } = useQuery({
     queryFn: () => loginFunc(),
@@ -60,13 +58,19 @@ const Login = () => {
 
   }
 
+
   function loginWithGithub() {
     window.location.assign(
       'https://github.com/login/oauth/authorize?client_id=' + CLIENT_ID
     );
   }
 
+  if(searchParam.get('code')!=null){
+    return <img src={loader} className='loader' alt='Loading...' />
+  }
+
   return (
+    <>
     <div className='login_wrapper'>
       <div className='hero_image'>
         <img src={heroImg} alt='' />
@@ -83,6 +87,7 @@ const Login = () => {
         </button>
       </div>
     </div>
+    </>
   );
   }
 

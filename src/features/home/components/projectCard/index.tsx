@@ -1,10 +1,25 @@
 import React from 'react';
 import './index.scss';
 
-const ProjectCard = () => {
+ interface Props{
+   projectName: string,
+   status: {
+    archeive: boolean,
+    bookmark: boolean,
+   },
+   githubData:{
+    pulls: number,
+    commits: number,
+    issues: number
+   } | null
+
+}
+
+
+const ProjectCard: React.FC<Props> = ({projectName, status, githubData}) => {
   return (
     <div className='projectcard'>
-      <h1>Appitizer</h1>
+      <h1>{projectName}</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum
         repudiandae ex corporis quasi sequi porro est, tenetur ipsam assumenda
@@ -14,15 +29,15 @@ const ProjectCard = () => {
       <div className='projectcard-status'>
         <div>
           <span>Pull Requests</span>
-          <span>2</span>
+          <span>{githubData?githubData.pulls:<></>}</span>
         </div>
         <div>
           <span>Commits</span>
-          <span>2</span>
+          <span>{githubData?githubData.commits:<></>}</span>
         </div>
         <div>
           <span>Issues</span>
-          <span>2</span>
+          <span>{githubData?githubData.issues:<></>}</span>
         </div>
       </div>
 

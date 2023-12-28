@@ -15,6 +15,15 @@ export interface AllOrgs{
   }[]
 }
 
+export interface Projects{
+  [ProjectName: string]:{
+    archeive:boolean,
+    bookmark: boolean
+  }
+}
+export interface OrgProjects{
+  projects: Projects
+}
 
 
 
@@ -185,9 +194,9 @@ export const getOrgMembers = async (
 export const getOrgProjects = async (
   authorizationToken: string,
   orgName: string
-) => {
+):Promise<AxiosResponse<OrgProjects>> => {
   const url = BACKEND_URL + '/api/protected/org/getProjects/' + orgName;
-  const respnse = await axios.get(url, {
+  const respnse = await axios.get<OrgProjects>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,

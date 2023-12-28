@@ -9,11 +9,13 @@ import rightNavButton from 'app/assets/images/right_navigation_button.svg';
 import mockdatatypes from 'app/models/mockDataTypes';
 import './index.scss';
 
+
+
 const LeaderBoard = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const newMockData = sortJSON(mockData);
-
+  
   const [items] = useState(newMockData);
   const itemsPerPage = 4;
   const itemsLength = newMockData.length;
