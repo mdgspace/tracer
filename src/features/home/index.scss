@@ -19,6 +19,22 @@
   flex-grow: 1;
 }
 
+.loader{
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+}
+
+.loader-container{
+  width: 50px;
+  height: 50px;
+  position: relative;
+  padding: 50px;
+}
+
 @media only screen and (max-width: 860px) {
   .home-header {
     flex-direction: column;
@@ -38,3 +54,5 @@
     width: 90%;
   }
 }
+
+

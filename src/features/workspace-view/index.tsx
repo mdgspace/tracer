@@ -3,6 +3,7 @@ import React from 'react';
 import './index.scss';
 import WorkspaceCard from './workspace-card';
 import { workSpaceData } from 'app/utils/workspaceData';
+
 const WorkspaceView = () => {
   return (
     <div className='workspaceview-container'>
