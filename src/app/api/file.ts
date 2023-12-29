@@ -1,23 +1,17 @@
 import axios, { AxiosResponse } from 'axios';
 import { BACKEND_URL } from 'envConstants';
 
-
-export interface FileUpload{
-   
-  message: string,
-  isSuccessful: boolean,
-  statusCode: number,
-
+export interface FileUpload {
+  message: string;
+  isSuccessful: boolean;
+  statusCode: number;
 }
-
-
-
 
 export const uploadIcon = async (
   authorizationToken: string,
   orgName: string,
   file: File
-):Promise<AxiosResponse<FileUpload>> => {
+): Promise<AxiosResponse<FileUpload>> => {
   const url = BACKEND_URL + '/api/protected/file/upload/' + orgName;
   const formData = new FormData();
   formData.append('file', file);
