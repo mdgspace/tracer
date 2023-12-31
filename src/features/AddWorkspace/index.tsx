@@ -135,9 +135,13 @@ const AddWorkspace = () => {
 
 
   const SubmitHandler=async():Promise<void>=>{
+   
+    console.log(validName)
+    console.log(description)
+    console.log(name)
+    console.log(orgs)
 
-
-    if(validName&&description&&token&&name){
+    if(description&&token&&name){
     
          const func= async():Promise<void>=>{
           const dataRes= await addOrg(token,{
