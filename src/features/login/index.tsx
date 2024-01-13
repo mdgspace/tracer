@@ -24,7 +24,7 @@ const Login = () => {
         const userData = await getUser(token);
         navigate('/');
       } catch (e) {
-
+        localStorage.removeItem('token');
         navigate('/login');
       }
       localStorage.removeItem('token');
@@ -39,28 +39,24 @@ const Login = () => {
  
   const loginFunc = async () => {
     if (searchParam.get('code') !== null) {
+     try{
       const code: string = searchParam.get('code')!;
       const loginData = await login(code);
       const token = loginData.data.token;
       localStorage.setItem('token', token);
       toast.success("Login success")
       navigate('/');
+     }catch(e){
+      toast.error("Some error occured")
+      navigate("/login")
+     }
     }
   };
 
-  const { isError } = useQuery({
-    queryFn: () => loginFunc(),
-    queryKey: 'loginData',
+  const {  } = useQuery('loginData', loginFunc,{
+    enabled: true,
+    staleTime: Infinity,
   });
-
-
-  if(isError){
-    toast.error('Some error occured')
-     navigate("/login")
-    }
-  
-
- 
 
 
   function loginWithGithub() {
