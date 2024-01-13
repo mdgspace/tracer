@@ -3,9 +3,10 @@ import { CLIENT_ID } from '../../envConstants';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { login } from 'app/api/login';
 import { useQuery } from 'react-query';
-import {getUser } from 'app/api/user';
+import { getUser } from 'app/api/user';
 import toast from 'react-hot-toast';
 import loader from '../../app/assets/gifs/loader.gif'
+
 
 import heroImg from 'app/assets/images/login2.png';
 import github from 'app/assets/images/github.png';
@@ -16,20 +17,20 @@ const Login = () => {
   const navigate = useNavigate();
 
 
-   const token=localStorage.getItem('token')
-   const checklogin=async()=>{
-    if(token!=null){
-     try{
-      const userData= await getUser(token);
-       navigate('/')
-       
-     }catch(e){
-      localStorage.removeItem('token')
-       navigate('/login')
-     }
+  const token = localStorage.getItem('token');
+  const checklogin = async () => {
+    if (token != null) {
+      try {
+        const userData = await getUser(token);
+        navigate('/');
+      } catch (e) {
+
+        navigate('/login');
+      }
+      localStorage.removeItem('token');
 
     }
-   }
+  };
 
   useEffect(() => {
     checklogin();
@@ -56,8 +57,10 @@ const Login = () => {
   if(isError){
     toast.error('Some error occured')
      navigate("/login")
+    }
+  
 
-  }
+ 
 
 
   function loginWithGithub() {
@@ -91,5 +94,4 @@ const Login = () => {
     </>
   );
   }
-
 export default Login;

@@ -6,13 +6,12 @@ export interface organizationBody {
   description: string;
 }
 
-
-export interface AllOrgs{
+export interface AllOrgs {
   organizations: {
-    id: number,
-    name: string,
-    description: string|null
-  }[]
+    id: number;
+    name: string;
+    description: string | null;
+  }[];
 }
 
 export interface Projects{
@@ -216,7 +215,9 @@ export const getOrg = async (authorizationToken: string, orgName: string) => {
   return respnse;
 };
 
-export const getAllOrgs = async (authorizationToken: string): Promise<AxiosResponse<AllOrgs>> => {
+export const getAllOrgs = async (
+  authorizationToken: string
+): Promise<AxiosResponse<AllOrgs>> => {
   const url = BACKEND_URL + '/api/protected/org/getAllOrg';
   const respnse = await axios.get<AllOrgs>(url, {
     headers: {
