@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { store } from 'app/state/store';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import UserState from 'app/context/user/userState';
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,9 @@ root.render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
+          <UserState>
           <App />
+          </UserState>
         </Provider>
       </QueryClientProvider>
     </BrowserRouter>

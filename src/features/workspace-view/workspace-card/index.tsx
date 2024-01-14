@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import './index.scss';
 import rightNavbtn from '../../../app/assets/images/right_navigation_button.svg';
-import workspaceCardProps from 'app/models/workSpaceCardTypes';
-const WorkspaceCard = (props: workspaceCardProps) => {
-  const { imgURL, title, description } = props;
 
+type workspaceCardProps = {
+  workspaceName: string;
+  role: string;
+  archeive: boolean;
+  bookmark: boolean;
+  archeives: boolean;
+}
+
+const WorkspaceCard = (props: workspaceCardProps) => {
+  const { workspaceName, role, archeive, bookmark ,archeives} = props;
+  
   const [showPopUp, setShowPopUp] = useState(false);
   return (
-    <div className='workspace-card'>
+    <>
+ { (archeive==archeives)&&<div className='workspace-card'>
       <div className='workspace-card-body'>
         <div
           className='workspace-popup-btn'
@@ -25,21 +34,22 @@ const WorkspaceCard = (props: workspaceCardProps) => {
         </div>
         <div className='workspace-card-utils'>
           <div className='workspace-logo'>
-            <img src={imgURL} alt='' />
+            <img src={"https://pngimg.com/uploads/github/github_PNG80.png"} alt='' />
           </div>
           <div className='workspace-members'>
-            <div className='workspace-title'>{title}</div>
+            <div className='workspace-title'>{workspaceName}</div>
             <div className='workspace-members-imgs'>img</div>
           </div>
         </div>
         <div className='workspace-description'>
-          {description.substring(0, 120) + '...'}
+          {/* {description.substring(0, 120) + '...'} */}
         </div>
         <div className='workspace-details-btn'>
           <img src={rightNavbtn} alt='' />
         </div>
       </div>
-    </div>
+    </div>}
+    </>
   );
 };
 

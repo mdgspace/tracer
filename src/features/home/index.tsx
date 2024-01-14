@@ -34,30 +34,10 @@ const Home = () => {
   const [weeklyOrgProjectsData, setWeeklyOrgProjectsData] =
     useState<ProjectsGithubData | null>(null);
   const orgName = 'fordev';
-  const checklogin = async () => {
-    if (token != null) {
-      try {
-        const userData = await getUser(token);
-
-        setUserData(userData.data.message);
-      } catch (e) {
-        toast.error('Session expired');
-        navigate('/login');
-      }
-    } else {
-      toast.error('Not authorized');
-      navigate('/login');
-    }
-  };
-
-  useEffect(() => {
-    checklogin();
-  }, []);
 
   const fetchOrgProjects = async () => {
     if (token) {
       const orgProjects = await getOrgProjects(token, orgName);
-     
       setOrgProjects(orgProjects.data.projects);
     
 

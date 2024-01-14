@@ -5,6 +5,19 @@ export interface UserData {
   message: string;
 }
 
+
+export interface UserOrgs {
+  [userName: string]: UserOrgDetails;
+}
+
+export interface UserOrgDetails {
+  bookmark: string;
+  role: string;
+  archive: string;
+}
+
+
+
 export interface AllUserData {
   users: {
     id: number;
@@ -84,12 +97,12 @@ export const setOrgArcheiveStatus = async (
 export const getUserOrgs = async (
   authorizationToken: string,
   username: string
-) => {
+):Promise<AxiosResponse<UserOrgs>> => {
   const url =
     BACKEND_URL +
-    '/api/protected/user/setArcheiveStatus/getUserOrgs/' +
+    '/api/protected/user/getUserOrgs/' +
     username;
-  const respnse = await axios.get(url, {
+  const respnse = await axios.get<UserOrgs>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,

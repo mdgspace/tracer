@@ -28,7 +28,6 @@ import { AVATAR_API } from 'envConstants';
 
 const ProjectCard: React.FC<Props> = ({projectName,orgName ,status, githubData}) => {
   const token= localStorage.getItem('token')
-  
   const [ProjectData,SetProjectData]= useState<GetProject|null>(null)
   const [projectMembers,setProjectMembers]= useState<ProjectMembers|null>(null)
 

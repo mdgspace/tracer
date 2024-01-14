@@ -14,29 +14,7 @@ import './index.scss';
 
 const Login = () => {
   const [searchParam] = useSearchParams();
-  const navigate = useNavigate();
-
-
-  const token = localStorage.getItem('token');
-  const checklogin = async () => {
-    if (token != null) {
-      try {
-        const userData = await getUser(token);
-        navigate('/');
-      } catch (e) {
-        localStorage.removeItem('token');
-        navigate('/login');
-      }
-      localStorage.removeItem('token');
-
-    }
-  };
-
-  useEffect(() => {
-    checklogin();
-  }, []);
-
- 
+  const navigate = useNavigate(); 
   const loginFunc = async () => {
     if (searchParam.get('code') !== null) {
      try{

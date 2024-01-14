@@ -19,25 +19,7 @@ const AddProject = () => {
 
   const [validName, setValidName] = useState<boolean>(false);
 
-  const checkLogin = async () => {
-    if (token != null) {
-      const userData = await getUser(token);
-      return userData.data;
-    } else {
-      toast.error('Not authorized');
-      navigate('/login');
-    }
-  };
 
-  const { data, isError } = useQuery({
-    queryFn: () => checkLogin(),
-    queryKey: 'checkLogin',
-  });
-
-  if (isError) {
-    toast.error('Session Expired');
-    navigate('/login');
-  }
 
   const linkChange = async (event: ChangeEvent<HTMLInputElement>) => {
     setLink(event.target.value);
