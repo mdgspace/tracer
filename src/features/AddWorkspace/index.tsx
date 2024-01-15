@@ -1,35 +1,30 @@
 import { getAllUser, getUser } from 'app/api/user';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
-import { addOrg, getAllOrgs } from 'app/api/organization';
+import { addOrg, addOrgMembers, getAllOrgs } from 'app/api/organization';
 import { uploadIcon } from 'app/api/file';
-import { useSelector } from 'react-redux';
-import { Organization } from 'app/state/reducers/orgReducers';
-import { RootState } from 'app/state/reducers';
-
-
 
 import './index.scss';
+import UserContext from 'app/context/user/userContext';
 
 const AddWorkspace = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  const userContext = useContext(UserContext);
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [name, SetName] = useState<string | null>(null);
   const [description, setDiscription] = useState<string | null>(null);
+  const [validDescription, setValidDescription] = useState<boolean>(true);
   const [validName, setValidName] = useState<boolean>(false);
-
+  const [uniqueName, setUniqueName] = useState<boolean>(false);
   const [members, setMembers] = useState<string[]>([]);
   const [memberName, setMemberName] = useState<string | null>(null);
 
   const [users, setUsers] = useState<string[]>([]);
   const [orgs, setOrgs] = useState<string[]>([]);
-
-  const orgState= useSelector((state:RootState)=>state.organization);
-  
 
   const dataFetch = async () => {
     try {
@@ -52,30 +47,9 @@ const AddWorkspace = () => {
     } catch (e) {}
   };
 
-  const checklogin = async () => {
-    if (token != null) {
-      const userData = await getUser(token);
-      return userData.data;
-    } else {
-      toast.error('Session expired');
-      navigate('/login');
-    }
-  };
-
-  const { data, isError } = useQuery({
-    queryFn: () => checklogin(),
-    queryKey: 'checkLogin',
-  });
-
-  if (isError) {
-    toast.error('Session expired');
-    navigate('/login');
-  }
-
-  const {} = useQuery({
-    queryFn: () => dataFetch(),
-    queryKey: 'allUsersAndAllOrgs',
-  });
+  useEffect(() => {
+    dataFetch();
+  }, []);
 
   const allowedFieTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 
@@ -94,41 +68,36 @@ const AddWorkspace = () => {
 
   function valid_name(str: string): boolean {
     // Define a regular expression for special characters (excluding letters, digits, and spaces)
-    const specialCharacters = /[^a-zA-Z0-9\s]/;
+    const specialCharacters = /^[a-zA-Z0-9_-]+$/;
 
     // Check if the string contains any special characters
-    return (
-      specialCharacters.test(str) &&
-      !str.endsWith('/userspace') &&
-      !orgs.includes(str)
-      
-    );
+    return specialCharacters.test(str) && !str.endsWith('-userspace');
   }
 
-  const isNotOrgName= (orgName:string)=>{
-    orgState.forEach(el=>{
-      if(el.name==orgName){
-        return false
-      }
-    })
-    return true
+  function isUniqueName(str: string): boolean {
+    return !orgs.includes(str);
   }
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     SetName(event.target.value);
-
-
-
-    setValidName(() => valid_name(event.target.value)&&isNotOrgName(event.target.value));
+    setUniqueName(() => isUniqueName(event.target.value));
+    setValidName(() => valid_name(event.target.value));
   };
 
   const handleDesriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
     setDiscription(event.target.value);
+    if (description?.length) {
+      setValidDescription(description.length < 200);
+    }
   };
 
   const addMembers = () => {
     if (memberName) {
-      if (users.includes(memberName) && memberName != data?.message) {
+      if (
+        users.includes(memberName) &&
+        memberName != userContext?.username &&
+        !members.includes(memberName)
+      ) {
         setMembers([...members, memberName]);
         setMemberName(null);
       }
@@ -137,52 +106,60 @@ const AddWorkspace = () => {
 
   const removeMembers = (member: string) => {
     const indexToRemove = members.indexOf(member);
-  }
-  const SubmitHandler=async():Promise<void>=>{
-   
-    if(description&&token&&name){
-    
-         const func= async():Promise<void>=>{
-          const dataRes= await addOrg(token,{
-            name:name,
-            description:description
-          })
-  
-          try{
-          if(selectedFile!=null){
-            const fileRes= uploadIcon(token, name, selectedFile)
-          }}catch(e){
-  
-          }
-          navigate("/workspace-view")
-         }
 
-         toast.promise(
-          func(),{
-            loading:'Saving...',
-            success: <b>Workspace Saved</b>,
-            error: <b>Could not save.</b>,
+    if (indexToRemove !== -1) {
+      const updatedMembers = [
+        ...members.slice(0, indexToRemove),
+        ...members.slice(indexToRemove + 1),
+      ];
 
-          }
-         )
-        
-   
-    }else{
-
+      setMembers(updatedMembers);
+    } else {
+      console.warn(`Member "${member}" not found in the members array.`);
     }
   };
+  const SubmitHandler = async (): Promise<void> => {
+    if (
+      description &&
+      token &&
+      name &&
+      validName &&
+      uniqueName &&
+      validDescription
+    ) {
+      const func = async (): Promise<void> => {
+        const dataRes = await addOrg(token, {
+          name: name,
+          description: description,
+        });
 
+        try {
+          if (selectedFile != null) {
+            const fileRes = uploadIcon(token, name, selectedFile);
+          }
+        } catch (e) {}
+        if (members.length > 0) {
+          try{
 
-   
-  
+            const addMmebersRes= await addOrgMembers(token, name, members);
+            
+          }catch(e){
 
-  
-  toast.promise(SubmitHandler(), {
-    loading: 'Saving Workspace',
-    success: <b>Workspace saved</b>,
-    error: <b>Could not save</b>,
-  });
+          }
 
+        }
+        navigate('/workspace-view');
+      };
+
+      toast.promise(func(), {
+        loading: 'Saving Workspace',
+        success: <b>Workspace saved</b>,
+        error: <b>Could not save</b>,
+      });
+    } else {
+      toast.error('Invalid inputs');
+    }
+  };
 
   return (
     <div className='main_aworkspace_container'>
@@ -215,6 +192,13 @@ const AddWorkspace = () => {
             onChange={handleNameChange}
             placeholder='workspace name'
           />
+          {!name ? <p>Name feild should not be empty</p> : <></>}
+          {!validName && name ? <p>Not a valid name</p> : <></>}
+          {!uniqueName && name ? (
+            <p>Name already taken. Try another name</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className='single-form-element-container'>
           <label className='label' htmlFor='workspace-description'>
@@ -228,6 +212,12 @@ const AddWorkspace = () => {
             onChange={handleDesriptionChange}
             placeholder='workspace description'
           />
+          {!description ? <p>Description feild should not be empty</p> : <></>}
+          {!validDescription ? (
+            <p>Characters length should be less than 200</p>
+          ) : (
+            <></>
+          )}
           <div className='add-member-container'>
             <input
               type='text'
@@ -244,7 +234,8 @@ const AddWorkspace = () => {
               className='add-member-button'
               disabled={
                 memberName
-                  ? !users.includes(memberName) && memberName == data?.message
+                  ? !users.includes(memberName) &&
+                    memberName == userContext?.username
                   : true
               }
             >

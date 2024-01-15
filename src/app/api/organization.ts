@@ -24,6 +24,16 @@ export interface OrgProjects{
   projects: Projects
 }
 
+export interface Workspace{
+  id: number;
+  name: string;
+  description: string                                    
+}
+interface OrgMembers {
+  members: {
+    [username: string]: string;
+  };
+}
 
 
 export const deleteOrg = async (
@@ -88,7 +98,7 @@ export const addOrgMembers = async (
       },
     }
   );
-
+  
   return respnse;
 };
 
@@ -131,6 +141,7 @@ export const changeOrgMembersStatus = async (
 
   return respnse;
 };
+
 
 export const setArcheiveStatus = async (
   authorizationToken: string,
@@ -178,10 +189,10 @@ export const setBookmarkStatus = async (
 export const getOrgMembers = async (
   authorizationToken: string,
   orgName: string
-) => {
+) : Promise<AxiosResponse<OrgMembers>> => {
   const url = BACKEND_URL + '/api/protected/org/getMembers/' + orgName;
 
-  const respnse = await axios.get(url, {
+  const respnse = await axios.get<OrgMembers>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,
@@ -204,9 +215,9 @@ export const getOrgProjects = async (
   return respnse;
 };
 
-export const getOrg = async (authorizationToken: string, orgName: string) => {
-  const url = BACKEND_URL + '/api/protected/org/getProjects/' + orgName;
-  const respnse = await axios.get(url, {
+export const getOrg = async (authorizationToken: string, orgName: string): Promise<AxiosResponse<Workspace>> => {
+  const url = BACKEND_URL + '/api/protected/org/getOrg/' + orgName;
+  const respnse = await axios.get<Workspace>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,

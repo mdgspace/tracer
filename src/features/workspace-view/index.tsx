@@ -6,15 +6,18 @@ import { workSpaceData } from 'app/utils/workspaceData';
 import UserContext from 'app/context/user/userContext';
 import { UserOrgDetails, getUserOrgs } from 'app/api/user';
 import loader from '../../app/assets/gifs/loader.gif'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const WorkspaceView = () => {
   const userContext= useContext(UserContext);
-  const [isLoad, setIsLoad]= useState<boolean>(true)
+  const [isLoad, setIsLoad]= useState<boolean>(false)
   const [archeives, setArcheives]= useState<boolean>(false);
   const token= localStorage.getItem('token')
+  const navigate= useNavigate()
   const fetchData=async()=>{
   
     if(token&&userContext?.username&&!userContext.userOrgs){
+      
       setIsLoad(true)
        try{
          const userOrgs= await getUserOrgs(token, userContext?.username.toString());
@@ -22,6 +25,7 @@ const WorkspaceView = () => {
        }catch(e){
 
        }
+       
        setIsLoad(false)
     }
   }
@@ -29,7 +33,7 @@ const WorkspaceView = () => {
 
    useEffect(()=>{
     fetchData();
-   },[userContext?.setUsername, userContext?.username])
+   },[userContext?.setUsername, userContext?.username,navigate])
 
   return (
     <div className='workspaceview-container'>
@@ -37,7 +41,7 @@ const WorkspaceView = () => {
         <SearchBar />
 
         <button onClick={()=>setArcheives(!archeives)}>Archeives</button>
-        <button>Create a workspace</button>
+        <button onClick={()=>navigate("/addWorkspace")}>Create a workspace</button>
         
       </div>
 

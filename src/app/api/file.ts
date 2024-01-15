@@ -26,9 +26,13 @@ export const uploadIcon = async (
 
 export const getIcon = async (authorizationToken: string, orgName: string) => {
   const url = BACKEND_URL + '/api/protected/file/getIcon/' + orgName;
-  const response = await axios.get(url, {
+  const response = await axios.get(url, 
+     
+    {
+      responseType:'blob',
     headers: {
       Authorization: `Bearer ${authorizationToken}`,
+      Accept: "*/*"
     },
   });
   return response;
