@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import rightNavbtn from '../../../app/assets/images/right_navigation_button.svg';
-import { getOrg, getOrgMembers } from 'app/api/organization';
+import { deleteOrg, getOrg, getOrgMembers } from 'app/api/organization';
 import { deleteFile, getIcon } from 'app/api/file';
 import { getMembers } from 'app/api/project';
+import UserContext from 'app/context/user/userContext';
+import toast from 'react-hot-toast';
+import { UserOrgDetails, UserOrgs, setOrgArcheiveStatus, setOrgBookmarkStatus } from 'app/api/user';
 
 type workspaceCardProps = {
   workspaceName: string;
@@ -15,6 +18,7 @@ type workspaceCardProps = {
 interface members{
   [username: string]: string
 }
+
 const WorkspaceCard = (props: workspaceCardProps) => {
   const { workspaceName, role, archeive, bookmark ,archeives} = props;
   const [description,setDescription] = useState<null | string>(null)
@@ -23,6 +27,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   const [fileName, setFileName]= useState<string|null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [members, setMembers]= useState<members|null>(null)
+  const userContext= useContext(UserContext)
   const workSpaceData= async()=>{
           if(token&&workspaceName&&!workspaceName.endsWith("-userspace")){
            try{
@@ -53,10 +58,104 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   }
 
     useEffect(()=>{
+      console.log(workspaceName,bookmark)
     workSpaceData()
-  },[workspaceName])
+  },[workspaceName, userContext?.setUserOrgs])
 
-  
+   const HandleDelete= async()=>{
+    if(!workspaceName.endsWith("-userspace")&&token){
+      const func= async()=>{
+        const res= await deleteOrg(token, workspaceName);
+        const orgs= userContext?.userOrgs
+        
+        if(orgs?.userOrgs.hasOwnProperty(workspaceName)){
+           const obj: UserOrgDetails= orgs.userOrgs;
+           delete obj[workspaceName];
+           userContext?.setUserOrgs({
+            userOrgs: obj
+           })
+        }
+      
+        
+        
+      }
+      toast.promise(func(), {
+        loading: 'Deleting',
+        success: <b>Successfully Deleted</b>,
+        error: <b>Error while deleting</b>,
+      });
+      
+    }
+   }
+
+
+   const HandlePin = async()=>{
+    if(!workspaceName.endsWith("-userspace")&&token){
+      const initBmk= bookmark
+      const func=async()=>{
+        let status: { [key: string]: boolean } = {
+          [workspaceName]: !bookmark,
+      };
+      
+      
+        const res= await setOrgBookmarkStatus(token,status)
+        const orgs= userContext?.userOrgs
+        if(orgs?.userOrgs.hasOwnProperty(workspaceName)){
+     
+          orgs.userOrgs[workspaceName].bookmark= (!bookmark).toString();
+          userContext?.setUserOrgs(orgs);
+        }
+      }
+      if(initBmk){
+        toast.promise(func(), {
+          loading: 'Unpinning',
+          success: <b>Successfully unpinned</b>,
+          error: <b>Error while unpinning</b>,
+        });
+      }
+      else{
+        toast.promise(func(), {
+          loading: 'Pinning',
+          success: <b>Successfully pinned</b>,
+          error: <b>Error while pinning</b>,
+        })
+      }
+    }
+   }
+
+   const HandleArchive = async()=>{
+    if(!workspaceName.endsWith("-userspace")&&token){
+      const initArc= archeive
+      const func=async()=>{
+        let status: { [key: string]: boolean } = {
+          [workspaceName]: !bookmark,
+      };
+      
+      
+        const res= await setOrgArcheiveStatus(token,status)
+        const orgs= userContext?.userOrgs
+        if(orgs?.userOrgs.hasOwnProperty(workspaceName)){
+     
+          orgs.userOrgs[workspaceName].archive= (!bookmark).toString();
+          userContext?.setUserOrgs(orgs);
+        }
+      }
+      if(initArc){
+        toast.promise(func(), {
+          loading: 'Archiving',
+          success: <b>Successfully archived</b>,
+          error: <b>Error</b>,
+        });
+      }
+      else{
+        toast.promise(func(), {
+          loading: 'Unarchiving',
+          success: <b>Successfully unarchived</b>,
+          error: <b>Error</b>,
+        })
+      }
+    }
+   }
 
   return (
     <>
@@ -72,9 +171,9 @@ const WorkspaceCard = (props: workspaceCardProps) => {
           />}
         </div>
         <div className={showPopUp ? 'workspace-popup' : 'hide'}>
-          <div className='pin'>Pin</div>
-          <div className='archive'>archive</div>
-          <div className='delete' >delete</div>
+          <div className='pin' onClick={HandlePin}>{bookmark?"UnPin":"Pin"}</div>
+          <div className='archive' onClick={HandleArchive}>{archeive?"Unarchive":"archive"}</div>
+          <div className='delete' onClick={HandleDelete}>delete</div>
         </div>
         <div className='workspace-card-utils'>
           <div className='workspace-logo'>

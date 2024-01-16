@@ -33,7 +33,7 @@ const Home = () => {
     useState<ProjectsGithubData | null>(null);
   const [weeklyOrgProjectsData, setWeeklyOrgProjectsData] =
     useState<ProjectsGithubData | null>(null);
-  const orgName = 'fordev';
+  const orgName = 'yash';
 
   const fetchOrgProjects = async () => {
     if (token) {

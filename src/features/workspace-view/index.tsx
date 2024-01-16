@@ -16,12 +16,13 @@ const WorkspaceView = () => {
   const navigate= useNavigate()
   const fetchData=async()=>{
   
-    if(token&&userContext?.username&&!userContext.userOrgs){
+    if(token&&userContext?.username){
       
       setIsLoad(true)
        try{
          const userOrgs= await getUserOrgs(token, userContext?.username.toString());
          userContext?.setUserOrgs(userOrgs.data)
+         
        }catch(e){
 
        }
@@ -33,7 +34,7 @@ const WorkspaceView = () => {
 
    useEffect(()=>{
     fetchData();
-   },[userContext?.setUsername, userContext?.username,navigate])
+   },[userContext?.setUsername, userContext?.username,navigate, userContext?.setUserOrgs])
 
   return (
     <div className='workspaceview-container'>
@@ -51,7 +52,7 @@ const WorkspaceView = () => {
           return <WorkspaceCard 
           key={orgName}
           workspaceName={orgName}
-          archeive={"true"===details.archeive}
+          archeive={"true"===details.archive}
           bookmark={"true"===details.bookmark}
           role={details.role}
           archeives={archeives}

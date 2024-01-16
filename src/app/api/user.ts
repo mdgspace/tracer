@@ -7,13 +7,16 @@ export interface UserData {
 
 
 export interface UserOrgs {
-  [userName: string]: UserOrgDetails;
+  userOrgs: UserOrgDetails;
 }
 
 export interface UserOrgDetails {
-  bookmark: string;
-  role: string;
-  archive: string;
+  [key: string]: {
+    bookmark: string;
+    role: string;
+    archive: string;
+  };
+
 }
 
 
@@ -82,7 +85,7 @@ export const setOrgArcheiveStatus = async (
   const respnse = await axios.put(
     url,
     {
-      bookmarkStatus: status,
+      archeiveStatus: status,
     },
     {
       headers: {
@@ -91,7 +94,9 @@ export const setOrgArcheiveStatus = async (
       },
     }
   );
+
   return respnse;
+ 
 };
 
 export const getUserOrgs = async (
