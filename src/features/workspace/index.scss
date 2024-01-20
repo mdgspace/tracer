@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
   padding-left: 1.3em;
   margin-top: 0.8em;
   margin-bottom: 0.8em;
@@ -32,6 +33,18 @@
   height: 50px;
   position: relative;
   padding: 50px;
+}
+.home-header button {
+  border: none;
+  outline: none;
+  margin-right: 1em;
+  padding: 0.7em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  border-radius: 2em;
+  color: white;
+  font-size: 1.2rem;
+  background: var(--timerange-switch-btn-bg);
 }
 
 @media only screen and (max-width: 860px) {

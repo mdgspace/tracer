@@ -95,11 +95,16 @@ const Workspace = () => {
       <div className='home-header'>
         <SearchBar />
 
-        <button onClick={() => setArcheives(!archives)}>Archives</button>
+        <button className='' onClick={() => setArcheives(!archives)}>
+          Archives
+        </button>
         {spaceName &&
           (userContext?.userOrgs?.userOrgs[spaceName].role == 'admin' ||
             userContext?.userOrgs?.userOrgs[spaceName].role == 'manager') && (
-            <button onClick={() => navigate(`/addProject/${spaceName}`)}>
+            <button
+              className=''
+              onClick={() => navigate(`/addProject/${spaceName}`)}
+            >
               Add Project
             </button>
           )}

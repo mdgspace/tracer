@@ -1,6 +1,10 @@
 .projectcard {
   border-radius: 1em;
   background-color: var(--home-page-card-bg);
+  max-width: 554px;
+  width: 90%;
+  height: 100%;
+  min-height: 257px;
   padding: 1em;
 }
 
