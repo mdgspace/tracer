@@ -12,7 +12,7 @@ const SearchBar = () => {
   };
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (search !== '') dispatch(searchAction(search));
+    dispatch(searchAction(search));
   };
 
   return (

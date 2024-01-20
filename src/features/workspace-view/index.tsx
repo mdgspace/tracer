@@ -7,6 +7,7 @@ import UserContext from 'app/context/user/userContext';
 import { UserOrgDetails, getUserOrgs } from 'app/api/user';
 import loader from '../../app/assets/gifs/loader.gif';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const WorkspaceView = () => {
   const userContext = useContext(UserContext);
@@ -28,6 +29,7 @@ const WorkspaceView = () => {
       setIsLoad(false);
     }
   };
+  const searchValue = useSelector((state: any) => state.searchKeyword.value);
 
   useEffect(() => {
     fetchData();
@@ -36,6 +38,7 @@ const WorkspaceView = () => {
     userContext?.username,
     navigate,
     userContext?.setUserOrgs,
+    searchValue,
   ]);
 
   return (
@@ -54,8 +57,12 @@ const WorkspaceView = () => {
           <img src={loader} className='loader' />
         ) : (
           userContext?.userOrgs &&
-          Object.entries(userContext.userOrgs.userOrgs).map(
-            ([orgName, details]) => {
+          Object.entries(userContext.userOrgs.userOrgs)
+            .filter(([key, value]) => {
+              if (key.toLowerCase().includes(searchValue.toLowerCase()))
+                return [key, value];
+            })
+            .map(([orgName, details]) => {
               return (
                 <WorkspaceCard
                   key={orgName}
@@ -66,8 +73,7 @@ const WorkspaceView = () => {
                   archeives={archeives}
                 />
               );
-            }
-          )
+            })
         )}
       </div>
     </div>
