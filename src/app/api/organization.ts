@@ -14,27 +14,26 @@ export interface AllOrgs {
   }[];
 }
 
-export interface Projects{
-  [ProjectName: string]:{
-    archeive:boolean,
-    bookmark: boolean
-  }
+export interface Projects {
+  [ProjectName: string]: {
+    archeive: boolean;
+    bookmark: boolean;
+  };
 }
-export interface OrgProjects{
-  projects: Projects
+export interface OrgProjects {
+  projects: Projects;
 }
 
-export interface Workspace{
+export interface Workspace {
   id: number;
   name: string;
-  description: string                                    
+  description: string;
 }
 interface OrgMembers {
   members: {
     [username: string]: string;
   };
 }
-
 
 export const deleteOrg = async (
   authorizationToken: string,
@@ -98,7 +97,7 @@ export const addOrgMembers = async (
       },
     }
   );
-  
+
   return respnse;
 };
 
@@ -141,7 +140,6 @@ export const changeOrgMembersStatus = async (
 
   return respnse;
 };
-
 
 export const setArcheiveStatus = async (
   authorizationToken: string,
@@ -189,7 +187,7 @@ export const setBookmarkStatus = async (
 export const getOrgMembers = async (
   authorizationToken: string,
   orgName: string
-) : Promise<AxiosResponse<OrgMembers>> => {
+): Promise<AxiosResponse<OrgMembers>> => {
   const url = BACKEND_URL + '/api/protected/org/getMembers/' + orgName;
 
   const respnse = await axios.get<OrgMembers>(url, {
@@ -204,7 +202,7 @@ export const getOrgMembers = async (
 export const getOrgProjects = async (
   authorizationToken: string,
   orgName: string
-):Promise<AxiosResponse<OrgProjects>> => {
+): Promise<AxiosResponse<OrgProjects>> => {
   const url = BACKEND_URL + '/api/protected/org/getProjects/' + orgName;
   const respnse = await axios.get<OrgProjects>(url, {
     headers: {
@@ -215,7 +213,10 @@ export const getOrgProjects = async (
   return respnse;
 };
 
-export const getOrg = async (authorizationToken: string, orgName: string): Promise<AxiosResponse<Workspace>> => {
+export const getOrg = async (
+  authorizationToken: string,
+  orgName: string
+): Promise<AxiosResponse<Workspace>> => {
   const url = BACKEND_URL + '/api/protected/org/getOrg/' + orgName;
   const respnse = await axios.get<Workspace>(url, {
     headers: {

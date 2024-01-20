@@ -139,14 +139,9 @@ const AddWorkspace = () => {
           }
         } catch (e) {}
         if (members.length > 0) {
-          try{
-
-            const addMmebersRes= await addOrgMembers(token, name, members);
-            
-          }catch(e){
-
-          }
-
+          try {
+            const addMmebersRes = await addOrgMembers(token, name, members);
+          } catch (e) {}
         }
         navigate('/');
       };

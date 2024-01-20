@@ -27,7 +27,7 @@ interface Props {
 const ProjectCard: React.FC<Props> = ({
   projectName,
   orgName,
-  
+
   status,
   githubData,
 }) => {
@@ -121,17 +121,16 @@ const ProjectCard: React.FC<Props> = ({
   };
 
   const DeleteHandler = async () => {
-    if(token&&orgName){
-     const func= async()=>{
-      const res= await deleteProject(token, projectName, orgName);
-     }
-     toast.promise(func(),{
-          loading: 'On progress',
-          success: <b>Successfully deleted</b>,
-          error: <b>Unable to delete</b>,
-     })
+    if (token && orgName) {
+      const func = async () => {
+        const res = await deleteProject(token, projectName, orgName);
+      };
+      toast.promise(func(), {
+        loading: 'On progress',
+        success: <b>Successfully deleted</b>,
+        error: <b>Unable to delete</b>,
+      });
     }
-    
   };
 
   return (
@@ -161,19 +160,15 @@ const ProjectCard: React.FC<Props> = ({
         </div>
       </div>
 
-      <ul className='projectcard-contributor'>
+      <div className='image-stack'>
         {project_members &&
           Object.entries(project_members)
             .slice(0, 4)
             .map(([key, value]) => {
               const url = AVATAR_URL + '/' + key + '.png?apikey=' + AVATAR_API;
-              return (
-                <li>
-                  <img src={url} />
-                </li>
-              );
+              return <img key={key} className='project-image' src={url} />;
             })}
-      </ul>
+      </div>
     </div>
   );
 };

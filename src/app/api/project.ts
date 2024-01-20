@@ -7,17 +7,17 @@ export interface projectBody {
   link: string;
 }
 
-export interface GetProject{
-  id: number,
-  name: string, 
-  description: string
+export interface GetProject {
+  id: number;
+  name: string;
+  description: string;
 }
 
-export interface Member{
-  [key: string]:string
+export interface Member {
+  [key: string]: string;
 }
-export interface ProjectMembers{
-  members:Member
+export interface ProjectMembers {
+  members: Member;
 }
 
 export const addProject = async (
@@ -159,7 +159,7 @@ export const getProject = async (
   authorizationToken: string,
   projectName: string,
   orgName: string
-):Promise<AxiosResponse<GetProject>> => {
+): Promise<AxiosResponse<GetProject>> => {
   const url =
     BACKEND_URL +
     '/api/protected/project/getProject/' +
@@ -179,7 +179,7 @@ export const getMembers = async (
   authorizationToken: string,
   projectName: string,
   orgName: string
-) : Promise<AxiosResponse<ProjectMembers>>=> {
+): Promise<AxiosResponse<ProjectMembers>> => {
   const url =
     BACKEND_URL +
     '/api/protected/project/getMembers/' +

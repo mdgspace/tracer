@@ -10,7 +10,7 @@ interface Props {
   orgProjects: Projects | null;
   monthlyOrgProjectsData: ProjectsGithubData | null;
   weeklyOrgProjectsData: ProjectsGithubData | null;
-  archives: boolean
+  archives: boolean;
 }
 
 const ProjectCardCont: React.FC<Props> = ({
@@ -19,10 +19,9 @@ const ProjectCardCont: React.FC<Props> = ({
   orgProjects,
   monthlyOrgProjectsData,
   weeklyOrgProjectsData,
-  archives
+  archives,
 }) => {
- 
-  useEffect(()=>{},[weekly])
+  useEffect(() => {}, [weekly]);
 
   return (
     <>
@@ -34,7 +33,6 @@ const ProjectCardCont: React.FC<Props> = ({
               (weekly ? (
                 <ProjectCard
                   key={key}
-
                   orgName={orgName}
                   projectName={key}
                   status={value}
@@ -45,7 +43,6 @@ const ProjectCardCont: React.FC<Props> = ({
               ) : (
                 <ProjectCard
                   key={key}
-            
                   orgName={orgName}
                   projectName={key}
                   status={value}

@@ -1,23 +1,22 @@
-import { FC, ReactNode, useState } from "react";
-import UserContext from "./userContext";
-import { UserOrgDetails, UserOrgs } from "app/api/user";
+import { FC, ReactNode, useState } from 'react';
+import UserContext from './userContext';
+import { UserOrgDetails, UserOrgs } from 'app/api/user';
 
-interface Props{
-    children: ReactNode
+interface Props {
+  children: ReactNode;
 }
 
-const UserState: FC<Props>= ({children})=>{
+const UserState: FC<Props> = ({ children }) => {
+  const [username, setUsername] = useState<String | null>(null);
+  const [userOrgs, setUserOrgs] = useState<UserOrgs | null>(null);
 
-    const [username, setUsername] = useState<String | null>(null);
-    const [userOrgs, setUserOrgs] = useState<UserOrgs|null>(null)
+  return (
+    <UserContext.Provider
+      value={{ username, setUsername, userOrgs, setUserOrgs }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
+};
 
-    return (
-        <UserContext.Provider  value={{username, setUsername, userOrgs, setUserOrgs}} >
-
-        {children}
-
-        </UserContext.Provider>
-    )
-}
-
-export default UserState
+export default UserState;

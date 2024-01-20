@@ -9,38 +9,37 @@ import { useContext } from 'react';
 import UserContext from './context/user/userContext';
 
 function App() {
-
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
-  const userContext= useContext(UserContext);
-  const token= localStorage.getItem('token');
-  const checklogin= async ()=>{
-    if(token!=null){
-      try{
-        const userData= await getUser(token);
+  const userContext = useContext(UserContext);
+  const token = localStorage.getItem('token');
+  const checklogin = async () => {
+    if (token != null) {
+      try {
+        const userData = await getUser(token);
         userContext?.setUsername(userData.data.message);
-        if(currentPath=="/login"){
-          navigate("/");
+        if (currentPath == '/login') {
+          navigate('/');
         }
-      } catch(e){
-         localStorage.removeItem('token')
-         if(currentPath!="/login"){
-          toast.error("Session expired")
-          navigate("/login");
-         }
+      } catch (e) {
+        localStorage.removeItem('token');
+        if (currentPath != '/login') {
+          toast.error('Session expired');
+          navigate('/login');
+        }
       }
-    }else{
-      if(currentPath!="/login"){
-        toast.error("Not authenticated")
-        navigate("/login")
+    } else {
+      if (currentPath != '/login') {
+        toast.error('Not authenticated');
+        navigate('/login');
       }
     }
-  }
-  const {} = useQuery("login", checklogin, {
+  };
+  const {} = useQuery('login', checklogin, {
     enabled: true,
-    staleTime: Infinity
-  })
+    staleTime: Infinity,
+  });
 
   return (
     <>

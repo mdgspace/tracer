@@ -1,1 +1,1 @@
-export const AVATAR_URL="https://api.multiavatar.com"
+export const AVATAR_URL = 'https://api.multiavatar.com';
