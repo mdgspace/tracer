@@ -8,12 +8,12 @@ interface Props{
   
 }
 const ButtonBar = () => {
-  const [weeky, setWeekly]= useState<boolean>(true);
+  const [weeky, setWeekly] = useState<boolean>(true);
   return (
     <div className='project-upper-cont'>
       <div className='button-bar'>
         <button className='back-btn'>&larr; Back</button>
-        <TimeRangeSwitch weekly={weeky} setWeekly={setWeekly}/>
+        <TimeRangeSwitch weekly={weeky} setWeekly={setWeekly} />
       </div>
       <h1>Appetizer</h1>
       <p>

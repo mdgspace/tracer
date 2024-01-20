@@ -10,21 +10,26 @@ import mockdatatypes from 'app/models/mockDataTypes';
 import './index.scss';
 import { Contributors } from 'app/api/githubData';
 
-interface Prop{
-  weekly: boolean,
-  weeklyOrgRank: Contributors | null
-  monthlyOrgRank: Contributors | null
+interface Prop {
+  weekly: boolean;
+  weeklyOrgRank: Contributors | null;
+  monthlyOrgRank: Contributors | null;
 }
 
-
-const LeaderBoard:React.FC<Prop> = ({weekly, weeklyOrgRank, monthlyOrgRank})  => {
+const LeaderBoard: React.FC<Prop> = ({
+  weekly,
+  weeklyOrgRank,
+  monthlyOrgRank,
+}) => {
   const [itemOffset, setItemOffset] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
+
   // const newMockData = sortJSON(mockData);
   
   const [items, setItems] = useState<{index:number,name:string, issues:number , commits: number, pulls: number}[]>([]);
+
   const itemsPerPage = 4;
- 
+
   const [itemsLength, setItemsLength] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(0);
   // const pageCount = Math.ceil(itemsLength / itemsPerPage);
@@ -36,6 +41,7 @@ const LeaderBoard:React.FC<Prop> = ({weekly, weeklyOrgRank, monthlyOrgRank})  =>
       setPageNumber(_pageNumber);
     }
   };
+
 
   useEffect(()=>{
      if(weekly&&weeklyOrgRank){

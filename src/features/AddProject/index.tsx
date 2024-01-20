@@ -18,14 +18,13 @@ const AddProject = () => {
   const [description, setDescription] = useState<string | null>(null);
   const [link, setLink] = useState<string | null>(null);
 
-
   const [orgProject, setOrgProjects] = useState<Projects | null>(null);
 
   const fetchData = async () => {
     if (token && spaceName) {
       try {
         const res = await getOrgProjects(token, spaceName);
-        console.log(res.data.projects)
+        console.log(res.data.projects);
         setOrgProjects(res.data.projects);
       } catch (e) {}
     }
@@ -60,12 +59,12 @@ const AddProject = () => {
     return regex.test(input);
   }
 
-  const isUnique= (name: string)=>{
-    if(orgProject && name in orgProject){
+  const isUnique = (name: string) => {
+    if (orgProject && name in orgProject) {
       return false;
     }
     return true;
-  }
+  };
 
   const SubmitHandler = async () => {
     if (
@@ -76,7 +75,6 @@ const AddProject = () => {
       isValidName(name) &&
       isGitHubRepositoryLink(link) &&
       description &&
-      
       description?.length < 200
     ) {
       const func = async () => {
@@ -110,7 +108,7 @@ const AddProject = () => {
           />
           {!name ? 'Name feild should not be empty' : <></>}
           {name && !isValidName(name) && 'Not a valid name'}
-          {name&&!isUnique(name)&&"This project name already exists"}
+          {name && !isUnique(name) && 'This project name already exists'}
           <div className='input-title'>Project link</div>
           <input
             type='text'
@@ -119,7 +117,9 @@ const AddProject = () => {
             placeholder='Github link of project'
           />
           {!link ? 'Link feild should not be empty' : <></>}
-          {link&&!isGitHubRepositoryLink(link)&&"Not a valid github repository link"}
+          {link &&
+            !isGitHubRepositoryLink(link) &&
+            'Not a valid github repository link'}
           <div className='input-title'>Description</div>
           <input
             type='text'
@@ -130,7 +130,9 @@ const AddProject = () => {
             placeholder='Details about project'
           />
           {!description ? 'Description feild should not be empty' : <></>}
-          {description&&description.length>=200&&"Description length should not be greater than 200"}
+          {description &&
+            description.length >= 200 &&
+            'Description length should not be greater than 200'}
         </form>
         <button className='add-project-btn' onClick={SubmitHandler}>
           <img src={tick} alt='' /> Done

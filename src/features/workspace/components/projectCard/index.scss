@@ -81,3 +81,16 @@
 .projectcard-contributor li:nth-child(4n-3) {
   background: #e8aa0a;
 }
+
+.image-stack {
+  margin-left: 1rem;
+}
+
+.project-image {
+  display: inline-block;
+  margin-left: -10px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid white;
+  border-radius: 50%;
+}

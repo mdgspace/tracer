@@ -20,7 +20,7 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
           <UserState>
-          <App />
+            <App />
           </UserState>
         </Provider>
       </QueryClientProvider>

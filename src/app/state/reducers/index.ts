@@ -9,7 +9,7 @@ export const reducers = combineReducers({
   searchKeyword: searchReducer,
   setUsername: setUsernameReducer,
   setAllUsernames: setAllUsernamesReducer,
-  organization: orgReducer
+  organization: orgReducer,
 });
 
-export type RootState= ReturnType<typeof reducers>
+export type RootState = ReturnType<typeof reducers>;
