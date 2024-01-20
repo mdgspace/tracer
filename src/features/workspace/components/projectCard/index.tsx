@@ -32,6 +32,7 @@ const ProjectCard: React.FC<Props> = ({
   githubData,
 }) => {
   const token = localStorage.getItem('token');
+  const [showPopUp, setShowPopUp] = useState(false);
   const userContext = useContext(UserContext);
   const [pin, setPin] = useState<boolean>(status.archeive);
   const [archive, setArchive] = useState<boolean>(status.bookmark);
@@ -139,13 +140,33 @@ const ProjectCard: React.FC<Props> = ({
     <div className='projectcard'>
       <h1>{projectName}</h1>
       <p>{project_data ? project_data.description : <></>}</p>
+
       {(userContext?.userOrgs?.userOrgs[orgName].role === 'admin' ||
         userContext?.userOrgs?.userOrgs[orgName].role === 'manager') && (
-        <div>
-          <button onClick={PinHandler}>{pin?"Unpin":"Pin"}</button>
-          <button onClick={ArchiveHandler}>{archive?"Unarchive":"Archive"}</button>
-          <button onClick={DeleteHandler}>Delete</button>
-        </div>
+
+        <>
+          <div
+            className='workspace-popup-btn'
+            onClick={() => setShowPopUp(showPopUp ? false : true)}
+          >
+            <img
+              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR51T-25-1BBmDvoLRWJYNK3P6AENpJBslAp9n_QDXRnA&usqp=CAU&ec=48665701'
+              alt=''
+            />
+          </div>
+          <div className={showPopUp ? 'workspace-popup' : 'hide'}>
+            <div className='pin' onClick={PinHandler}>
+              {pin ? 'Unpin' : 'Pin'}
+            </div>
+            <div className='archive' onClick={ArchiveHandler}>
+              {archive ? 'Unarchive' : 'Archive'}
+            </div>
+            <div className='delete' onClick={DeleteHandler}>
+              Delete
+            </div>
+          </div>
+        </>
+
       )}
       <div className='projectcard-status'>
         <div>

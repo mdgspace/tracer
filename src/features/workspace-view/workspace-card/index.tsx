@@ -190,8 +190,10 @@ const WorkspaceCard = (props: workspaceCardProps) => {
                     ? "USER's WORKSPACE"
                     : workspaceName}
                 </div>
-                <div className='workspace-members-imgs'>img</div>
-                <div>{members ? Object.keys(members).length : 0} members</div>
+                <div className='members-view-container'>
+                  <div className='workspace-members-imgs'>img</div>
+                  <div>{members ? Object.keys(members).length : 0} members</div>
+                </div>
               </div>
             </div>
             <div className='workspace-description'>

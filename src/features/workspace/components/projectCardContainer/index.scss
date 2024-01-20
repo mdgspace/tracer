@@ -1,4 +1,5 @@
 .projectcard-cont {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 2em;
@@ -6,6 +7,12 @@
   padding: 1em;
   justify-items: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 860px) {
+  .projectcard-cont {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media only screen and (max-width: 860px) {

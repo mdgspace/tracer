@@ -1,6 +1,11 @@
 .projectcard {
+  position: relative;
   border-radius: 1em;
   background-color: var(--home-page-card-bg);
+  max-width: 554px;
+  width: 90%;
+  height: 100%;
+  min-height: 257px;
   padding: 1em;
 }
 
@@ -97,4 +102,51 @@
   height: 28px;
   border: 1px solid white;
   border-radius: 50%;
+}
+
+.hide {
+  display: none;
+}
+.workspace-popup {
+  position: absolute;
+  right: 50px;
+  top: 50px;
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 33px;
+  gap: 10px;
+
+  position: absolute;
+  width: 111px;
+  height: 110px;
+
+  background: rgba(26, 26, 57, 0.5);
+  border: 1px solid #402aa4;
+  backdrop-filter: blur(2px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 12px;
+}
+
+.workspace-popup-btn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.workspace-popup-btn img {
+  color: white;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

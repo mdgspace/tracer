@@ -42,11 +42,11 @@ function App() {
   });
 
   return (
-    <>
+    <div>
       <Navbar />
       <BasicRoutes />
       <Toaster />
-    </>
+    </div>
   );
 }
 
