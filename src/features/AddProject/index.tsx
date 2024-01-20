@@ -24,7 +24,6 @@ const AddProject = () => {
     if (token && spaceName) {
       try {
         const res = await getOrgProjects(token, spaceName);
-        console.log(res.data.projects);
         setOrgProjects(res.data.projects);
       } catch (e) {}
     }

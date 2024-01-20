@@ -3,6 +3,7 @@ import ProjectCard from '../projectCard';
 import './index.scss';
 import { Projects } from 'app/api/organization';
 import { ProjectsGithubData } from 'app/api/githubData';
+import { useSelector } from 'react-redux';
 
 interface Props {
   weekly: boolean;
@@ -21,38 +22,38 @@ const ProjectCardCont: React.FC<Props> = ({
   weeklyOrgProjectsData,
   archives,
 }) => {
-  useEffect(() => {}, [weekly]);
+  const searchValue = useSelector((state: any) => state.searchKeyword.value);
+
+  useEffect(() => {
+    console.log(orgProjects);
+  }, [weekly, searchValue]);
 
   return (
     <>
       <div className='projectcard-cont'>
         {orgProjects &&
-          Object.entries(orgProjects).map(([key, value]) => {
-            return (
-              archives === value.archeive &&
-              (weekly ? (
-                <ProjectCard
-                  key={key}
-                  orgName={orgName}
-                  projectName={key}
-                  status={value}
-                  githubData={
-                    weeklyOrgProjectsData ? weeklyOrgProjectsData[key] : null
-                  }
-                />
-              ) : (
-                <ProjectCard
-                  key={key}
-                  orgName={orgName}
-                  projectName={key}
-                  status={value}
-                  githubData={
-                    monthlyOrgProjectsData ? monthlyOrgProjectsData[key] : null
-                  }
-                />
-              ))
-            );
-          })}
+          Object.entries(orgProjects)
+            .filter(([key, value]) => {
+              if (key.toLowerCase().includes(searchValue.toLowerCase()))
+                return [key, value];
+            })
+            .map(([key, value]) => {
+              return (
+                archives === value.archeive && (
+                  <ProjectCard
+                    key={key}
+                    orgName={orgName}
+                    projectName={key}
+                    status={value}
+                    githubData={
+                      weekly
+                        ? weeklyOrgProjectsData && weeklyOrgProjectsData[key]
+                        : monthlyOrgProjectsData && monthlyOrgProjectsData[key]
+                    }
+                  />
+                )
+              );
+            })}
       </div>
     </>
   );

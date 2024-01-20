@@ -19,6 +19,8 @@ import { ProjectsGithubData } from 'app/api/githubData';
 import { Contributors } from 'app/api/githubData';
 import loader from '../../app/assets/gifs/loader.gif';
 import UserContext from 'app/context/user/userContext';
+import { useSelector } from 'react-redux';
+import { SEARCH } from 'app/constants/sliceNames';
 
 const Workspace = () => {
   const navigate = useNavigate();
@@ -94,8 +96,10 @@ const Workspace = () => {
     <>
       <div className='home-header'>
         <SearchBar />
-
-        <button className='' onClick={() => setArcheives(!archives)}>
+        <button
+          style={archives ? { background: 'var(--home-page-card-bg)' } : {}}
+          onClick={() => setArcheives(!archives)}
+        >
           Archives
         </button>
         {spaceName &&
