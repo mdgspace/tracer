@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import axios from 'axios';
 import { deleteProject, getMembers, getProject } from 'app/api/project';
+
 import { useQuery } from 'react-query';
 import { GetProject } from 'app/api/project';
 import { ProjectMembers } from 'app/api/project';
@@ -10,6 +11,7 @@ import { AVATAR_API } from 'envConstants';
 import UserContext from 'app/context/user/userContext';
 import { setArcheiveStatus } from 'app/api/organization';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 interface Props {
   projectName: string;
   orgName: string;
@@ -34,6 +36,7 @@ const ProjectCard: React.FC<Props> = ({
   const token = localStorage.getItem('token');
   const [showPopUp, setShowPopUp] = useState(false);
   const userContext = useContext(UserContext);
+  const navigate= useNavigate()
   const [pin, setPin] = useState<boolean>(status.archeive);
   const [archive, setArchive] = useState<boolean>(status.bookmark);
   const fetchProjectData = async () => {
@@ -160,6 +163,9 @@ const ProjectCard: React.FC<Props> = ({
             </div>
             <div className='archive' onClick={ArchiveHandler}>
               {archive ? 'Unarchive' : 'Archive'}
+            </div>
+            <div className='pin' onClick={()=> navigate(`/editProject/${orgName}/${projectName}`)} >
+              Edit
             </div>
             <div className='delete' onClick={DeleteHandler}>
               Delete

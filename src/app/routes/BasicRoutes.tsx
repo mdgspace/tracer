@@ -9,6 +9,7 @@ import AddWorkspace from 'features/AddWorkspace';
 import Workspace from 'features/workspace';
 
 import EditWorkspace from 'features/EditWorkspace';
+import EditProject from 'features/EditProject';
 
 const BasicRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const BasicRoutes = () => {
       <Route path={'/login'} element={<Login />} />
       <Route path={'/addWorkspace'} element={<AddWorkspace />} />
       <Route path={'/editWorkspace/:spaceName'} element ={<EditWorkspace/>} />
+      <Route path={'/editProject/:spaceName/:projectName'} element={<EditProject/>}/>
       <Route path={'/*'} element={<Error />} />
       {/* <Route path={'/testing'} element={<ProjectMembers />} /> */}
     </Routes>
