@@ -20,9 +20,9 @@ interface Prop{
 const LeaderBoard:React.FC<Prop> = ({weekly, weeklyOrgRank, monthlyOrgRank})  => {
   const [itemOffset, setItemOffset] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const newMockData = sortJSON(mockData);
+  // const newMockData = sortJSON(mockData);
   
-  const [items, setItems] = useState(mockData);
+  const [items, setItems] = useState<{index:number,name:string, issues:number , commits: number, pulls: number}[]>([]);
   const itemsPerPage = 4;
  
   const [itemsLength, setItemsLength] = useState<number>(0);
@@ -39,7 +39,18 @@ const LeaderBoard:React.FC<Prop> = ({weekly, weeklyOrgRank, monthlyOrgRank})  =>
 
   useEffect(()=>{
      if(weekly&&weeklyOrgRank){
-      
+      const arrayOfContributors = Object.entries(weeklyOrgRank).map(([name, data], index) => ({ index,name, ...data }));
+
+      setItems(arrayOfContributors)
+      setItemsLength(Object.keys(weeklyOrgRank).length)
+      setPageCount(Math.ceil(Object.keys(weeklyOrgRank).length/itemsPerPage))
+     }else if(!weekly&&monthlyOrgRank){
+      const arrayOfContributors = Object.entries(monthlyOrgRank).map(([name, data], index) => ({ index,name, ...data }));
+
+      setItems(arrayOfContributors)
+      setItemsLength(Object.keys(monthlyOrgRank).length)
+      setPageCount(Math.ceil(Object.keys(monthlyOrgRank).length/itemsPerPage))
+
      }
   },[weekly, weeklyOrgRank, monthlyOrgRank])
 
@@ -52,28 +63,28 @@ const LeaderBoard:React.FC<Prop> = ({weekly, weeklyOrgRank, monthlyOrgRank})  =>
           <div className='work-title'>PR</div>
         </div>
 
-        {items
+        {items&&items
           .slice(itemOffset, itemOffset + itemsPerPage)
-          .map((e: mockdatatypes) => {
-            if (e.Rank <= 3) {
+          .map((e) => {
+            if (e.index+1 <= 3) {
               return (
-                <div className='member' key={e.Name}>
+                <div className='member' key={e.name}>
                   <div className='rank'>
                     <img
-                      src={e.Rank == 1 ? gold : e.Rank == 2 ? silver : bronze}
+                      src={e.index+1 == 1 ? gold : e.index+1 == 2 ? silver : bronze}
                       alt='top-rank-medal'
                     />
                   </div>
-                  <div className='name'>{e.Name}</div>
-                  <div className='work'>{e.PR}</div>
+                  <div className='name'>{e.name}</div>
+                  <div className='work'>{e.pulls}</div>
                 </div>
               );
             } else {
               return (
-                <div className='member' key={e.id}>
-                  <div className='rank'>{e.Rank}</div>
-                  <div className='name'>{e.Name}</div>
-                  <div className='work'>{e.PR}</div>
+                <div className='member' key={e.name}>
+                  <div className='rank'>{e.index+1}</div>
+                  <div className='name'>{e.name}</div>
+                  <div className='work'>{e.pulls}</div>
                 </div>
               );
             }

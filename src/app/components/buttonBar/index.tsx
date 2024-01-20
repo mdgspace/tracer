@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import TimeRangeSwitch from 'app/components/timeRangeSwitch';
 
 import './index.scss';
+interface Props{
+  weekly: boolean,
+  setWeekly: (week:boolean)=>void
+  
+}
 const ButtonBar = () => {
   const [weeky, setWeekly]= useState<boolean>(true);
   return (

@@ -141,8 +141,8 @@ const ProjectCard: React.FC<Props> = ({
       {(userContext?.userOrgs?.userOrgs[orgName].role === 'admin' ||
         userContext?.userOrgs?.userOrgs[orgName].role === 'manager') && (
         <div>
-          <button onClick={PinHandler}>Pin</button>
-          <button onClick={ArchiveHandler}>Archive</button>
+          <button onClick={PinHandler}>{pin?"Unpin":"Pin"}</button>
+          <button onClick={ArchiveHandler}>{archive?"Unarchive":"Archive"}</button>
           <button onClick={DeleteHandler}>Delete</button>
         </div>
       )}

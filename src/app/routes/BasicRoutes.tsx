@@ -11,7 +11,7 @@ const BasicRoutes = () => {
   return (
     <Routes>
       <Route path={'/'} element={<WorkspaceView />} />
-      <Route path={'/projects/:projectName'} element={<ProjectPage />} />
+      <Route path={'/projects/:spaceName/:projectName'} element={<ProjectPage />} />
       <Route path={'/addproject/:spaceName'} element={<AddProject />} />
       <Route path={'/workspace/:spaceName'} element={<Workspace />} />
       <Route path={'/login'} element={<Login />} />
