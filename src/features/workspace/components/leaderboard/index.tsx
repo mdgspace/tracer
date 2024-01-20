@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import gold from 'app/assets/images/gold.svg';
 import silver from 'app/assets/images/silver.svg';
 import bronze from 'app/assets/images/bronze.svg';
@@ -8,18 +8,26 @@ import leftNavButton from 'app/assets/images/left_navigation_button.svg';
 import rightNavButton from 'app/assets/images/right_navigation_button.svg';
 import mockdatatypes from 'app/models/mockDataTypes';
 import './index.scss';
+import { Contributors } from 'app/api/githubData';
+
+interface Prop{
+  weekly: boolean,
+  weeklyOrgRank: Contributors | null
+  monthlyOrgRank: Contributors | null
+}
 
 
-
-const LeaderBoard = () => {
+const LeaderBoard:React.FC<Prop> = ({weekly, weeklyOrgRank, monthlyOrgRank})  => {
   const [itemOffset, setItemOffset] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const newMockData = sortJSON(mockData);
   
-  const [items] = useState(newMockData);
+  const [items, setItems] = useState(mockData);
   const itemsPerPage = 4;
-  const itemsLength = newMockData.length;
-  const pageCount = Math.ceil(itemsLength / itemsPerPage);
+ 
+  const [itemsLength, setItemsLength] = useState<number>(0);
+  const [pageCount, setPageCount] = useState<number>(0);
+  // const pageCount = Math.ceil(itemsLength / itemsPerPage);
 
   const handlePageClick = (_pageNumber: number) => {
     if (_pageNumber >= 1 && _pageNumber <= pageCount) {
@@ -29,13 +37,19 @@ const LeaderBoard = () => {
     }
   };
 
+  useEffect(()=>{
+     if(weekly&&weeklyOrgRank){
+      
+     }
+  },[weekly, weeklyOrgRank, monthlyOrgRank])
+
   return (
     <div className='leaderboard-cont'>
       <div className='leaderboard-main-cont'>
         <div className='member title'>
           <div className='rank-title'></div>
           <div className='name-title'>Name</div>
-          <div className='work-title'>Work</div>
+          <div className='work-title'>PR</div>
         </div>
 
         {items

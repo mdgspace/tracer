@@ -7,6 +7,7 @@ import { getMembers } from 'app/api/project';
 import UserContext from 'app/context/user/userContext';
 import toast from 'react-hot-toast';
 import { UserOrgDetails, UserOrgs, setOrgArcheiveStatus, setOrgBookmarkStatus } from 'app/api/user';
+import { useNavigate } from 'react-router-dom';
 
 type workspaceCardProps = {
   workspaceName: string;
@@ -28,7 +29,11 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [members, setMembers]= useState<members|null>(null)
   const userContext= useContext(UserContext)
+  const navigate= useNavigate()
   const workSpaceData= async()=>{
+         
+         
+          
           if(token&&workspaceName&&!workspaceName.endsWith("-userspace")){
            try{
      
@@ -58,7 +63,6 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   }
 
     useEffect(()=>{
-      console.log(workspaceName,bookmark)
     workSpaceData()
   },[workspaceName, userContext?.setUserOrgs])
 
@@ -190,7 +194,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
           {description?description.substring(0, 120) + '...':<></>}
         </div>
         <div className='workspace-details-btn'>
-          <img src={rightNavbtn} alt='' />
+          <img src={rightNavbtn} onClick={()=>navigate(`/workspace/${workspaceName}`)}  alt='' />
         </div>
       </div>
     </div>}

@@ -1,43 +1,46 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import './index.scss';
 import tick from '../../app/assets/images/tick.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getUser } from 'app/api/user';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { addProject } from 'app/api/project';
+import UserContext from 'app/context/user/userContext';
+import { OrgProjects, Projects, getOrgProjects } from 'app/api/organization';
 const AddProject = () => {
   const navigate = useNavigate();
+  const userContext = useContext(UserContext);
   const token = localStorage.getItem('token');
-  const orgName = 'orgName';
+  const { spaceName } = useParams();
   const [name, setName] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
   const [link, setLink] = useState<string | null>(null);
 
-  const [validLink, setValidLink] = useState<boolean>(false);
 
-  const [validName, setValidName] = useState<boolean>(false);
+  const [orgProject, setOrgProjects] = useState<Projects | null>(null);
 
+  const fetchData = async () => {
+    if (token && spaceName) {
+      try {
+        const res = await getOrgProjects(token, spaceName);
+        console.log(res.data.projects)
+        setOrgProjects(res.data.projects);
+      } catch (e) {}
+    }
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, [spaceName]);
 
   const linkChange = async (event: ChangeEvent<HTMLInputElement>) => {
     setLink(event.target.value);
-
-    if (isGitHubRepositoryLink(event.target.value)) {
-      try {
-        const response = await axios.get(event.target.value);
-        setValidLink(true);
-        return;
-      } catch (e) {}
-    }
-
-    setValidLink(false);
   };
 
   const nameChange = async (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-    setValidName(true);
   };
 
   function isGitHubRepositoryLink(link: string): boolean {
@@ -49,38 +52,50 @@ const AddProject = () => {
     return githubRepoPattern.test(link);
   }
 
+  function isValidName(input: string): boolean {
+    // Regular expression to match only alphanumeric characters, hyphens, and underscores
+    const regex = /^[a-zA-Z0-9-_]+$/;
+
+    // Test if the input string matches the regular expression
+    return regex.test(input);
+  }
+
+  const isUnique= (name: string)=>{
+    if(orgProject && name in orgProject){
+      return false;
+    }
+    return true;
+  }
+
   const SubmitHandler = async () => {
     if (
+      spaceName &&
       token &&
       name &&
-      validName &&
-      validLink &&
-      description &&
       link &&
-      description?.length > 3
+      isValidName(name) &&
+      isGitHubRepositoryLink(link) &&
+      description &&
+      
+      description?.length < 200
     ) {
-      try {
-        const res = await addProject(token, orgName, {
+      const func = async () => {
+        const res = await addProject(token, spaceName, {
           name: name,
           description: description,
           link: link,
         });
-      } catch (e) {
-        toast.error('Error while saving');
-      }
+        navigate(`/workspace/${spaceName}`);
+      };
+      toast.promise(func(), {
+        loading: 'Saving Project',
+        success: <b>Project saved</b>,
+        error: <b>Could not save</b>,
+      });
+    } else {
+      toast.error('Invalid inputs');
     }
-
-    toast.error('Invalid inputs');
   };
-
-
-  toast.promise(
-    SubmitHandler(),{
-      loading: 'Saving Project',
-      success: <b>Project saved</b>,
-      error:<b>Could not save</b>
-    }
-  )
 
   return (
     <div>
@@ -93,6 +108,9 @@ const AddProject = () => {
             onChange={nameChange}
             value={name ? name : ''}
           />
+          {!name ? 'Name feild should not be empty' : <></>}
+          {name && !isValidName(name) && 'Not a valid name'}
+          {name&&!isUnique(name)&&"This project name already exists"}
           <div className='input-title'>Project link</div>
           <input
             type='text'
@@ -100,6 +118,8 @@ const AddProject = () => {
             onChange={linkChange}
             placeholder='Github link of project'
           />
+          {!link ? 'Link feild should not be empty' : <></>}
+          {link&&!isGitHubRepositoryLink(link)&&"Not a valid github repository link"}
           <div className='input-title'>Description</div>
           <input
             type='text'
@@ -109,8 +129,10 @@ const AddProject = () => {
             }
             placeholder='Details about project'
           />
+          {!description ? 'Description feild should not be empty' : <></>}
+          {description&&description.length>=200&&"Description length should not be greater than 200"}
         </form>
-        <button className='add-project-btn'>
+        <button className='add-project-btn' onClick={SubmitHandler}>
           <img src={tick} alt='' /> Done
         </button>
       </div>

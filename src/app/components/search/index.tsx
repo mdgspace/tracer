@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { searchAction } from 'features/home/slices/projectSearchSlice';
+import { searchAction } from 'features/workspace/slices/projectSearchSlice';
 import search_icon from 'app/assets/images/search_icon.svg';
 import './index.scss';
 

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SearchBar from 'app/components/search';
 import TimeRangeSwitch from 'app/components/timeRangeSwitch';
 import ProjectCardCont from './components/projectCardContainer';
 import LeaderBoard from './components/leaderboard';
 import './index.scss';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getUser } from 'app/api/user';
 import toast from 'react-hot-toast';
 import { Query, useQuery } from 'react-query';
@@ -18,13 +18,15 @@ import { Projects } from 'app/api/organization';
 import { ProjectsGithubData } from 'app/api/githubData';
 import { Contributors } from 'app/api/githubData';
 import loader from '../../app/assets/gifs/loader.gif';
+import UserContext from 'app/context/user/userContext';
 
-const Home = () => {
+const Workspace = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const [userData, setUserData] = useState<string | null>(null);
+  const userContext= useContext(UserContext);
   const [weekly,setWeekly]= useState<boolean>(true);
   const [orgProjects, setOrgProjects] = useState<Projects | null>(null);
+  const [archives, setArcheives] = useState<boolean>(false)
   const [monthlyOrgRank, setMonthlyOrgRank] = useState<Contributors | null>(
     null
   );
@@ -33,86 +35,89 @@ const Home = () => {
     useState<ProjectsGithubData | null>(null);
   const [weeklyOrgProjectsData, setWeeklyOrgProjectsData] =
     useState<ProjectsGithubData | null>(null);
-  const orgName = 'yash';
+  const {spaceName} = useParams();
+  
 
   const fetchOrgProjects = async () => {
-    if (token) {
-      const orgProjects = await getOrgProjects(token, orgName);
+    if (token&&spaceName) {
+      const orgProjects = await getOrgProjects(token, spaceName);
       setOrgProjects(orgProjects.data.projects);
     
-
-      return {
-        orgProjects: orgProjects.data.projects,
-  
-      };
     }
   };
 
 
   const fetchWeeklyData= async()=>{
-    if(token){
-      const weeklyOrgRank = await getOrgRank(token, orgName, true);
+    if(token&&spaceName){
+      const weeklyOrgRank = await getOrgRank(token, spaceName, true);
       const weeklyOrgProjectsData = await getOrgGithubData(
         token,
-        orgName,
+        spaceName,
         false
       );
+     
       setWeeklyOrgProjectsData(weeklyOrgProjectsData.data.projects);
       setWeeklyOrgRank(weeklyOrgRank.data.contributors);
-      return {
-        weeklyOrgRank: weeklyOrgRank.data.contributors,
-        weeklyOrgProjectsData: weeklyOrgProjectsData.data.projects,
-      }
+  
 
     }
   } 
   
   const fetchMonthlyData= async()=>{
-    if(token){
-      const monthlyOrgRank = await getOrgRank(token, orgName, true);
+    if(token&&spaceName){
+      const monthlyOrgRank = await getOrgRank(token, spaceName, true);
       const monthlyOrgProjectsData = await getOrgGithubData(
         token,
-        orgName,
+        spaceName,
         true
       );
       setMonthlyOrgRank(monthlyOrgRank.data.contributors);
       setMOnthyOrgProjectsData(monthlyOrgProjectsData.data.projects);
-      return{
-        monthlyOrgProjectsData: monthlyOrgProjectsData.data.projects,
-        monthlyOrgRank: monthlyOrgRank.data.contributors,
-      }
+
     }
   }
 
-  const {  isLoading } = useQuery({
-    queryFn: () => fetchOrgProjects(),
-    queryKey: 'OrgProjects',
+  const { error, isLoading } = useQuery("orgProjects",fetchOrgProjects,{
+    enabled: true,
+    staleTime: Infinity
   });
+  
+  if(error){
+     navigate("/")
+  }
 
-  const {} = useQuery({
-    queryFn: ()=> fetchWeeklyData(),
-    queryKey: "weeklyData"
+
+
+  const {} = useQuery("weeklyData", fetchWeeklyData, {
+    enabled: true,
+    staleTime: Infinity
   })
   
-  const {}= useQuery({
-    queryFn: ()=>fetchMonthlyData(),
-    queryKey: "monthlyData"
+
+  const {}= useQuery("monthlyData", fetchMonthlyData,{
+    enabled: true,
+    staleTime: Infinity
   })
+
 
 
   return (
     <>
       <div className='home-header'>
-        <SearchBar/>
-        <TimeRangeSwitch />
+        <SearchBar />
+     
+       <button onClick={()=>setArcheives(!archives)}>Archives</button>
+       {spaceName&&(userContext?.userOrgs?.userOrgs[spaceName].role=='admin'|| userContext?.userOrgs?.userOrgs[spaceName].role=="manager")&&<button onClick={()=> navigate(`/addProject/${spaceName}`)}>Add Project</button>}
+        
+        <TimeRangeSwitch  weekly={weekly} setWeekly={setWeekly}/>
       </div>
       {isLoading?<div className='loader-container'>
         <img className='loading' src={loader} />
       </div>:
       
       <div className='home-main-cont'>
-        <ProjectCardCont weekly={weekly} orgName={orgName}  orgProjects={orgProjects}   monthlyOrgProjectsData={monthlyOrgProjectsData}  weeklyOrgProjectsData={weeklyOrgProjectsData}/>
-        <LeaderBoard />
+        {spaceName&&<ProjectCardCont archives={archives} weekly={weekly} orgName={spaceName}  orgProjects={orgProjects}   monthlyOrgProjectsData={monthlyOrgProjectsData}  weeklyOrgProjectsData={weeklyOrgProjectsData}/>}
+        <LeaderBoard weekly={weekly} weeklyOrgRank={weeklyOrgRank} monthlyOrgRank={monthlyOrgRank}/>
       </div>
       }
       
@@ -120,4 +125,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Workspace;

@@ -4,21 +4,26 @@ import { timeRangeModel } from 'features/project/components/contributorCard/type
 import { weekAction, monthAction } from './timeRangeSlice';
 import './index.scss';
 
-const TimeRangeSwitch = () => {
+interface Props{
+  weekly: boolean,
+  setWeekly: (bool: boolean)=>void
+}
+
+const TimeRangeSwitch:React.FC<Props> = ({weekly, setWeekly}) => {
   const dispatch = useDispatch();
   const isWeekly = useSelector((state: timeRangeModel) => state.isWeekly.value);
 
   return (
     <div className='timerange-cont'>
       <button
-        onClick={() => dispatch(weekAction())}
-        className={isWeekly ? 'active' : ''}
+        onClick={() => setWeekly(!weekly)}
+        className={weekly ? 'active' : ''}
       >
         Weekly{' '}
       </button>
       <button
-        onClick={() => dispatch(monthAction())}
-        className={isWeekly ? '' : 'active'}
+        onClick={() => setWeekly(!weekly)}
+        className={weekly ? '' : 'active'}
       >
         Monthly{' '}
       </button>

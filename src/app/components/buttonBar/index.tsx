@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TimeRangeSwitch from 'app/components/timeRangeSwitch';
 
 import './index.scss';
 const ButtonBar = () => {
+  const [weeky, setWeekly]= useState<boolean>(true);
   return (
     <div className='project-upper-cont'>
       <div className='button-bar'>
         <button className='back-btn'>&larr; Back</button>
-        <TimeRangeSwitch />
+        <TimeRangeSwitch weekly={weeky} setWeekly={setWeekly}/>
       </div>
       <h1>Appetizer</h1>
       <p>

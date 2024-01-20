@@ -148,7 +148,7 @@ const AddWorkspace = () => {
           }
 
         }
-        navigate('/workspace-view');
+        navigate('/');
       };
 
       toast.promise(func(), {
