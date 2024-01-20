@@ -47,7 +47,9 @@ const ProjectCard: React.FC<Props> = ({
   const fetchProjectMembers = async () => {
     if (token != null) {
       const members = await getMembers(token, projectName, orgName);
-      return members.data;
+      const myArray = Object.entries(members.data.members).map(([key, value]) => ({ key, value }));
+
+      return myArray;
     }
   };
 
@@ -161,13 +163,16 @@ const ProjectCard: React.FC<Props> = ({
       </div>
 
       <div className='image-stack'>
-        {project_members &&
-          Object.entries(project_members)
+        
+        {
+        project_members&&project_members.length>0 ?
+          project_members
             .slice(0, 4)
-            .map(([key, value]) => {
-              const url = AVATAR_URL + '/' + key + '.png?apikey=' + AVATAR_API;
-              return <img key={key} className='project-image' src={url} />;
-            })}
+            .map((obj) => {
+            
+              const url = AVATAR_URL + '/' + obj.key + '.png?apikey=' + AVATAR_API;
+              return <img key={obj.key} className='project-image' src={url} />;
+            }):<><div className='invisible-height'></div></>}
       </div>
     </div>
   );

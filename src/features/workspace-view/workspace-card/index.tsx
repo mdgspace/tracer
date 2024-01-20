@@ -33,6 +33,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [members, setMembers] = useState<members | null>(null);
+
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
   const workSpaceData = async () => {
@@ -165,9 +166,12 @@ const WorkspaceCard = (props: workspaceCardProps) => {
               <div className='archive' onClick={HandleArchive}>
                 {archeive ? 'Unarchive' : 'archive'}
               </div>
-              <div className='delete' onClick={HandleDelete}>
+             {members&&userContext?.username&&(members[userContext?.username.toString()]==="admin")&& <div className='delete' onClick={HandleDelete}>
                 delete
-              </div>
+              </div>}
+              {members&&userContext?.username&&(members[userContext?.username.toString()]==="admin")&& <div className='Edit' onClick={()=>navigate(`/editWorkspace/${workspaceName}`)}>
+                edit
+              </div>}
             </div>
             <div className='workspace-card-utils'>
               <div className='workspace-logo'>
