@@ -7,6 +7,7 @@ import WorkspaceView from 'features/workspace-view';
 import Login from 'features/login';
 import AddWorkspace from 'features/AddWorkspace';
 import Workspace from 'features/workspace';
+import ProjectMembers from 'features/project-members';
 const BasicRoutes = () => {
   return (
     <Routes>
@@ -17,6 +18,7 @@ const BasicRoutes = () => {
       <Route path={'/login'} element={<Login />} />
       <Route path={'/addWorkspace'} element={<AddWorkspace />} />
       <Route path={'/*'} element={<Error />} />
+      <Route path={'/testing'} element={<ProjectMembers />} />
     </Routes>
   );
 };
