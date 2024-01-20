@@ -3,7 +3,7 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
-import { addOrg, addOrgMembers, getAllOrgs, getOrg } from 'app/api/organization';
+import { addOrg, addOrgMembers, getAllOrgs, getOrg, updateOrg } from 'app/api/organization';
 import { uploadIcon } from 'app/api/file';
 
 import './index.scss';
@@ -133,12 +133,13 @@ const EditWorkspace = () => {
       description &&
       token &&
       name &&
+      spaceName&&
       validName &&
       uniqueName &&
       validDescription
     ) {
       const func = async (): Promise<void> => {
-        const dataRes = await addOrg(token, {
+        const dataRes = await updateOrg(token,spaceName, {
           name: name,
           description: description,
         });
@@ -195,7 +196,7 @@ const EditWorkspace = () => {
           />
           {!name ? <p>Name feild should not be empty</p> : <></>}
           {name!=spaceName&&!validName && name ? <p>Not a valid name</p> : <></>}
-          {!uniqueName && name ? (
+          {name!=spaceName && !uniqueName && name ? (
             <p>Name already taken. Try another name</p>
           ) : (
             <></>
