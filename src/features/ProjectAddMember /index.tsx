@@ -1,42 +1,42 @@
 import { getAllUser, getUser } from 'app/api/user';
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { AVATAR_API } from 'envConstants';
+import { AVATAR_URL } from 'app/constants/api';
 import toast from 'react-hot-toast';
-import { addOrg, addOrgMembers, getAllOrgs, getOrgMembers } from 'app/api/organization';
-import { uploadIcon } from 'app/api/file';
+import {
+  addOrg,
+  addOrgMembers,
+  getAllOrgs,
+  getOrgMembers,
+} from 'app/api/organization';
 
 import './index.scss';
 import UserContext from 'app/context/user/userContext';
-import { AVATAR_URL } from 'app/constants/api';
-import { AVATAR_API } from 'envConstants';
+import { addProjectsMembers, getMembers } from 'app/api/project';
 
-const WorkspaceAddMember = () => {
+const ProjectAddMember = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const userContext = useContext(UserContext);
 
   const [members, setMembers] = useState<string[]>([]);
   const [memberName, setMemberName] = useState<string | null>(null);
-  const [orgMembers, setOrgMembers] = useState<string[]>([])
-  const [users, setUsers] = useState<string[]>([]);
-  const {spaceName} = useParams()
+  
+  const { spaceName, projectName } = useParams();
+  const [projectMembers, setProjectMembers] = useState<string[]>([]);
+  const [orgMembers, setOrgMembers]= useState<string[]>([]);
 
   const dataFetch = async () => {
     try {
-      if (token&&spaceName) {
-        const users_aray: string[] = [];
-    
-        const allUser = await getAllUser(token);
-        const orgMembers = await getOrgMembers(token,spaceName)
-        allUser.data.users.forEach((user) => {
-          users_aray.push(user.username);
-        });
-        setOrgMembers(Object.keys(orgMembers.data.members))
+      if (token && spaceName && projectName) {
+        
+        const projectMemRes = await getMembers(token, projectName, spaceName);
+        const orgMemRes= await getOrgMembers(token, spaceName)
+   
+        setProjectMembers(Object.keys(projectMemRes.data.members));
+        setOrgMembers(Object.keys(orgMemRes.data.members))
 
-
-        setUsers(users_aray);
-     
       }
     } catch (e) {}
   };
@@ -45,17 +45,12 @@ const WorkspaceAddMember = () => {
     dataFetch();
   }, []);
 
-
-
-
-
   const addMembers = () => {
     if (memberName) {
       if (
-        users.includes(memberName) &&
-        memberName != userContext?.username &&
-        !members.includes(memberName)&&
-        !orgMembers.includes(memberName)
+        orgMembers.includes(memberName) &&
+        !members.includes(memberName) &&
+        !projectMembers.includes(memberName)
       ) {
         setMembers([...members, memberName]);
         setMemberName(null);
@@ -78,18 +73,19 @@ const WorkspaceAddMember = () => {
     }
   };
   const SubmitHandler = async (): Promise<void> => {
-    if (
-
-      token 
-   
-    ) {
+    if (token) {
       const func = async (): Promise<void> => {
-        if (members.length > 0&&spaceName) {
+        if (members.length > 0 && spaceName&&projectName) {
           try {
-            const addMmebersRes = await addOrgMembers(token, spaceName, members);
+            const addMmebersRes = await addProjectsMembers(
+              token,
+              projectName,
+              spaceName,
+              members
+            );
           } catch (e) {}
         }
-        navigate('/');
+        navigate(`/projectMembers/${spaceName}/${projectName}`);
       };
 
       toast.promise(func(), {
@@ -105,10 +101,7 @@ const WorkspaceAddMember = () => {
   return (
     <div className='main_aworkspace_container'>
       <div className='addworkspace-form-container'>
-      
-        
         <div className='single-form-element-container'>
-         
           <div className='add-member-container'>
             <input
               type='text'
@@ -123,12 +116,7 @@ const WorkspaceAddMember = () => {
             <button
               onClick={addMembers}
               className='add-member-button'
-              disabled={
-                memberName
-                  ? !users.includes(memberName) &&
-                    memberName == userContext?.username
-                  : true
-              }
+
             >
               {'+ Add'}
             </button>
@@ -175,4 +163,4 @@ const WorkspaceAddMember = () => {
   );
 };
 
-export default WorkspaceAddMember;
+export default ProjectAddMember;

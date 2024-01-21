@@ -1,10 +1,15 @@
-const BackNavigation = () => {
-  const clickBack = () => {
-    console.log('Back button clicked');
-  };
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+interface Prop{
+  spaceName: string | undefined
+}
+const BackNavigation: React.FC<Prop> = ({spaceName}) => {
+
+  const navigate= useNavigate()
   return (
-    <div className='back-title-container' onClick={clickBack}>
-      <button className='button'>
+    <div className='back-title-container' >
+      <button className='button'onClick={()=>navigate(`/workspace/${spaceName}`)}>
         <span>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -30,7 +35,7 @@ const BackNavigation = () => {
         Back
       </button>
       <h1 className='title'>
-        Organization <span className='arrow'>{'->'}</span> Manage
+        Project <span className='arrow'>{'->'}</span> Manage
       </h1>
     </div>
   );

@@ -12,12 +12,14 @@ import EditWorkspace from 'features/EditWorkspace';
 import EditProject from 'features/EditProject';
 import WorkspaceMembers from 'features/workspace-members ';
 import WorkspaceAddMember from 'features/WorkspaceAddMember';
+import ProjectMembers from 'features/project-members ';
+import ProjectAddMember from 'features/ProjectAddMember ';
 
 const BasicRoutes = () => {
   return (
     <Routes>
       <Route path={'/'} element={<WorkspaceView />} />
-      <Route path={'/projects/:spaceName/:projectName'} element={<ProjectPage />} />
+      <Route path={'/project/:spaceName/:projectName'} element={<ProjectPage />} />
       <Route path={'/addproject/:spaceName'} element={<AddProject />} />
       <Route path={'/workspace/:spaceName'} element={<Workspace />} />
       <Route path={'/login'} element={<Login />} />
@@ -26,6 +28,8 @@ const BasicRoutes = () => {
       <Route path={'/editProject/:spaceName/:projectName'} element={<EditProject/>}/>
       <Route path={'/workspaceMembers/:spaceName'} element={<WorkspaceMembers/>}/>
       <Route path={"/workspaceAddMembers/:spaceName"} element={<WorkspaceAddMember/>} />
+      <Route path={"/projectMembers/:spaceName/:projectName"} element={<ProjectMembers/>}/>
+      <Route path='/projectAddMembers/:spaceName/:projectName' element={<ProjectAddMember/>} />
       <Route path={'/*'} element={<Error />} />
       {/* <Route path={'/testing'} element={<ProjectMembers />} /> */}
     </Routes>

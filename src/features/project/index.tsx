@@ -31,7 +31,7 @@ const ProjectPage = () => {
   return (
     <>
       <div className='project-page'>
-        <ButtonBar weekly={weekly} setWeekly={setWeekly} project={project}/>
+        <ButtonBar weekly={weekly} setWeekly={setWeekly} project={project} workspaceName={spaceName}/>
         <Contributors weekly={weekly} monthlyData={monthlyData} weeklyData={weeklyData} />
       </div>
     </>

@@ -150,3 +150,13 @@
     opacity: 1;
   }
 }
+
+.workspace-details-btn {
+  display: flex;
+  justify-content: end;
+  height: 50px;
+}
+.workspace-details-btn img {
+  border-radius: 2rem;
+  font-size: 1rem;
+}

@@ -38,15 +38,22 @@ const Workspace = () => {
   const [weeklyOrgProjectsData, setWeeklyOrgProjectsData] =
     useState<ProjectsGithubData | null>(null);
   const { spaceName } = useParams();
-
+  const [isLoading, setIsLoading]= useState<boolean>(true)
   const fetchOrgProjects = async () => {
+    setIsLoading(true)
     if (token && spaceName) {
+      try{
       const orgProjects = await getOrgProjects(token, spaceName);
       setOrgProjects(orgProjects.data.projects);
+      }catch(e){
+        navigate("/")
+      }
     }
+    setIsLoading(false)
   };
 
   const fetchWeeklyData = async () => {
+    try{
     if (token && spaceName) {
       const weeklyOrgRank = await getOrgRank(token, spaceName, true);
       const weeklyOrgProjectsData = await getOrgGithubData(
@@ -57,10 +64,13 @@ const Workspace = () => {
 
       setWeeklyOrgProjectsData(weeklyOrgProjectsData.data.projects);
       setWeeklyOrgRank(weeklyOrgRank.data.contributors);
+    }}catch(e){
+
     }
   };
 
   const fetchMonthlyData = async () => {
+    try{
     if (token && spaceName) {
       const monthlyOrgRank = await getOrgRank(token, spaceName, true);
       const monthlyOrgProjectsData = await getOrgGithubData(
@@ -71,26 +81,18 @@ const Workspace = () => {
       setMonthlyOrgRank(monthlyOrgRank.data.contributors);
       setMOnthyOrgProjectsData(monthlyOrgProjectsData.data.projects);
     }
+  }catch(e){
+
+  }
   };
 
-  const { error, isLoading } = useQuery('orgProjects', fetchOrgProjects, {
-    enabled: true,
-    staleTime: Infinity,
-  });
+  useEffect(()=>{
+    fetchOrgProjects()
+    fetchWeeklyData()
+    fetchMonthlyData()
+  },[weekly, userContext?.setUsername, userContext?.setUserOrgs])
 
-  if (error) {
-    navigate('/');
-  }
 
-  const {} = useQuery('weeklyData', fetchWeeklyData, {
-    enabled: true,
-    staleTime: Infinity,
-  });
-
-  const {} = useQuery('monthlyData', fetchMonthlyData, {
-    enabled: true,
-    staleTime: Infinity,
-  });
 
   return (
     <>

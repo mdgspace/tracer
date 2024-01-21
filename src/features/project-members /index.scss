@@ -160,6 +160,21 @@
   }
 }
 
+.role {
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.6rem 1rem;
+  background: #402aa4;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+
 @media only screen and (max-width: 600px) {
   .member-view {
     width: 90%;

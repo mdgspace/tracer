@@ -8,6 +8,8 @@ import { uploadIcon } from 'app/api/file';
 
 import './index.scss';
 import UserContext from 'app/context/user/userContext';
+import { AVATAR_URL } from 'app/constants/api';
+import { AVATAR_API } from 'envConstants';
 
 const AddWorkspace = () => {
   const navigate = useNavigate();
@@ -244,7 +246,7 @@ const AddWorkspace = () => {
               <div className='member-card' key={index}>
                 <img
                   className='member-avatar'
-                  src='https://api.multiavatar.com/Binx.png'
+                  src={AVATAR_URL+"/"+member+".png?apikey="+AVATAR_API}
                 />{' '}
                 <p className='member-name'>{member}</p>{' '}
                 <button

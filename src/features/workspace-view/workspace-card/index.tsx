@@ -61,9 +61,6 @@ const WorkspaceCard = (props: workspaceCardProps) => {
     }
   };
 
-  useEffect(() => {
-    workSpaceData();
-  }, [workspaceName, userContext?.setUserOrgs]);
 
   const HandleDelete = async () => {
     if (!workspaceName.endsWith('-userspace') && token) {
@@ -148,6 +145,10 @@ const WorkspaceCard = (props: workspaceCardProps) => {
       }
     }
   };
+  useEffect(() => {
+    workSpaceData();
+  }, [workspaceName, userContext?.setUserOrgs, HandleArchive, HandleDelete, HandlePin]);
+
 
   return (
     <>

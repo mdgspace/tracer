@@ -9,9 +9,10 @@ import { ProjectMembers } from 'app/api/project';
 import { AVATAR_URL } from 'app/constants/api';
 import { AVATAR_API } from 'envConstants';
 import UserContext from 'app/context/user/userContext';
-import { setArcheiveStatus } from 'app/api/organization';
+import { setArcheiveStatus, setBookmarkStatus } from 'app/api/organization';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import rightNavbtn from '../../../../app/assets/images/right_navigation_button.svg'
 interface Props {
   projectName: string;
   orgName: string;
@@ -36,49 +37,38 @@ const ProjectCard: React.FC<Props> = ({
   const token = localStorage.getItem('token');
   const [showPopUp, setShowPopUp] = useState(false);
   const userContext = useContext(UserContext);
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   const [pin, setPin] = useState<boolean>(status.archeive);
   const [archive, setArchive] = useState<boolean>(status.bookmark);
+  const [project, setProject]= useState<GetProject|null>(null)
+  const [projectMembers, setProjectMembers]= useState<{key:string, value: string}[]>([])
+
   const fetchProjectData = async () => {
     if (token != null) {
       const project_data = await getProject(token, projectName, orgName);
-      return project_data.data;
-    } else {
-      return null;
+      setProject(project_data.data)
     }
   };
+
 
   const fetchProjectMembers = async () => {
     if (token != null) {
       const members = await getMembers(token, projectName, orgName);
-      const myArray = Object.entries(members.data.members).map(([key, value]) => ({ key, value }));
+      const myArray = Object.entries(members.data.members).map(
+        ([key, value]) => ({ key, value })
+      );
 
-      return myArray;
+      setProjectMembers(myArray)
     }
   };
 
-  const { data: project_data } = useQuery(
-    `${projectName}${orgName}`,
-    fetchProjectData,
-    {
-      enabled: true,
-      staleTime: Infinity,
-    }
-  );
-  const { data: project_members } = useQuery(
-    `${projectName}${orgName}Members`,
-    fetchProjectMembers,
-    {
-      enabled: true,
-      staleTime: Infinity,
-    }
-  );
+ 
 
   const PinHandler = async () => {
     if (token && orgName) {
       let initial = pin;
       const func = async () => {
-        const res = await setArcheiveStatus(token, orgName, {
+        const res = await setBookmarkStatus(token, orgName, {
           [projectName]: !pin,
         });
         setPin(!pin);
@@ -138,15 +128,19 @@ const ProjectCard: React.FC<Props> = ({
       });
     }
   };
+  useEffect(()=>{
+    fetchProjectData()
+    fetchProjectMembers()
+  },[ PinHandler, ArchiveHandler, DeleteHandler,userContext?.setUserOrgs, userContext?.setUserOrgs])
 
+  
   return (
     <div className='projectcard'>
       <h1>{projectName}</h1>
-      <p>{project_data ? project_data.description : <></>}</p>
+      <p>{project ? project.description : <></>}</p>
 
       {(userContext?.userOrgs?.userOrgs[orgName].role === 'admin' ||
         userContext?.userOrgs?.userOrgs[orgName].role === 'manager') && (
-
         <>
           <div
             className='workspace-popup-btn'
@@ -164,7 +158,10 @@ const ProjectCard: React.FC<Props> = ({
             <div className='archive' onClick={ArchiveHandler}>
               {archive ? 'Unarchive' : 'Archive'}
             </div>
-            <div className='pin' onClick={()=> navigate(`/editProject/${orgName}/${projectName}`)} >
+            <div
+              className='pin'
+              onClick={() => navigate(`/editProject/${orgName}/${projectName}`)}
+            >
               Edit
             </div>
             <div className='delete' onClick={DeleteHandler}>
@@ -172,7 +169,6 @@ const ProjectCard: React.FC<Props> = ({
             </div>
           </div>
         </>
-
       )}
       <div className='projectcard-status'>
         <div>
@@ -189,18 +185,26 @@ const ProjectCard: React.FC<Props> = ({
         </div>
       </div>
 
-      <div className='image-stack'>
-        
-        {
-        project_members&&project_members.length>0 ?
-          project_members
-            .slice(0, 4)
-            .map((obj) => {
-            
-              const url = AVATAR_URL + '/' + obj.key + '.png?apikey=' + AVATAR_API;
-              return <img key={obj.key} className='project-image' src={url} />;
-            }):<><div className='invisible-height'></div></>}
-      </div>
+      {orgName&&!orgName.endsWith("-userspace")&&<div className='image-stack' onClick={()=>navigate(`/projectMembers/${orgName}/${projectName}`)} >
+        {projectMembers && projectMembers.length > 0 ? (
+          projectMembers.slice(0, 4).map((obj) => {
+            const url =
+              AVATAR_URL + '/' + obj.key + '.png?apikey=' + AVATAR_API;
+            return <img key={obj.key} className='project-image' src={url} />;
+          })
+        ) : (
+          <>
+            <div className='invisible-height'>add Members</div>
+          </>
+        )}
+      </div>}
+      {orgName&&!orgName.endsWith("-userspace")&&<div className='workspace-details-btn'>
+        <img
+          src={rightNavbtn}
+          onClick={() => navigate(`/project/${orgName}/${projectName}`)}
+          alt=''
+        />
+      </div>}
     </div>
   );
 };

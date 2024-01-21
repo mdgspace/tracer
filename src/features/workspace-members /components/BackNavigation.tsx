@@ -6,8 +6,8 @@ const BackNavigation = () => {
   // };
   const navigate= useNavigate()
   return (
-    <div className='back-title-container' onClick={()=>navigate("/")}>
-      <button className='button'>
+    <div className='back-title-container' >
+      <button className='button' onClick={()=>navigate("/")}>
         <span>
           <svg
             xmlns='http://www.w3.org/2000/svg'
