@@ -1,22 +1,53 @@
+import { useParams } from 'react-router-dom';
 import BackNavigation from './components/BackNavigation';
 import MemberCard from './components/MemberCard';
 import Options from './components/Options';
 import './index.scss';
+import { useEffect, useState } from 'react';
+import { getOrgMembers } from 'app/api/organization';
+import { AVATAR_URL } from 'app/constants/api';
+import { AVATAR_API } from 'envConstants';
 const WorkspaceMembers = () => {
-  // const  member = await fetch('https://api.github.com/orgs/github/public_members');
+
+  const {spaceName} = useParams()
+  const token= localStorage.getItem('token')
+  const [orgMembers, setOrgMembers]= useState<{[username:string]:string} | null>(null)
+
+  const dataFetch= async()=>{
+    try{
+      if(spaceName&&token){
+        const memRes= await getOrgMembers(token, spaceName)
+      
+        setOrgMembers(memRes.data.members)
+
+      }
+    }catch(e){
+
+    }
+  }
+  useEffect(()=>{
+    dataFetch()
+  },[ setOrgMembers ])
+  
   return (
-    <div className='members-page-container'>
+    spaceName&&<div className='members-page-container'>
       <BackNavigation />
       <div className='member-view'>
-        <Options />
+        <Options spaceName={spaceName}/>
         <div className='members-list'>
-          <MemberCard
+          {orgMembers&&Object.entries(orgMembers).map(([key, value])=>{
+            return <MemberCard
             image={
-              'https://media.licdn.com/dms/image/D4E03AQGI1ZJx1AywYQ/profile-displayphoto-shrink_400_400/0/1665646743847?e=1710979200&v=beta&t=aLom25RLssprCiYXceT78QAtMTFm4Kl_94HoJlZXfTA'
+              AVATAR_URL + '/' + key + '.png?apikey=' + AVATAR_API
             }
-            name={'Karthik Ayangar'}
-            role={'member'}
+            name={key}
+            key={key}
+            role={value}
+            spaceName={spaceName}
+            orgMembers={orgMembers}
+            setOrgMembers={setOrgMembers}
           />
+          })}
         </div>
       </div>
     </div>

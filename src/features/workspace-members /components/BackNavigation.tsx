@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const BackNavigation = () => {
-  const clickBack = () => {
-    console.log('Back button clicked');
-  };
+  // const clickBack = () => {
+  //   console.log('Back button clicked');
+  // };
+  const navigate= useNavigate()
   return (
-    <div className='back-title-container' onClick={clickBack}>
+    <div className='back-title-container' onClick={()=>navigate("/")}>
       <button className='button'>
         <span>
           <svg

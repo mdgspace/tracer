@@ -13,7 +13,8 @@ import {
   setOrgBookmarkStatus,
 } from 'app/api/user';
 import { useNavigate } from 'react-router-dom';
-
+import { AVATAR_API } from 'envConstants';
+import { AVATAR_URL } from 'app/constants/api';
 type workspaceCardProps = {
   workspaceName: string;
   role: string;
@@ -33,6 +34,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [members, setMembers] = useState<members | null>(null);
+  const [membersArray, setMembersArray]= useState<{username:string}[]>([]);
 
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
@@ -51,6 +53,10 @@ const WorkspaceCard = (props: workspaceCardProps) => {
       try {
         const members_data = await getOrgMembers(token, workspaceName);
         setMembers(members_data.data.members);
+        const membersArray = Object.entries(members_data.data.members).map(([username]) => ({ username }));
+        setMembersArray(membersArray)
+
+
       } catch (e) {}
     }
   };
@@ -166,12 +172,23 @@ const WorkspaceCard = (props: workspaceCardProps) => {
               <div className='archive' onClick={HandleArchive}>
                 {archeive ? 'Unarchive' : 'archive'}
               </div>
-             {members&&userContext?.username&&(members[userContext?.username.toString()]==="admin")&& <div className='delete' onClick={HandleDelete}>
-                delete
-              </div>}
-              {members&&userContext?.username&&(members[userContext?.username.toString()]==="admin")&& <div className='Edit' onClick={()=>navigate(`/editWorkspace/${workspaceName}`)}>
-                edit
-              </div>}
+              {members &&
+                userContext?.username &&
+                members[userContext?.username.toString()] === 'admin' && (
+                  <div className='delete' onClick={HandleDelete}>
+                    delete
+                  </div>
+                )}
+              {members &&
+                userContext?.username &&
+                members[userContext?.username.toString()] === 'admin' && (
+                  <div
+                    className='Edit'
+                    onClick={() => navigate(`/editWorkspace/${workspaceName}`)}
+                  >
+                    edit
+                  </div>
+                )}
             </div>
             <div className='workspace-card-utils'>
               <div className='workspace-logo'>
@@ -190,8 +207,33 @@ const WorkspaceCard = (props: workspaceCardProps) => {
                     ? "USER's WORKSPACE"
                     : workspaceName}
                 </div>
-                <div className='members-view-container'>
-                  <div className='workspace-members-imgs'>img</div>
+                <div className='members-view-container' onClick={()=>navigate(`/workspaceMembers/${workspaceName}`)}>
+                  <div className='workspace-members-imgs'>
+                    <div className='image-stack'>
+                      { membersArray.length > 0 ? (
+                        membersArray.slice(0, 4).map((obj) => {
+                          const url =
+                            AVATAR_URL +
+                            '/' +
+                            obj.username +
+                            '.png?apikey=' +
+                            AVATAR_API;
+                          return (
+                            <img
+                              key={obj.username}
+                              className='project-image'
+                              src={url}
+                            />
+                          );
+                        })
+                      ) : (
+                        <>
+                          <div className='invisible-height'></div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
                   <div>{members ? Object.keys(members).length : 0} members</div>
                 </div>
               </div>
