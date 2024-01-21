@@ -11,6 +11,7 @@ import Workspace from 'features/workspace';
 import EditWorkspace from 'features/EditWorkspace';
 import EditProject from 'features/EditProject';
 import WorkspaceMembers from 'features/workspace-members ';
+import WorkspaceAddMember from 'features/WorkspaceAddMember';
 
 const BasicRoutes = () => {
   return (
@@ -24,6 +25,7 @@ const BasicRoutes = () => {
       <Route path={'/editWorkspace/:spaceName'} element ={<EditWorkspace/>} />
       <Route path={'/editProject/:spaceName/:projectName'} element={<EditProject/>}/>
       <Route path={'/workspaceMembers/:spaceName'} element={<WorkspaceMembers/>}/>
+      <Route path={"/workspaceAddMembers/:spaceName"} element={<WorkspaceAddMember/>} />
       <Route path={'/*'} element={<Error />} />
       {/* <Route path={'/testing'} element={<ProjectMembers />} /> */}
     </Routes>

@@ -38,11 +38,8 @@ const MemberCard = ({
   const HandleRoleChange= async(event:ChangeEvent<HTMLSelectElement>)=>{
     
     const new_role= event.target.value
-    console.log("helo")
     if(token&&spaceName&&orgMembers&&new_role!=role){
-        console.log("chu")
-        console.log({[name]:new_role})
-        
+    
 
         const func= async()=>{
           console.log({[name]:new_role})
