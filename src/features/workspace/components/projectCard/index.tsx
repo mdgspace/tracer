@@ -131,7 +131,7 @@ const ProjectCard: React.FC<Props> = ({
   useEffect(()=>{
     fetchProjectData()
     fetchProjectMembers()
-  },[ PinHandler, ArchiveHandler, DeleteHandler,userContext?.setUserOrgs, userContext?.setUserOrgs])
+  },[ userContext?.setUsername, userContext?.setUserOrgs])
 
   
   return (

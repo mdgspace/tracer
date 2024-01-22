@@ -118,19 +118,21 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   const HandleArchive = async () => {
     if (!workspaceName.endsWith('-userspace') && token) {
       const initArc = archeive;
+   
       const func = async () => {
-        let status: { [key: string]: boolean } = {
-          [workspaceName]: !bookmark,
+        const status: { [key: string]: boolean } = {
+          [workspaceName]: (!archeive),
         };
-
-        const res = await setOrgArcheiveStatus(token, status);
+        console.log(status)
+         const res = await setOrgArcheiveStatus(token, status);
+        console.log(res)
         const orgs = userContext?.userOrgs;
         if (orgs?.userOrgs.hasOwnProperty(workspaceName)) {
-          orgs.userOrgs[workspaceName].archive = (!bookmark).toString();
+          orgs.userOrgs[workspaceName].archive = (!archeive).toString();
           userContext?.setUserOrgs(orgs);
         }
       };
-      if (initArc) {
+      if (!initArc) {
         toast.promise(func(), {
           loading: 'Archiving',
           success: <b>Successfully archived</b>,
@@ -147,7 +149,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   };
   useEffect(() => {
     workSpaceData();
-  }, [workspaceName, userContext?.setUserOrgs, HandleArchive, HandleDelete, HandlePin]);
+  }, [ userContext?.setUserOrgs ]);
 
 
   return (
