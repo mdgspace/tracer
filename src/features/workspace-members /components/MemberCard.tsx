@@ -1,6 +1,11 @@
 import { changeOrgMembersStatus, removeOrgMembers } from 'app/api/organization';
 import UserContext from 'app/context/user/userContext';
-import { ChangeEvent, ChangeEventHandler, ReactEventHandler, useContext } from 'react';
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  ReactEventHandler,
+  useContext,
+} from 'react';
 import toast from 'react-hot-toast';
 
 const MemberCard = ({
@@ -35,27 +40,24 @@ const MemberCard = ({
     }
   };
 
-  const HandleRoleChange= async(event:ChangeEvent<HTMLSelectElement>)=>{
-    
-    const new_role= event.target.value
-    if(token&&spaceName&&orgMembers&&new_role!=role){
-    
-
-        const func= async()=>{
-          console.log({[name]:new_role})
-          const res= await changeOrgMembersStatus(token, spaceName,{[name]:new_role})
-          orgMembers[name]=new_role
-          setOrgMembers(orgMembers)
-        }
-        toast.promise(func(), {
-          loading: 'Changing Role',
-          success: <b>Role changed</b>,
-          error: <b>Unable to change</b>,
+  const HandleRoleChange = async (event: ChangeEvent<HTMLSelectElement>) => {
+    const new_role = event.target.value;
+    if (token && spaceName && orgMembers && new_role != role) {
+      const func = async () => {
+        console.log({ [name]: new_role });
+        const res = await changeOrgMembersStatus(token, spaceName, {
+          [name]: new_role,
         });
-        
+        orgMembers[name] = new_role;
+        setOrgMembers(orgMembers);
+      };
+      toast.promise(func(), {
+        loading: 'Changing Role',
+        success: <b>Role changed</b>,
+        error: <b>Unable to change</b>,
+      });
     }
-  }
-
+  };
 
   return (
     <div className='member-card'>
@@ -69,10 +71,15 @@ const MemberCard = ({
           userContext?.username &&
           userContext.username != name &&
           orgMembers[userContext?.username.toString()] == 'admin' ? (
-            <select name='role' onChange={HandleRoleChange} id='role' defaultValue={role.toLowerCase()}>
-              <option value='admin' >Admin</option>
-              <option value='manager' >Manager</option>
-              <option value='member' >Member</option>
+            <select
+              name='role'
+              onChange={HandleRoleChange}
+              id='role'
+              defaultValue={role.toLowerCase()}
+            >
+              <option value='admin'>Admin</option>
+              <option value='manager'>Manager</option>
+              <option value='member'>Member</option>
             </select>
           ) : (
             <div className='role'>

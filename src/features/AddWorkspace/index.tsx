@@ -246,7 +246,7 @@ const AddWorkspace = () => {
               <div className='member-card' key={index}>
                 <img
                   className='member-avatar'
-                  src={AVATAR_URL+"/"+member+".png?apikey="+AVATAR_API}
+                  src={AVATAR_URL + '/' + member + '.png?apikey=' + AVATAR_API}
                 />{' '}
                 <p className='member-name'>{member}</p>{' '}
                 <button

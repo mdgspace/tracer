@@ -5,8 +5,8 @@ import dumy_profile from 'app/assets/images/dumy_profile.svg';
 import { AVATAR_API } from 'envConstants';
 import { AVATAR_URL } from 'app/constants/api';
 const ContributorCard = (props: contributorPropTypes) => {
-  const { Name, PR,Commits, Issues } = props;
-  const url=AVATAR_URL + '/' + Name + '.png?apikey=' + AVATAR_API
+  const { Name, PR, Commits, Issues } = props;
+  const url = AVATAR_URL + '/' + Name + '.png?apikey=' + AVATAR_API;
   return (
     <div className='contributor-card'>
       <img className='contributor-image' alt='profile' src={url} />

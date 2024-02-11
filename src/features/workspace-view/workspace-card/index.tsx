@@ -34,7 +34,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [members, setMembers] = useState<members | null>(null);
-  const [membersArray, setMembersArray]= useState<{username:string}[]>([]);
+  const [membersArray, setMembersArray] = useState<{ username: string }[]>([]);
 
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
@@ -53,14 +53,13 @@ const WorkspaceCard = (props: workspaceCardProps) => {
       try {
         const members_data = await getOrgMembers(token, workspaceName);
         setMembers(members_data.data.members);
-        const membersArray = Object.entries(members_data.data.members).map(([username]) => ({ username }));
-        setMembersArray(membersArray)
-
-
+        const membersArray = Object.entries(members_data.data.members).map(
+          ([username]) => ({ username })
+        );
+        setMembersArray(membersArray);
       } catch (e) {}
     }
   };
-
 
   const HandleDelete = async () => {
     if (!workspaceName.endsWith('-userspace') && token) {
@@ -118,14 +117,14 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   const HandleArchive = async () => {
     if (!workspaceName.endsWith('-userspace') && token) {
       const initArc = archeive;
-   
+
       const func = async () => {
         const status: { [key: string]: boolean } = {
-          [workspaceName]: (!archeive),
+          [workspaceName]: !archeive,
         };
-        console.log(status)
-         const res = await setOrgArcheiveStatus(token, status);
-        console.log(res)
+        console.log(status);
+        const res = await setOrgArcheiveStatus(token, status);
+        console.log(res);
         const orgs = userContext?.userOrgs;
         if (orgs?.userOrgs.hasOwnProperty(workspaceName)) {
           orgs.userOrgs[workspaceName].archive = (!archeive).toString();
@@ -149,8 +148,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   };
   useEffect(() => {
     workSpaceData();
-  }, [ userContext?.setUserOrgs ]);
-
+  }, [userContext?.setUserOrgs]);
 
   return (
     <>
@@ -210,10 +208,13 @@ const WorkspaceCard = (props: workspaceCardProps) => {
                     ? "USER's WORKSPACE"
                     : workspaceName}
                 </div>
-                <div className='members-view-container' onClick={()=>navigate(`/workspaceMembers/${workspaceName}`)}>
+                <div
+                  className='members-view-container'
+                  onClick={() => navigate(`/workspaceMembers/${workspaceName}`)}
+                >
                   <div className='workspace-members-imgs'>
                     <div className='image-stack'>
-                      { membersArray.length > 0 ? (
+                      {membersArray.length > 0 ? (
                         membersArray.slice(0, 4).map((obj) => {
                           const url =
                             AVATAR_URL +

@@ -12,7 +12,7 @@ import UserContext from 'app/context/user/userContext';
 import { setArcheiveStatus, setBookmarkStatus } from 'app/api/organization';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import rightNavbtn from '../../../../app/assets/images/right_navigation_button.svg'
+import rightNavbtn from '../../../../app/assets/images/right_navigation_button.svg';
 interface Props {
   projectName: string;
   orgName: string;
@@ -40,16 +40,17 @@ const ProjectCard: React.FC<Props> = ({
   const navigate = useNavigate();
   const [pin, setPin] = useState<boolean>(status.archeive);
   const [archive, setArchive] = useState<boolean>(status.bookmark);
-  const [project, setProject]= useState<GetProject|null>(null)
-  const [projectMembers, setProjectMembers]= useState<{key:string, value: string}[]>([])
+  const [project, setProject] = useState<GetProject | null>(null);
+  const [projectMembers, setProjectMembers] = useState<
+    { key: string; value: string }[]
+  >([]);
 
   const fetchProjectData = async () => {
     if (token != null) {
       const project_data = await getProject(token, projectName, orgName);
-      setProject(project_data.data)
+      setProject(project_data.data);
     }
   };
-
 
   const fetchProjectMembers = async () => {
     if (token != null) {
@@ -58,11 +59,9 @@ const ProjectCard: React.FC<Props> = ({
         ([key, value]) => ({ key, value })
       );
 
-      setProjectMembers(myArray)
+      setProjectMembers(myArray);
     }
   };
-
- 
 
   const PinHandler = async () => {
     if (token && orgName) {
@@ -128,12 +127,11 @@ const ProjectCard: React.FC<Props> = ({
       });
     }
   };
-  useEffect(()=>{
-    fetchProjectData()
-    fetchProjectMembers()
-  },[ userContext?.setUsername, userContext?.setUserOrgs])
+  useEffect(() => {
+    fetchProjectData();
+    fetchProjectMembers();
+  }, [userContext?.setUsername, userContext?.setUserOrgs]);
 
-  
   return (
     <div className='projectcard'>
       <h1>{projectName}</h1>
@@ -185,26 +183,33 @@ const ProjectCard: React.FC<Props> = ({
         </div>
       </div>
 
-      {orgName&&!orgName.endsWith("-userspace")&&<div className='image-stack' onClick={()=>navigate(`/projectMembers/${orgName}/${projectName}`)} >
-        {projectMembers && projectMembers.length > 0 ? (
-          projectMembers.slice(0, 4).map((obj) => {
-            const url =
-              AVATAR_URL + '/' + obj.key + '.png?apikey=' + AVATAR_API;
-            return <img key={obj.key} className='project-image' src={url} />;
-          })
-        ) : (
-          <>
-            <div className='invisible-height'>add Members</div>
-          </>
-        )}
-      </div>}
-      {orgName&&!orgName.endsWith("-userspace")&&<div className='workspace-details-btn'>
-        <img
-          src={rightNavbtn}
-          onClick={() => navigate(`/project/${orgName}/${projectName}`)}
-          alt=''
-        />
-      </div>}
+      {orgName && !orgName.endsWith('-userspace') && (
+        <div
+          className='image-stack'
+          onClick={() => navigate(`/projectMembers/${orgName}/${projectName}`)}
+        >
+          {projectMembers && projectMembers.length > 0 ? (
+            projectMembers.slice(0, 4).map((obj) => {
+              const url =
+                AVATAR_URL + '/' + obj.key + '.png?apikey=' + AVATAR_API;
+              return <img key={obj.key} className='project-image' src={url} />;
+            })
+          ) : (
+            <>
+              <div className='invisible-height'>add Members</div>
+            </>
+          )}
+        </div>
+      )}
+      {orgName && !orgName.endsWith('-userspace') && (
+        <div className='workspace-details-btn'>
+          <img
+            src={rightNavbtn}
+            onClick={() => navigate(`/project/${orgName}/${projectName}`)}
+            alt=''
+          />
+        </div>
+      )}
     </div>
   );
 };

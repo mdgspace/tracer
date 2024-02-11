@@ -22,21 +22,19 @@ const ProjectAddMember = () => {
 
   const [members, setMembers] = useState<string[]>([]);
   const [memberName, setMemberName] = useState<string | null>(null);
-  
+
   const { spaceName, projectName } = useParams();
   const [projectMembers, setProjectMembers] = useState<string[]>([]);
-  const [orgMembers, setOrgMembers]= useState<string[]>([]);
+  const [orgMembers, setOrgMembers] = useState<string[]>([]);
 
   const dataFetch = async () => {
     try {
       if (token && spaceName && projectName) {
-        
         const projectMemRes = await getMembers(token, projectName, spaceName);
-        const orgMemRes= await getOrgMembers(token, spaceName)
-   
-        setProjectMembers(Object.keys(projectMemRes.data.members));
-        setOrgMembers(Object.keys(orgMemRes.data.members))
+        const orgMemRes = await getOrgMembers(token, spaceName);
 
+        setProjectMembers(Object.keys(projectMemRes.data.members));
+        setOrgMembers(Object.keys(orgMemRes.data.members));
       }
     } catch (e) {}
   };
@@ -75,7 +73,7 @@ const ProjectAddMember = () => {
   const SubmitHandler = async (): Promise<void> => {
     if (token) {
       const func = async (): Promise<void> => {
-        if (members.length > 0 && spaceName&&projectName) {
+        if (members.length > 0 && spaceName && projectName) {
           try {
             const addMmebersRes = await addProjectsMembers(
               token,
@@ -113,11 +111,7 @@ const ProjectAddMember = () => {
               }}
               placeholder='Github ID of user'
             />
-            <button
-              onClick={addMembers}
-              className='add-member-button'
-
-            >
+            <button onClick={addMembers} className='add-member-button'>
               {'+ Add'}
             </button>
           </div>
@@ -128,7 +122,7 @@ const ProjectAddMember = () => {
               <div className='member-card' key={index}>
                 <img
                   className='member-avatar'
-                  src={AVATAR_URL+"/"+member+".png?apikey="+AVATAR_API}
+                  src={AVATAR_URL + '/' + member + '.png?apikey=' + AVATAR_API}
                 />{' '}
                 <p className='member-name'>{member}</p>{' '}
                 <button

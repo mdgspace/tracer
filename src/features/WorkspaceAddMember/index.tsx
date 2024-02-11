@@ -3,7 +3,12 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
-import { addOrg, addOrgMembers, getAllOrgs, getOrgMembers } from 'app/api/organization';
+import {
+  addOrg,
+  addOrgMembers,
+  getAllOrgs,
+  getOrgMembers,
+} from 'app/api/organization';
 import { uploadIcon } from 'app/api/file';
 
 import './index.scss';
@@ -18,25 +23,23 @@ const WorkspaceAddMember = () => {
 
   const [members, setMembers] = useState<string[]>([]);
   const [memberName, setMemberName] = useState<string | null>(null);
-  const [orgMembers, setOrgMembers] = useState<string[]>([])
+  const [orgMembers, setOrgMembers] = useState<string[]>([]);
   const [users, setUsers] = useState<string[]>([]);
-  const {spaceName} = useParams()
+  const { spaceName } = useParams();
 
   const dataFetch = async () => {
     try {
-      if (token&&spaceName) {
+      if (token && spaceName) {
         const users_aray: string[] = [];
-    
+
         const allUser = await getAllUser(token);
-        const orgMembers = await getOrgMembers(token,spaceName)
+        const orgMembers = await getOrgMembers(token, spaceName);
         allUser.data.users.forEach((user) => {
           users_aray.push(user.username);
         });
-        setOrgMembers(Object.keys(orgMembers.data.members))
-
+        setOrgMembers(Object.keys(orgMembers.data.members));
 
         setUsers(users_aray);
-     
       }
     } catch (e) {}
   };
@@ -45,16 +48,12 @@ const WorkspaceAddMember = () => {
     dataFetch();
   }, []);
 
-
-
-
-
   const addMembers = () => {
     if (memberName) {
       if (
         users.includes(memberName) &&
         memberName != userContext?.username &&
-        !members.includes(memberName)&&
+        !members.includes(memberName) &&
         !orgMembers.includes(memberName)
       ) {
         setMembers([...members, memberName]);
@@ -78,15 +77,15 @@ const WorkspaceAddMember = () => {
     }
   };
   const SubmitHandler = async (): Promise<void> => {
-    if (
-
-      token 
-   
-    ) {
+    if (token) {
       const func = async (): Promise<void> => {
-        if (members.length > 0&&spaceName) {
+        if (members.length > 0 && spaceName) {
           try {
-            const addMmebersRes = await addOrgMembers(token, spaceName, members);
+            const addMmebersRes = await addOrgMembers(
+              token,
+              spaceName,
+              members
+            );
           } catch (e) {}
         }
         navigate('/');
@@ -105,10 +104,7 @@ const WorkspaceAddMember = () => {
   return (
     <div className='main_aworkspace_container'>
       <div className='addworkspace-form-container'>
-      
-        
         <div className='single-form-element-container'>
-         
           <div className='add-member-container'>
             <input
               type='text'
@@ -140,7 +136,7 @@ const WorkspaceAddMember = () => {
               <div className='member-card' key={index}>
                 <img
                   className='member-avatar'
-                  src={AVATAR_URL+"/"+member+".png?apikey="+AVATAR_API}
+                  src={AVATAR_URL + '/' + member + '.png?apikey=' + AVATAR_API}
                 />{' '}
                 <p className='member-name'>{member}</p>{' '}
                 <button

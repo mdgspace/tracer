@@ -8,6 +8,7 @@ import { UserOrgDetails, getUserOrgs } from 'app/api/user';
 import loader from '../../app/assets/gifs/loader.gif';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import FirstVisit from 'app/components/firstVisit';
 
 const WorkspaceView = () => {
   const userContext = useContext(UserContext);
@@ -43,6 +44,7 @@ const WorkspaceView = () => {
 
   return (
     <div className='workspaceview-container'>
+      <FirstVisit />
       <div className='workspaceview-header'>
         <SearchBar />
 
@@ -56,24 +58,24 @@ const WorkspaceView = () => {
         {isLoad ? (
           <img src={loader} className='loader' />
         ) : (
-          userContext?.userOrgs &&
-          Object.entries(userContext.userOrgs.userOrgs)
-            .filter(([key, value]) => {
-              if (key.toLowerCase().includes(searchValue.toLowerCase()))
-                return [key, value];
-            })
-            .map(([orgName, details]) => {
-              return (
-                <WorkspaceCard
-                  key={orgName}
-                  workspaceName={orgName}
-                  archeive={'true' === details.archive}
-                  bookmark={'true' === details.bookmark}
-                  role={details.role}
-                  archeives={archeives}
-                />
-              );
-            })
+            userContext?.userOrgs &&
+              Object.entries(userContext.userOrgs.userOrgs)
+                .filter(([key, value]) => {
+                  if (key.toLowerCase().includes(searchValue.toLowerCase()))
+                    return [key, value];
+                })
+                .map(([orgName, details]) => {
+                  return (
+                    <WorkspaceCard
+                      key={orgName}
+                      workspaceName={orgName}
+                      archeive={'true' === details.archive}
+                      bookmark={'true' === details.bookmark}
+                      role={details.role}
+                      archeives={archeives}
+                    />
+                  );
+                })
         )}
       </div>
     </div>

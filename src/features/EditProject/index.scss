@@ -1,76 +1,75 @@
 .add-project-container {
-    width: 70vw;
-    height: 76.5vh;
-    margin: 60px auto;
-    background: linear-gradient(110.51deg, #141432 0.9%, #2a2a4b 101.51%);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  
-  .add-project-form input {
-    box-sizing: border-box;
-  
-    /* Auto layout */
-    border: 0.8px solid #402aa4;
-    border-radius: 14px;
-    background: linear-gradient(110.51deg, #141432 0.9%, #2a2a4b 101.51%);
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 20px 100px 20px 30px;
-    margin: 20px 0;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 30px;
-    /* identical to box height */
-  
-    color: rgba(173, 173, 255, 0.75);
-  }
-  
-  .input-title {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 30px;
-    /* identical to box height */
-  
-    color: #8181ff;
-  }
-  
-  .add-project-btn {
-    position: absolute;
-    right: 66px;
-    bottom: 44px;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 22px;
-    /* identical to box height */
-  
-    display: flex;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 10px 16px;
-    gap: 2px;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-    background: #402aa4;
-    border-radius: 14px;
-    color: #ffffff;
-  }
-  
-  .add-project-btn img {
-    padding-top: 3px;
-    padding-right: 4px;
-  }
-  
+  width: 70vw;
+  height: 76.5vh;
+  margin: 60px auto;
+  background: linear-gradient(110.51deg, #141432 0.9%, #2a2a4b 101.51%);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.add-project-form input {
+  box-sizing: border-box;
+
+  /* Auto layout */
+  border: 0.8px solid #402aa4;
+  border-radius: 14px;
+  background: linear-gradient(110.51deg, #141432 0.9%, #2a2a4b 101.51%);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 20px 100px 20px 30px;
+  margin: 20px 0;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+
+  color: rgba(173, 173, 255, 0.75);
+}
+
+.input-title {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+
+  color: #8181ff;
+}
+
+.add-project-btn {
+  position: absolute;
+  right: 66px;
+  bottom: 44px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px 16px;
+  gap: 2px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  background: #402aa4;
+  border-radius: 14px;
+  color: #ffffff;
+}
+
+.add-project-btn img {
+  padding-top: 3px;
+  padding-right: 4px;
+}

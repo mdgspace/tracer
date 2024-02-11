@@ -21,8 +21,8 @@ export interface OrgRank {
   contributors: Contributors;
 }
 
-export interface ProjectStats{
-  contributors: Contributors
+export interface ProjectStats {
+  contributors: Contributors;
 }
 
 // Contributors==project issues commits pull
@@ -71,7 +71,7 @@ export const getProjectGithubData = async (
   orgName: string,
   projectName: string,
   monthly: boolean
-) : Promise<AxiosResponse<ProjectStats>>=> {
+): Promise<AxiosResponse<ProjectStats>> => {
   const url =
     BACKEND_URL +
     '/api/protected/github/' +
