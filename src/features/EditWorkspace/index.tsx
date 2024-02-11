@@ -101,33 +101,7 @@ const EditWorkspace = () => {
     }
   };
 
-  const addMembers = () => {
-    if (memberName) {
-      if (
-        users.includes(memberName) &&
-        memberName != userContext?.username &&
-        !members.includes(memberName)
-      ) {
-        setMembers([...members, memberName]);
-        setMemberName(null);
-      }
-    }
-  };
 
-  const removeMembers = (member: string) => {
-    const indexToRemove = members.indexOf(member);
-
-    if (indexToRemove !== -1) {
-      const updatedMembers = [
-        ...members.slice(0, indexToRemove),
-        ...members.slice(indexToRemove + 1),
-      ];
-
-      setMembers(updatedMembers);
-    } else {
-      console.warn(`Member "${member}" not found in the members array.`);
-    }
-  };
   const SubmitHandler = async (): Promise<void> => {
     if (
       description &&
