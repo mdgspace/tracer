@@ -8,6 +8,7 @@ import { UserOrgDetails, getUserOrgs } from 'app/api/user';
 import loader from '../../app/assets/gifs/loader.gif';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 const WorkspaceView = () => {
   const userContext = useContext(UserContext);
@@ -41,14 +42,27 @@ const WorkspaceView = () => {
     searchValue,
   ]);
 
+  const LogoutHandler= async()=>{
+    try{
+        localStorage.removeItem('token')
+        toast.success('Logout successful!');
+        navigate("/login")
+    }catch(e){
+
+    }
+  }
   return (
     <div className='workspaceview-container'>
       <div className='workspaceview-header'>
         <SearchBar />
 
         <button onClick={() => setArcheives(!archeives)} style={archeives?{background: '#141432'}:{}}>Archeives</button>
+        
         <button onClick={() => navigate('/addWorkspace')}>
           Create a workspace
+        </button>
+        <button onClick={LogoutHandler}>
+          Logout
         </button>
       </div>
 
