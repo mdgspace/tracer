@@ -63,11 +63,12 @@ const WorkspaceView = () => {
                 return [key, value];
             })
             .map(([orgName, details]) => {
+              
               return (
                 <WorkspaceCard
                   key={orgName}
                   workspaceName={orgName}
-                  archeive={'true' === details.archive}
+                  archeive={'true' === details.archeive}
                   bookmark={'true' === details.bookmark}
                   role={details.role}
                   archeives={archeives}

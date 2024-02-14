@@ -47,7 +47,7 @@ const MemberCard = ({
     
 
         const func= async()=>{
-          console.log({[name]:new_role})
+    
           const res= await changeProjectMembersStatus(token,projectName ,spaceName,{[name]:new_role})
           projectMembers[name]=new_role
           setProjectMembers(projectMembers)

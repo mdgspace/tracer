@@ -42,7 +42,7 @@ const MemberCard = ({
     
 
         const func= async()=>{
-          console.log({[name]:new_role})
+    
           const res= await changeOrgMembersStatus(token, spaceName,{[name]:new_role})
           orgMembers[name]=new_role
           setOrgMembers(orgMembers)

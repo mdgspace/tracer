@@ -130,12 +130,14 @@ const WorkspaceCard = (props: workspaceCardProps) => {
         const status: { [key: string]: boolean } = {
           [workspaceName]: (!archeive),
         };
-        console.log(status)
+    
+  
          const res = await setOrgArcheiveStatus(token, status);
-        console.log(res)
+     
+      
         const orgs = userContext?.userOrgs;
         if (orgs?.userOrgs.hasOwnProperty(workspaceName)) {
-          orgs.userOrgs[workspaceName].archive = (!archeive).toString();
+          orgs.userOrgs[workspaceName].archeive= (!archeive).toString();
           userContext?.setUserOrgs(orgs);
         }
       };
@@ -155,6 +157,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
     }
   };
   useEffect(() => {
+    console.log(archeive)
     workSpaceData();
   }, [ userContext?.setUserOrgs ]);
 
