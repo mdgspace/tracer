@@ -46,7 +46,7 @@ const WorkspaceView = () => {
       <div className='workspaceview-header'>
         <SearchBar />
 
-        <button onClick={() => setArcheives(!archeives)}>Archeives</button>
+        <button onClick={() => setArcheives(!archeives)} style={archeives?{background: '#141432'}:{}}>Archeives</button>
         <button onClick={() => navigate('/addWorkspace')}>
           Create a workspace
         </button>

@@ -14,19 +14,22 @@ const TimeRangeSwitch: React.FC<Props> = ({ weekly, setWeekly }) => {
   // const dispatch = useDispatch();
   // const isWeekly = useSelector((state: timeRangeModel) => state.isWeekly.value);
  useEffect(()=>{
+  console.log(weekly,"makki")
  },[weekly, setWeekly])
   return (
     <div className='timerange-cont'>
       <button
         onClick={() => setWeekly(true)}
         className={weekly ? 'active' :''}
-        // className={'active'}
+        style={weekly?{}:{background:'transparent'}}
+     
       >
         Weekly{' '}
       </button>
       <button
         onClick={() => setWeekly(false)}
-        className={weekly ? '' : 'active'}
+        className={weekly ? '' :'active'}
+        style={weekly?{background:'transparent'}:{}}
       >
         Monthly{' '}
       </button>

@@ -157,7 +157,6 @@ const WorkspaceCard = (props: workspaceCardProps) => {
     }
   };
   useEffect(() => {
-    console.log(archeive)
     workSpaceData();
   }, [ userContext?.setUserOrgs ]);
 
