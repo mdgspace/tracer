@@ -6,6 +6,9 @@ import { deleteFile, getIcon, getIconName } from 'app/api/file';
 import { getMembers } from 'app/api/project';
 import UserContext from 'app/context/user/userContext';
 import toast from 'react-hot-toast';
+import { FaBookmark } from "react-icons/fa";
+
+
 import {
   UserOrgDetails,
   UserOrgs,
@@ -154,13 +157,15 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   };
   useEffect(() => {
     workSpaceData();
-  }, [userContext?.setUserOrgs]);
+  }, [userContext?.setUserOrgs, userContext?.setUsername]);
 
   return (
     <>
       {archeive == archeives && (
         <div className='workspace-card'>
+          
           <div className='workspace-card-body'>
+            {bookmark&&<FaBookmark/>}
             <div
               className='workspace-popup-btn pointer'
               onClick={() => setShowPopUp(showPopUp ? false : true)}
@@ -186,6 +191,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
                     delete
                   </div>
                 )}
+                
               {members &&
                 userContext?.username &&
                 members[userContext?.username.toString()] === 'admin' && (

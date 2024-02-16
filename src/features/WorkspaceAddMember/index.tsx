@@ -88,7 +88,7 @@ const WorkspaceAddMember = () => {
             );
           } catch (e) {}
         }
-        navigate('/');
+        navigate(`/workspaceMembers/${spaceName}`);
       };
 
       toast.promise(func(), {

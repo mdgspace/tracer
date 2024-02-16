@@ -94,6 +94,12 @@ const Workspace = () => {
       <div className='home-header'>
         <SearchBar />
         <button
+          
+          onClick={()=>navigate('/')}
+        >
+         Home
+        </button>
+        <button
           style={archives ? { background: 'var(--home-page-card-bg)' } : {}}
           onClick={() => setArcheives(!archives)}
         >

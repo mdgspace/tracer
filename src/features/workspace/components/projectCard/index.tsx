@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import axios from 'axios';
 import { deleteProject, getMembers, getProject } from 'app/api/project';
-
+import { FaBookmark } from "react-icons/fa";
 import { useQuery } from 'react-query';
 import { GetProject } from 'app/api/project';
 import { ProjectMembers } from 'app/api/project';
@@ -13,6 +13,7 @@ import { setArcheiveStatus, setBookmarkStatus } from 'app/api/organization';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import rightNavbtn from '../../../../app/assets/images/right_navigation_button.svg';
+import { pipeline } from 'stream';
 interface Props {
   projectName: string;
   orgName: string;
@@ -134,12 +135,17 @@ const ProjectCard: React.FC<Props> = ({
 
   return (
     <div className='projectcard'>
+       
+       <div className='pinDiv'>
+       {pin&&<FaBookmark/>}
+       </div>
       <h1>{projectName}</h1>
       <p>{project ? project.description : <></>}</p>
 
       {(userContext?.userOrgs?.userOrgs[orgName].role === 'admin' ||
         userContext?.userOrgs?.userOrgs[orgName].role === 'manager') && (
         <>
+       
           <div
             className='workspace-popup-btn'
             onClick={() => setShowPopUp(showPopUp ? false : true)}
