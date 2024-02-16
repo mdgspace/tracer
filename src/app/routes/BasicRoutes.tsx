@@ -14,7 +14,7 @@ import WorkspaceMembers from 'features/workspace-members ';
 import WorkspaceAddMember from 'features/WorkspaceAddMember';
 import ProjectMembers from 'features/project-members ';
 import ProjectAddMember from 'features/ProjectAddMember ';
-import FirstVisit from 'app/components/firstVisit';
+import FirstVisit from '../components/firstVisit';
 
 const BasicRoutes = () => {
   return (
