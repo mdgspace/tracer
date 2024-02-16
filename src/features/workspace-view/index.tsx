@@ -15,6 +15,7 @@ const WorkspaceView = () => {
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [archeives, setArcheives] = useState<boolean>(false);
   const token = localStorage.getItem('token');
+  const [orgs, setOrgs] = useState<UserOrgDetails[]>();
   const navigate = useNavigate();
   const fetchData = async () => {
     if (token && userContext?.username) {
@@ -25,6 +26,7 @@ const WorkspaceView = () => {
           userContext?.username.toString()
         );
         userContext?.setUserOrgs(userOrgs.data);
+     
       } catch (e) {}
 
       setIsLoad(false);

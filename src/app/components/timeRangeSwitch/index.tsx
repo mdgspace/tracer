@@ -14,7 +14,7 @@ const TimeRangeSwitch: React.FC<Props> = ({ weekly, setWeekly }) => {
   // const dispatch = useDispatch();
   // const isWeekly = useSelector((state: timeRangeModel) => state.isWeekly.value);
  useEffect(()=>{
-  console.log(weekly,"makki")
+
  },[weekly, setWeekly])
   return (
     <div className='timerange-cont'>

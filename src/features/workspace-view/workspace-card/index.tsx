@@ -22,6 +22,7 @@ type workspaceCardProps = {
   bookmark: boolean;
   archeives: boolean;
 };
+
 interface members {
   [username: string]: string;
 }
@@ -31,7 +32,6 @@ const WorkspaceCard = (props: workspaceCardProps) => {
   const [description, setDescription] = useState<null | string>(null);
   const [showPopUp, setShowPopUp] = useState(false);
   const token = localStorage.getItem('token');
-  const [fileName, setFileName] = useState<string | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [members, setMembers] = useState<members | null>(null);
   const [membersArray, setMembersArray]= useState<{username:string}[]>([]);
@@ -167,7 +167,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
         <div className='workspace-card'>
           <div className='workspace-card-body'>
             <div
-              className='workspace-popup-btn'
+              className='workspace-popup-btn pointer'
               onClick={() => setShowPopUp(showPopUp ? false : true)}
             >
               {!workspaceName.endsWith('-userspace') && (
@@ -178,16 +178,16 @@ const WorkspaceCard = (props: workspaceCardProps) => {
               )}
             </div>
             <div className={showPopUp ? 'workspace-popup' : 'hide'}>
-              <div className='pin' onClick={HandlePin}>
+              <div className='pin pointer' onClick={HandlePin}>
                 {bookmark ? 'UnPin' : 'Pin'}
               </div>
-              <div className='archive' onClick={HandleArchive}>
+              <div className='archive pointer' onClick={HandleArchive}>
                 {archeive ? 'Unarchive' : 'archive'}
               </div>
               {members &&
                 userContext?.username &&
                 members[userContext?.username.toString()] === 'admin' && (
-                  <div className='delete' onClick={HandleDelete}>
+                  <div className='delete pointer' onClick={HandleDelete}>
                     delete
                   </div>
                 )}
@@ -195,7 +195,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
                 userContext?.username &&
                 members[userContext?.username.toString()] === 'admin' && (
                   <div
-                    className='Edit'
+                    className='Edit pointer'
                     onClick={() => navigate(`/editWorkspace/${workspaceName}`)}
                   >
                     edit
@@ -219,7 +219,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
                     ? "USER's WORKSPACE"
                     : workspaceName}
                 </div>
-                <div className='members-view-container' onClick={()=>navigate(`/workspaceMembers/${workspaceName}`)}>
+                <div className='members-view-container pointer' onClick={()=>navigate(`/workspaceMembers/${workspaceName}`)}>
                   <div className='workspace-members-imgs'>
                     <div className='image-stack'>
                       { membersArray.length > 0 ? (
@@ -258,6 +258,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
             <div className='workspace-details-btn'>
               <img
                 src={rightNavbtn}
+                className='pointer'
                 onClick={() => navigate(`/workspace/${workspaceName}`)}
                 alt=''
               />
