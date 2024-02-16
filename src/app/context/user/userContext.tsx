@@ -1,4 +1,4 @@
-import { UserOrgDetails, UserOrgs } from 'app/api/user';
+import { UserOrgs } from 'app/api/user';
 import { createContext } from 'react';
 
 export interface UserContextType {

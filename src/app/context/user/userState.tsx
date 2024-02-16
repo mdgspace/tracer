@@ -1,6 +1,6 @@
 import { FC, ReactNode, useState } from 'react';
 import UserContext from './userContext';
-import { UserOrgDetails, UserOrgs } from 'app/api/user';
+import {  UserOrgs } from 'app/api/user';
 
 interface Props {
   children: ReactNode;

@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
+
 import { CLIENT_ID } from '../../envConstants';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { login } from 'app/api/login';
 import { useQuery } from 'react-query';
-import { getUser } from 'app/api/user';
 import toast from 'react-hot-toast';
 import loader from '../../app/assets/gifs/loader.gif';
 

@@ -1,15 +1,12 @@
 import { getAllUser, getUser } from 'app/api/user';
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import  { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 import {
-  addOrg,
   addOrgMembers,
-  getAllOrgs,
   getOrgMembers,
 } from 'app/api/organization';
-import { uploadIcon } from 'app/api/file';
+
 
 import './index.scss';
 import UserContext from 'app/context/user/userContext';

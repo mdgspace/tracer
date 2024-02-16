@@ -1,11 +1,9 @@
 import { getAllUser, getUser } from 'app/api/user';
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import  { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 import {
-  addOrg,
-  addOrgMembers,
+
   getAllOrgs,
   getOrg,
   updateOrg,
@@ -18,7 +16,6 @@ import UserContext from 'app/context/user/userContext';
 const EditWorkspace = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const userContext = useContext(UserContext);
   const { spaceName } = useParams();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -27,8 +24,7 @@ const EditWorkspace = () => {
   const [validDescription, setValidDescription] = useState<boolean>(true);
   const [validName, setValidName] = useState<boolean>(false);
   const [uniqueName, setUniqueName] = useState<boolean>(false);
-  const [members, setMembers] = useState<string[]>([]);
-  const [memberName, setMemberName] = useState<string | null>(null);
+
 
   const [users, setUsers] = useState<string[]>([]);
   const [orgs, setOrgs] = useState<string[]>([]);

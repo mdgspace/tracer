@@ -25,7 +25,7 @@ export interface ProjectStats {
   contributors: Contributors;
 }
 
-// Contributors==project issues commits pull
+
 export interface OrgProjectGithubData {
   projects: ProjectsGithubData;
 }

@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './index.scss';
-import axios from 'axios';
 import { deleteProject, getMembers, getProject } from 'app/api/project';
 import { FaBookmark } from "react-icons/fa";
-import { useQuery } from 'react-query';
 import { GetProject } from 'app/api/project';
-import { ProjectMembers } from 'app/api/project';
 import { AVATAR_URL } from 'app/constants/api';
 import { AVATAR_API } from 'envConstants';
 import UserContext from 'app/context/user/userContext';
@@ -13,7 +10,6 @@ import { setArcheiveStatus, setBookmarkStatus } from 'app/api/organization';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import rightNavbtn from '../../../../app/assets/images/right_navigation_button.svg';
-import { pipeline } from 'stream';
 interface Props {
   projectName: string;
   orgName: string;

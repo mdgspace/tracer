@@ -4,23 +4,18 @@ import TimeRangeSwitch from 'app/components/timeRangeSwitch';
 import ProjectCardCont from './components/projectCardContainer';
 import LeaderBoard from './components/leaderboard';
 import './index.scss';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { getUser } from 'app/api/user';
-import toast from 'react-hot-toast';
-import { Query, useQuery } from 'react-query';
-import { getAllOrgs, getOrgProjects } from 'app/api/organization';
+import {  useNavigate, useParams } from 'react-router-dom';
+import {  getOrgProjects } from 'app/api/organization';
 import {
   getOrgGithubData,
   getOrgRank,
-  getProjectGithubData,
 } from 'app/api/githubData';
 import { Projects } from 'app/api/organization';
 import { ProjectsGithubData } from 'app/api/githubData';
 import { Contributors } from 'app/api/githubData';
 import loader from '../../app/assets/gifs/loader.gif';
 import UserContext from 'app/context/user/userContext';
-import { useSelector } from 'react-redux';
-import { SEARCH } from 'app/constants/sliceNames';
+
 
 const Workspace = () => {
   const navigate = useNavigate();

@@ -2,8 +2,6 @@ import { changeOrgMembersStatus, removeOrgMembers } from 'app/api/organization';
 import UserContext from 'app/context/user/userContext';
 import {
   ChangeEvent,
-  ChangeEventHandler,
-  ReactEventHandler,
   useContext,
 } from 'react';
 import toast from 'react-hot-toast';

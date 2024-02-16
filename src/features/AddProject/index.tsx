@@ -2,16 +2,13 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import './index.scss';
 import tick from '../../app/assets/images/tick.png';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getUser } from 'app/api/user';
 import toast from 'react-hot-toast';
-import { useQuery } from 'react-query';
-import axios from 'axios';
 import { addProject } from 'app/api/project';
-import UserContext from 'app/context/user/userContext';
-import { OrgProjects, Projects, getOrgProjects } from 'app/api/organization';
+import {  Projects, getOrgProjects } from 'app/api/organization';
+
+
 const AddProject = () => {
   const navigate = useNavigate();
-  const userContext = useContext(UserContext);
   const token = localStorage.getItem('token');
   const { spaceName } = useParams();
   const [name, setName] = useState<string | null>(null);

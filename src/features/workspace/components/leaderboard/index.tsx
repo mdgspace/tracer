@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react';
 import gold from 'app/assets/images/gold.svg';
 import silver from 'app/assets/images/silver.svg';
 import bronze from 'app/assets/images/bronze.svg';
-import { mockData } from 'app/utils/data';
-import { sortJSON } from 'app/utils/sort';
 import leftNavButton from 'app/assets/images/left_navigation_button.svg';
 import rightNavButton from 'app/assets/images/right_navigation_button.svg';
-import mockdatatypes from 'app/models/mockDataTypes';
 import './index.scss';
 import { Contributors } from 'app/api/githubData';
 

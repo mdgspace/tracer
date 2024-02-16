@@ -3,8 +3,6 @@ import './index.scss';
 import ContributorCard from '../contributorCard';
 import next_contributor from 'app/assets/images/next_contributor.svg';
 import previous_contributor from 'app/assets/images/previous_contributor.svg';
-import { mockData } from 'app/utils/data';
-import mockdatatypes from 'app/models/mockDataTypes';
 import ReactSimplyCarousel from 'react-simply-carousel';
 import { Contributors as contri } from 'app/api/githubData';
 

@@ -3,7 +3,6 @@ import './index.scss';
 import rightNavbtn from '../../../app/assets/images/right_navigation_button.svg';
 import { deleteOrg, getOrg, getOrgMembers } from 'app/api/organization';
 import { deleteFile, getIcon, getIconName } from 'app/api/file';
-import { getMembers } from 'app/api/project';
 import UserContext from 'app/context/user/userContext';
 import toast from 'react-hot-toast';
 import { FaBookmark } from "react-icons/fa";
@@ -11,7 +10,6 @@ import { FaBookmark } from "react-icons/fa";
 
 import {
   UserOrgDetails,
-  UserOrgs,
   setOrgArcheiveStatus,
   setOrgBookmarkStatus,
 } from 'app/api/user';

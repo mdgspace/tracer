@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Contributors from './components/contributors';
 import ButtonBar from 'app/components/buttonBar';
 import './index.scss';

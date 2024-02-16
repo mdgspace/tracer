@@ -1,12 +1,11 @@
 import SearchBar from 'app/components/search';
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import WorkspaceCard from './workspace-card';
-import { workSpaceData } from 'app/utils/workspaceData';
 import UserContext from 'app/context/user/userContext';
 import { UserOrgDetails, getUserOrgs } from 'app/api/user';
 import loader from '../../app/assets/gifs/loader.gif';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import FirstVisit from 'app/components/firstVisit';
 import toast from 'react-hot-toast';
@@ -16,7 +15,6 @@ const WorkspaceView = () => {
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [archeives, setArcheives] = useState<boolean>(false);
   const token = localStorage.getItem('token');
-  const [orgs, setOrgs] = useState<UserOrgDetails[]>();
   const navigate = useNavigate();
   const fetchData = async () => {
     if (token && userContext?.username) {

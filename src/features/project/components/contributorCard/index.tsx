@@ -1,7 +1,6 @@
-import React from 'react';
+
 import './index.scss';
 import contributorPropTypes from 'app/models/contributorPropTypes';
-import dumy_profile from 'app/assets/images/dumy_profile.svg';
 import { AVATAR_API } from 'envConstants';
 import { AVATAR_URL } from 'app/constants/api';
 const ContributorCard = (props: contributorPropTypes) => {
