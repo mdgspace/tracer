@@ -1,0 +1,7 @@
+build
+.github
+node_modules
+.eslintignore
+.eslintrc.json
+.prettierignore
+.prettierrc
