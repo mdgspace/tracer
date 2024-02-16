@@ -1,10 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 const BackNavigation = () => {
-  // const clickBack = () => {
-  //   console.log('Back button clicked');
-  // };
-  const navigate = useNavigate();
+
+  const navigate= useNavigate()
   return (
     <div className='back-title-container'>
       <button className='button' onClick={() => navigate('/')}>

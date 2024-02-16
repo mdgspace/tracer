@@ -9,6 +9,7 @@ import loader from '../../app/assets/gifs/loader.gif';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import FirstVisit from 'app/components/firstVisit';
+import toast from 'react-hot-toast';
 
 const WorkspaceView = () => {
   const userContext = useContext(UserContext);
@@ -42,15 +43,28 @@ const WorkspaceView = () => {
     searchValue,
   ]);
 
+  const LogoutHandler= async()=>{
+    try{
+        localStorage.removeItem('token')
+        toast.success('Logout successful!');
+        navigate("/login")
+    }catch(e){
+
+    }
+  }
   return (
     <div className='workspaceview-container'>
       <FirstVisit />
       <div className='workspaceview-header'>
         <SearchBar />
 
-        <button onClick={() => setArcheives(!archeives)}>Archeives</button>
+        <button onClick={() => setArcheives(!archeives)} style={archeives?{background: '#141432'}:{}}>Archeives</button>
+        
         <button onClick={() => navigate('/addWorkspace')}>
           Create a workspace
+        </button>
+        <button onClick={LogoutHandler}>
+          Logout
         </button>
       </div>
 
@@ -58,24 +72,25 @@ const WorkspaceView = () => {
         {isLoad ? (
           <img src={loader} className='loader' />
         ) : (
-            userContext?.userOrgs &&
-              Object.entries(userContext.userOrgs.userOrgs)
-                .filter(([key, value]) => {
-                  if (key.toLowerCase().includes(searchValue.toLowerCase()))
-                    return [key, value];
-                })
-                .map(([orgName, details]) => {
-                  return (
-                    <WorkspaceCard
-                      key={orgName}
-                      workspaceName={orgName}
-                      archeive={'true' === details.archive}
-                      bookmark={'true' === details.bookmark}
-                      role={details.role}
-                      archeives={archeives}
-                    />
-                  );
-                })
+          userContext?.userOrgs &&
+          Object.entries(userContext.userOrgs.userOrgs)
+            .filter(([key, value]) => {
+              if (key.toLowerCase().includes(searchValue.toLowerCase()))
+                return [key, value];
+            })
+            .map(([orgName, details]) => {
+              
+              return (
+                <WorkspaceCard
+                  key={orgName}
+                  workspaceName={orgName}
+                  archeive={'true' === details.archeive}
+                  bookmark={'true' === details.bookmark}
+                  role={details.role}
+                  archeives={archeives}
+                />
+              );
+            })
         )}
       </div>
     </div>

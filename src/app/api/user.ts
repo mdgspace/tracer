@@ -13,7 +13,7 @@ export interface UserOrgDetails {
   [key: string]: {
     bookmark: string;
     role: string;
-    archive: string;
+    archeive: string;
   };
 }
 

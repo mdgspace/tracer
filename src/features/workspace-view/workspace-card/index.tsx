@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import rightNavbtn from '../../../app/assets/images/right_navigation_button.svg';
 import { deleteOrg, getOrg, getOrgMembers } from 'app/api/organization';
-import { deleteFile, getIcon } from 'app/api/file';
+import { deleteFile, getIcon, getIconName } from 'app/api/file';
 import { getMembers } from 'app/api/project';
 import UserContext from 'app/context/user/userContext';
 import toast from 'react-hot-toast';
@@ -58,6 +58,13 @@ const WorkspaceCard = (props: workspaceCardProps) => {
         );
         setMembersArray(membersArray);
       } catch (e) {}
+
+      try{
+
+        const iconRes= await getIconName(token, workspaceName)
+        const fileName= iconRes.data.message
+        const deleteRes= await deleteFile(token, fileName)
+      }catch(e){}
     }
   };
 
@@ -122,12 +129,14 @@ const WorkspaceCard = (props: workspaceCardProps) => {
         const status: { [key: string]: boolean } = {
           [workspaceName]: !archeive,
         };
-        console.log(status);
-        const res = await setOrgArcheiveStatus(token, status);
-        console.log(res);
+    
+  
+         const res = await setOrgArcheiveStatus(token, status);
+     
+      
         const orgs = userContext?.userOrgs;
         if (orgs?.userOrgs.hasOwnProperty(workspaceName)) {
-          orgs.userOrgs[workspaceName].archive = (!archeive).toString();
+          orgs.userOrgs[workspaceName].archeive= (!archeive).toString();
           userContext?.setUserOrgs(orgs);
         }
       };

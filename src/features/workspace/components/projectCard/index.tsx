@@ -38,12 +38,10 @@ const ProjectCard: React.FC<Props> = ({
   const [showPopUp, setShowPopUp] = useState(false);
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
-  const [pin, setPin] = useState<boolean>(status.archeive);
-  const [archive, setArchive] = useState<boolean>(status.bookmark);
-  const [project, setProject] = useState<GetProject | null>(null);
-  const [projectMembers, setProjectMembers] = useState<
-    { key: string; value: string }[]
-  >([]);
+  const [pin, setPin] = useState<boolean>(status.bookmark);
+  const [archive, setArchive] = useState<boolean>(status.archeive);
+  const [project, setProject]= useState<GetProject|null>(null)
+  const [projectMembers, setProjectMembers]= useState<{key:string, value: string}[]>([])
 
   const fetchProjectData = async () => {
     if (token != null) {
