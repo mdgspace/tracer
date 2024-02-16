@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const BackNavigation = () => {
-
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   return (
-    <div className='back-title-container' >
-      <button className='button' onClick={()=>navigate("/")}>
+    <div className='back-title-container'>
+      <button className='button' onClick={() => navigate('/')}>
         <span>
           <svg
             xmlns='http://www.w3.org/2000/svg'

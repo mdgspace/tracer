@@ -124,7 +124,7 @@ export const changeOrgMembersStatus = async (
   orgName: string,
   orgMemberStatus: { [key: string]: string }
 ) => {
-  const url = BACKEND_URL + '/api/protected/org/changeMembersStatus/'+orgName;
+  const url = BACKEND_URL + '/api/protected/org/changeMembersStatus/' + orgName;
   const respnse = await axios.put(
     url,
     {

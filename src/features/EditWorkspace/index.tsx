@@ -3,7 +3,13 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
-import { addOrg, addOrgMembers, getAllOrgs, getOrg, updateOrg } from 'app/api/organization';
+import {
+  addOrg,
+  addOrgMembers,
+  getAllOrgs,
+  getOrg,
+  updateOrg,
+} from 'app/api/organization';
 import { uploadIcon } from 'app/api/file';
 
 import './index.scss';
@@ -13,7 +19,7 @@ const EditWorkspace = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const userContext = useContext(UserContext);
-  const {spaceName}= useParams()
+  const { spaceName } = useParams();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [name, SetName] = useState<string | null>(null);
@@ -29,8 +35,7 @@ const EditWorkspace = () => {
 
   const dataFetch = async () => {
     try {
-      if (token&&spaceName) {
-        
+      if (token && spaceName) {
         const users_aray: string[] = [];
         const org_aray: string[] = [];
         const allUser = await getAllUser(token);
@@ -46,20 +51,19 @@ const EditWorkspace = () => {
         setUsers(users_aray);
         setOrgs(org_aray);
       }
-      if(token&&spaceName){
-        SetName(spaceName)
-        setUniqueName(true)
-        setValidName(true)
+      if (token && spaceName) {
+        SetName(spaceName);
+        setUniqueName(true);
+        setValidName(true);
       }
-      if(token&&spaceName){
-        const Org= await getOrg(token, spaceName)
-        setDiscription(Org.data.description)
+      if (token && spaceName) {
+        const Org = await getOrg(token, spaceName);
+        setDiscription(Org.data.description);
       }
     } catch (e) {}
   };
 
   useEffect(() => {
-    
     dataFetch();
   }, []);
 
@@ -103,20 +107,18 @@ const EditWorkspace = () => {
     }
   };
 
-
   const SubmitHandler = async (): Promise<void> => {
     if (
       description &&
       token &&
       name &&
-      spaceName&&
+      spaceName &&
       validName &&
       uniqueName &&
       validDescription
     ) {
-     
       const func = async (): Promise<void> => {
-        const dataRes = await updateOrg(token,spaceName, {
+        const dataRes = await updateOrg(token, spaceName, {
           name: name,
           description: description,
         });
@@ -126,7 +128,7 @@ const EditWorkspace = () => {
             const fileRes = uploadIcon(token, name, selectedFile);
           }
         } catch (e) {}
-       
+
         navigate('/');
       };
 
@@ -136,7 +138,6 @@ const EditWorkspace = () => {
         error: <b>Could not save</b>,
       });
     } else {
-   
       toast.error('Invalid inputs');
     }
   };
@@ -173,8 +174,12 @@ const EditWorkspace = () => {
             placeholder='workspace name'
           />
           {!name ? <p>Name feild should not be empty</p> : <></>}
-          {name!=spaceName&&!validName && name ? <p>Not a valid name</p> : <></>}
-          {name!=spaceName && !uniqueName && name ? (
+          {name != spaceName && !validName && name ? (
+            <p>Not a valid name</p>
+          ) : (
+            <></>
+          )}
+          {name != spaceName && !uniqueName && name ? (
             <p>Name already taken. Try another name</p>
           ) : (
             <></>
@@ -198,7 +203,6 @@ const EditWorkspace = () => {
           ) : (
             <></>
           )}
-        
         </div>
 
         <button className='submit' onClick={SubmitHandler}>

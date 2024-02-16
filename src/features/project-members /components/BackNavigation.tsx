@@ -1,15 +1,17 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-interface Prop{
-  spaceName: string | undefined
+interface Prop {
+  spaceName: string | undefined;
 }
-const BackNavigation: React.FC<Prop> = ({spaceName}) => {
-
-  const navigate= useNavigate()
+const BackNavigation: React.FC<Prop> = ({ spaceName }) => {
+  const navigate = useNavigate();
   return (
-    <div className='back-title-container' >
-      <button className='button'onClick={()=>navigate(`/workspace/${spaceName}`)}>
+    <div className='back-title-container'>
+      <button
+        className='button'
+        onClick={() => navigate(`/workspace/${spaceName}`)}
+      >
         <span>
           <svg
             xmlns='http://www.w3.org/2000/svg'

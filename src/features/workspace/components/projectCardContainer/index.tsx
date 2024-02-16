@@ -24,8 +24,7 @@ const ProjectCardCont: React.FC<Props> = ({
 }) => {
   const searchValue = useSelector((state: any) => state.searchKeyword.value);
 
-  useEffect(() => {
-  }, [weekly, searchValue]);
+  useEffect(() => {}, [weekly, searchValue]);
 
   return (
     <>

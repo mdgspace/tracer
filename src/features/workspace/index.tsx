@@ -38,61 +38,56 @@ const Workspace = () => {
   const [weeklyOrgProjectsData, setWeeklyOrgProjectsData] =
     useState<ProjectsGithubData | null>(null);
   const { spaceName } = useParams();
-  const [isLoading, setIsLoading]= useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const fetchOrgProjects = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     if (token && spaceName) {
-      try{
-      const orgProjects = await getOrgProjects(token, spaceName);
-      setOrgProjects(orgProjects.data.projects);
-      }catch(e){
-        navigate("/")
+      try {
+        const orgProjects = await getOrgProjects(token, spaceName);
+        setOrgProjects(orgProjects.data.projects);
+      } catch (e) {
+        navigate('/');
       }
     }
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const fetchWeeklyData = async () => {
-    try{
-    if (token && spaceName) {
-      const weeklyOrgRank = await getOrgRank(token, spaceName, true);
-      const weeklyOrgProjectsData = await getOrgGithubData(
-        token,
-        spaceName,
-        false
-      );
+    try {
+      if (token && spaceName) {
+        const weeklyOrgRank = await getOrgRank(token, spaceName, true);
+        const weeklyOrgProjectsData = await getOrgGithubData(
+          token,
+          spaceName,
+          false
+        );
 
-      setWeeklyOrgProjectsData(weeklyOrgProjectsData.data.projects);
-      setWeeklyOrgRank(weeklyOrgRank.data.contributors);
-    }}catch(e){
-
-    }
+        setWeeklyOrgProjectsData(weeklyOrgProjectsData.data.projects);
+        setWeeklyOrgRank(weeklyOrgRank.data.contributors);
+      }
+    } catch (e) {}
   };
 
   const fetchMonthlyData = async () => {
-    try{
-    if (token && spaceName) {
-      const monthlyOrgRank = await getOrgRank(token, spaceName, true);
-      const monthlyOrgProjectsData = await getOrgGithubData(
-        token,
-        spaceName,
-        true
-      );
-      setMonthlyOrgRank(monthlyOrgRank.data.contributors);
-      setMOnthyOrgProjectsData(monthlyOrgProjectsData.data.projects);
-    }
-  }catch(e){
-
-  }
+    try {
+      if (token && spaceName) {
+        const monthlyOrgRank = await getOrgRank(token, spaceName, true);
+        const monthlyOrgProjectsData = await getOrgGithubData(
+          token,
+          spaceName,
+          true
+        );
+        setMonthlyOrgRank(monthlyOrgRank.data.contributors);
+        setMOnthyOrgProjectsData(monthlyOrgProjectsData.data.projects);
+      }
+    } catch (e) {}
   };
 
-  useEffect(()=>{
-    fetchOrgProjects()
-    fetchWeeklyData()
-    fetchMonthlyData()
-  },[weekly, userContext?.setUsername, userContext?.setUserOrgs])
-
-
+  useEffect(() => {
+    fetchOrgProjects();
+    fetchWeeklyData();
+    fetchMonthlyData();
+  }, [weekly, userContext?.setUsername, userContext?.setUserOrgs]);
 
   return (
     <>

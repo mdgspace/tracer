@@ -25,8 +25,16 @@ const LeaderBoard: React.FC<Prop> = ({
   const [pageNumber, setPageNumber] = useState(1);
 
   // const newMockData = sortJSON(mockData);
-  
-  const [items, setItems] = useState<{index:number,name:string, issues:number , commits: number, pulls: number}[]>([]);
+
+  const [items, setItems] = useState<
+    {
+      index: number;
+      name: string;
+      issues: number;
+      commits: number;
+      pulls: number;
+    }[]
+  >([]);
 
   const itemsPerPage = 4;
 
@@ -42,23 +50,27 @@ const LeaderBoard: React.FC<Prop> = ({
     }
   };
 
+  useEffect(() => {
+    if (weekly && weeklyOrgRank) {
+      const arrayOfContributors = Object.entries(weeklyOrgRank).map(
+        ([name, data], index) => ({ index, name, ...data })
+      );
 
-  useEffect(()=>{
-     if(weekly&&weeklyOrgRank){
-      const arrayOfContributors = Object.entries(weeklyOrgRank).map(([name, data], index) => ({ index,name, ...data }));
+      setItems(arrayOfContributors);
+      setItemsLength(Object.keys(weeklyOrgRank).length);
+      setPageCount(Math.ceil(Object.keys(weeklyOrgRank).length / itemsPerPage));
+    } else if (!weekly && monthlyOrgRank) {
+      const arrayOfContributors = Object.entries(monthlyOrgRank).map(
+        ([name, data], index) => ({ index, name, ...data })
+      );
 
-      setItems(arrayOfContributors)
-      setItemsLength(Object.keys(weeklyOrgRank).length)
-      setPageCount(Math.ceil(Object.keys(weeklyOrgRank).length/itemsPerPage))
-     }else if(!weekly&&monthlyOrgRank){
-      const arrayOfContributors = Object.entries(monthlyOrgRank).map(([name, data], index) => ({ index,name, ...data }));
-
-      setItems(arrayOfContributors)
-      setItemsLength(Object.keys(monthlyOrgRank).length)
-      setPageCount(Math.ceil(Object.keys(monthlyOrgRank).length/itemsPerPage))
-
-     }
-  },[weekly, weeklyOrgRank, monthlyOrgRank])
+      setItems(arrayOfContributors);
+      setItemsLength(Object.keys(monthlyOrgRank).length);
+      setPageCount(
+        Math.ceil(Object.keys(monthlyOrgRank).length / itemsPerPage)
+      );
+    }
+  }, [weekly, weeklyOrgRank, monthlyOrgRank]);
 
   return (
     <div className='leaderboard-cont'>
@@ -69,15 +81,20 @@ const LeaderBoard: React.FC<Prop> = ({
           <div className='work-title'>PR</div>
         </div>
 
-        {items&&items
-          .slice(itemOffset, itemOffset + itemsPerPage)
-          .map((e) => {
-            if (e.index+1 <= 3) {
+        {items &&
+          items.slice(itemOffset, itemOffset + itemsPerPage).map((e) => {
+            if (e.index + 1 <= 3) {
               return (
                 <div className='member' key={e.name}>
                   <div className='rank'>
                     <img
-                      src={e.index+1 == 1 ? gold : e.index+1 == 2 ? silver : bronze}
+                      src={
+                        e.index + 1 == 1
+                          ? gold
+                          : e.index + 1 == 2
+                          ? silver
+                          : bronze
+                      }
                       alt='top-rank-medal'
                     />
                   </div>
@@ -88,7 +105,7 @@ const LeaderBoard: React.FC<Prop> = ({
             } else {
               return (
                 <div className='member' key={e.name}>
-                  <div className='rank'>{e.index+1}</div>
+                  <div className='rank'>{e.index + 1}</div>
                   <div className='name'>{e.name}</div>
                   <div className='work'>{e.pulls}</div>
                 </div>

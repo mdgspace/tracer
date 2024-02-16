@@ -7,8 +7,8 @@ export interface FileUpload {
   statusCode: number;
 }
 
-export interface IconNameRes{
-  message: string
+export interface IconNameRes {
+  message: string;
 }
 export const uploadIcon = async (
   authorizationToken: string,
@@ -57,19 +57,16 @@ export const deleteFile = async (
   return respnse;
 };
 
-
-export const getIconName = async(
+export const getIconName = async (
   authorizationToken: string,
-  orgName: string 
-): Promise<AxiosResponse<IconNameRes>>=>{
-  const url= BACKEND_URL+'/api/protected/file/getIconName/'+orgName
-  const response = await axios.get<IconNameRes>(url,
-    {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${authorizationToken}`,
-      },
-    })
-    return response
-
-}
+  orgName: string
+): Promise<AxiosResponse<IconNameRes>> => {
+  const url = BACKEND_URL + '/api/protected/file/getIconName/' + orgName;
+  const response = await axios.get<IconNameRes>(url, {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${authorizationToken}`,
+    },
+  });
+  return response;
+};

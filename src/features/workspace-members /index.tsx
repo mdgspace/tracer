@@ -8,48 +8,49 @@ import { getOrgMembers } from 'app/api/organization';
 import { AVATAR_URL } from 'app/constants/api';
 import { AVATAR_API } from 'envConstants';
 const WorkspaceMembers = () => {
+  const { spaceName } = useParams();
+  const token = localStorage.getItem('token');
+  const [orgMembers, setOrgMembers] = useState<{
+    [username: string]: string;
+  } | null>(null);
 
-  const {spaceName} = useParams()
-  const token= localStorage.getItem('token')
-  const [orgMembers, setOrgMembers]= useState<{[username:string]:string} | null>(null)
+  const dataFetch = async () => {
+    try {
+      if (spaceName && token) {
+        const memRes = await getOrgMembers(token, spaceName);
 
-  const dataFetch= async()=>{
-    try{
-      if(spaceName&&token){
-        const memRes= await getOrgMembers(token, spaceName)
-      
-        setOrgMembers(memRes.data.members)
-
+        setOrgMembers(memRes.data.members);
       }
-    }catch(e){
+    } catch (e) {}
+  };
+  useEffect(() => {
+    dataFetch();
+  }, [setOrgMembers]);
 
-    }
-  }
-  useEffect(()=>{
-    dataFetch()
-  },[ setOrgMembers ])
-  
   return (
-    spaceName&&<div className='members-page-container'>
+    <div className='members-page-container'>
       <BackNavigation />
-      <div className='member-view'>
-        <Options spaceName={spaceName}/>
-        <div className='members-list'>
-          {orgMembers&&Object.entries(orgMembers).map(([key, value])=>{
-            return <MemberCard
-            image={
-              AVATAR_URL + '/' + key + '.png?apikey=' + AVATAR_API
-            }
-            name={key}
-            key={key}
-            role={value}
-            spaceName={spaceName}
-            orgMembers={orgMembers}
-            setOrgMembers={setOrgMembers}
-          />
-          })}
+      {spaceName && (
+        <div className='member-view'>
+          <Options spaceName={spaceName} />
+          <div className='members-list'>
+            {orgMembers &&
+              Object.entries(orgMembers).map(([key, value]) => {
+                return (
+                  <MemberCard
+                    image={AVATAR_URL + '/' + key + '.png?apikey=' + AVATAR_API}
+                    name={key}
+                    key={key}
+                    role={value}
+                    spaceName={spaceName}
+                    orgMembers={orgMembers}
+                    setOrgMembers={setOrgMembers}
+                  />
+                );
+              })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

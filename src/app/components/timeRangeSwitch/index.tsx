@@ -20,16 +20,15 @@ const TimeRangeSwitch: React.FC<Props> = ({ weekly, setWeekly }) => {
     <div className='timerange-cont'>
       <button
         onClick={() => setWeekly(true)}
-        className={weekly ? 'active' :''}
-        style={weekly?{}:{background:'transparent'}}
-     
+        className={weekly ? 'active' : ''}
+        style={weekly ? {} : { background: 'transparent' }}
       >
         Weekly{' '}
       </button>
       <button
         onClick={() => setWeekly(false)}
-        className={weekly ? '' :'active'}
-        style={weekly?{background:'transparent'}:{}}
+        className={weekly ? '' : 'active'}
+        style={weekly ? { background: 'transparent' } : {}}
       >
         Monthly{' '}
       </button>

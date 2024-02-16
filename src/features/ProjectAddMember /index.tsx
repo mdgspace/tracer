@@ -22,28 +22,43 @@ const ProjectAddMember = () => {
 
   const [members, setMembers] = useState<string[]>([]);
   const [memberName, setMemberName] = useState<string | null>(null);
-  
+
   const { spaceName, projectName } = useParams();
   const [projectMembers, setProjectMembers] = useState<string[]>([]);
-  const [orgMembers, setOrgMembers]= useState<string[]>([]);
+  const [orgMembers, setOrgMembers] = useState<string[]>([
+    'kituuu',
+    'karthik',
+    'kartik',
+    'kartar',
+  ]);
+  const [searchedMembers, setSearchedMembers] = useState<string[]>([]);
+
+  const filterMembers = (search: string) => {
+    let temp: string[] = [];
+    orgMembers.forEach((member) => {
+      if (member.includes(search)) {
+        temp.push(member);
+      }
+    });
+
+    setSearchedMembers(temp);
+  };
 
   const dataFetch = async () => {
     try {
       if (token && spaceName && projectName) {
-        
         const projectMemRes = await getMembers(token, projectName, spaceName);
-        const orgMemRes= await getOrgMembers(token, spaceName)
-   
-        setProjectMembers(Object.keys(projectMemRes.data.members));
-        setOrgMembers(Object.keys(orgMemRes.data.members))
+        const orgMemRes = await getOrgMembers(token, spaceName);
 
+        setProjectMembers(Object.keys(projectMemRes.data.members));
+        setOrgMembers(Object.keys(orgMemRes.data.members));
       }
     } catch (e) {}
   };
 
   useEffect(() => {
     dataFetch();
-  }, []);
+  }, [memberName]);
 
   const addMembers = () => {
     if (memberName) {
@@ -54,6 +69,8 @@ const ProjectAddMember = () => {
       ) {
         setMembers([...members, memberName]);
         setMemberName(null);
+      } else if (projectMembers.includes(memberName)) {
+        toast.error('Member already exists in the project');
       }
     }
   };
@@ -75,7 +92,7 @@ const ProjectAddMember = () => {
   const SubmitHandler = async (): Promise<void> => {
     if (token) {
       const func = async (): Promise<void> => {
-        if (members.length > 0 && spaceName&&projectName) {
+        if (members.length > 0 && spaceName && projectName) {
           try {
             const addMmebersRes = await addProjectsMembers(
               token,
@@ -110,17 +127,31 @@ const ProjectAddMember = () => {
               value={memberName ? memberName : ''}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setMemberName(e.target.value);
+                if (memberName) filterMembers(memberName);
               }}
               placeholder='Github ID of user'
             />
-            <button
-              onClick={addMembers}
-              className='add-member-button'
-
-            >
+            <button onClick={addMembers} className='add-member-button'>
               {'+ Add'}
             </button>
           </div>
+          {memberName && searchedMembers.length > 0 && (
+            <div className='add-member-container member-search-result'>
+              {searchedMembers.map((member, index) => {
+                return (
+                  <p
+                    onClick={() => {
+                      setMemberName(member);
+                      setSearchedMembers([]);
+                    }}
+                    key={index}
+                  >
+                    {member}
+                  </p>
+                );
+              })}
+            </div>
+          )}
         </div>
         <div className='added-members'>
           {members.map((member, index) => {
@@ -128,7 +159,7 @@ const ProjectAddMember = () => {
               <div className='member-card' key={index}>
                 <img
                   className='member-avatar'
-                  src={AVATAR_URL+"/"+member+".png?apikey="+AVATAR_API}
+                  src={AVATAR_URL + '/' + member + '.png?apikey=' + AVATAR_API}
                 />{' '}
                 <p className='member-name'>{member}</p>{' '}
                 <button

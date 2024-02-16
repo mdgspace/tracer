@@ -6,7 +6,12 @@ import { getUser } from 'app/api/user';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { GetProject, addProject, getProject, updateProject } from 'app/api/project';
+import {
+  GetProject,
+  addProject,
+  getProject,
+  updateProject,
+} from 'app/api/project';
 import UserContext from 'app/context/user/userContext';
 import { OrgProjects, Projects, getOrgProjects } from 'app/api/organization';
 const EditProject = () => {
@@ -17,18 +22,18 @@ const EditProject = () => {
   const [description, setDescription] = useState<string | null>(null);
   const [link, setLink] = useState<string | null>(null);
   const [orgProject, setOrgProjects] = useState<Projects | null>(null);
-  
-  const {spaceName, projectName} = useParams()
+
+  const { spaceName, projectName } = useParams();
 
   const fetchData = async () => {
-    if (token && spaceName&&projectName) {
+    if (token && spaceName && projectName) {
       try {
         const res = await getOrgProjects(token, spaceName);
         setOrgProjects(res.data.projects);
-        const proRes= await getProject(token,projectName,spaceName)
-        setName(projectName)
-        setDescription(proRes.data.description)
-        setLink(proRes.data.link)
+        const proRes = await getProject(token, projectName, spaceName);
+        setName(projectName);
+        setDescription(proRes.data.description);
+        setLink(proRes.data.link);
       } catch (e) {}
     }
   };
@@ -75,14 +80,14 @@ const EditProject = () => {
       token &&
       name &&
       link &&
-      projectName&&
+      projectName &&
       isValidName(name) &&
       isGitHubRepositoryLink(link) &&
       description &&
       description?.length < 200
     ) {
       const func = async () => {
-        const res = await updateProject(token, projectName,spaceName, {
+        const res = await updateProject(token, projectName, spaceName, {
           name: name,
           description: description,
           link: link,
@@ -112,7 +117,10 @@ const EditProject = () => {
           />
           {!name ? 'Name feild should not be empty' : <></>}
           {name && !isValidName(name) && 'Not a valid name'}
-          {name&&name!=projectName && !isUnique(name) && 'This project name already exists'}
+          {name &&
+            name != projectName &&
+            !isUnique(name) &&
+            'This project name already exists'}
           <div className='input-title'>Project link</div>
           <input
             type='text'
