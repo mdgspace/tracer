@@ -31,7 +31,10 @@ const Popup = ({
         className='popup-overlay'
         style={{ zIndex: popup_zindex?.overlay ?? 1000 }}
       />
-      <div className='popup-modal' style={{ zIndex: popup_zindex?.modal ?? 2000 }}>
+      <div
+        className='popup-modal'
+        style={{ zIndex: popup_zindex?.modal ?? 2000 }}
+      >
         <div className='popup-title'>
           {typeof title === 'string' ? (
             <span>{title}</span>

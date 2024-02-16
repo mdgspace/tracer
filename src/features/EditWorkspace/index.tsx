@@ -51,10 +51,10 @@ const EditWorkspace = () => {
         setUsers(users_aray);
         setOrgs(org_aray);
       }
-      if(token&&spaceName){
-        SetName(spaceName)
-        setUniqueName(true)
-        setValidName(true)
+      if (token && spaceName) {
+        SetName(spaceName);
+        setUniqueName(true);
+        setValidName(true);
       }
       if (token && spaceName) {
         const Org = await getOrg(token, spaceName);
@@ -107,7 +107,6 @@ const EditWorkspace = () => {
     }
   };
 
-
   const SubmitHandler = async (): Promise<void> => {
     if (
       description &&
@@ -118,7 +117,6 @@ const EditWorkspace = () => {
       uniqueName &&
       validDescription
     ) {
-     
       const func = async (): Promise<void> => {
         const dataRes = await updateOrg(token, spaceName, {
           name: name,
@@ -140,7 +138,6 @@ const EditWorkspace = () => {
         error: <b>Could not save</b>,
       });
     } else {
-   
       toast.error('Invalid inputs');
     }
   };

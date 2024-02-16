@@ -43,29 +43,30 @@ const WorkspaceView = () => {
     searchValue,
   ]);
 
-  const LogoutHandler= async()=>{
-    try{
-        localStorage.removeItem('token')
-        toast.success('Logout successful!');
-        navigate("/login")
-    }catch(e){
-
-    }
-  }
+  const LogoutHandler = async () => {
+    try {
+      localStorage.removeItem('token');
+      toast.success('Logout successful!');
+      navigate('/login');
+    } catch (e) {}
+  };
   return (
     <div className='workspaceview-container'>
       <FirstVisit />
       <div className='workspaceview-header'>
         <SearchBar />
 
-        <button onClick={() => setArcheives(!archeives)} style={archeives?{background: '#141432'}:{}}>Archeives</button>
-        
+        <button
+          onClick={() => setArcheives(!archeives)}
+          style={archeives ? { background: '#141432' } : {}}
+        >
+          Archeives
+        </button>
+
         <button onClick={() => navigate('/addWorkspace')}>
           Create a workspace
         </button>
-        <button onClick={LogoutHandler}>
-          Logout
-        </button>
+        <button onClick={LogoutHandler}>Logout</button>
       </div>
 
       <div className='workspaceview-card-container'>
@@ -79,7 +80,6 @@ const WorkspaceView = () => {
                 return [key, value];
             })
             .map(([orgName, details]) => {
-              
               return (
                 <WorkspaceCard
                   key={orgName}

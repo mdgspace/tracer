@@ -59,12 +59,11 @@ const WorkspaceCard = (props: workspaceCardProps) => {
         setMembersArray(membersArray);
       } catch (e) {}
 
-      try{
-
-        const iconRes= await getIconName(token, workspaceName)
-        const fileName= iconRes.data.message
-        const deleteRes= await deleteFile(token, fileName)
-      }catch(e){}
+      try {
+        const iconRes = await getIconName(token, workspaceName);
+        const fileName = iconRes.data.message;
+        const deleteRes = await deleteFile(token, fileName);
+      } catch (e) {}
     }
   };
 
@@ -129,14 +128,12 @@ const WorkspaceCard = (props: workspaceCardProps) => {
         const status: { [key: string]: boolean } = {
           [workspaceName]: !archeive,
         };
-    
-  
-         const res = await setOrgArcheiveStatus(token, status);
-     
-      
+
+        const res = await setOrgArcheiveStatus(token, status);
+
         const orgs = userContext?.userOrgs;
         if (orgs?.userOrgs.hasOwnProperty(workspaceName)) {
-          orgs.userOrgs[workspaceName].archeive= (!archeive).toString();
+          orgs.userOrgs[workspaceName].archeive = (!archeive).toString();
           userContext?.setUserOrgs(orgs);
         }
       };

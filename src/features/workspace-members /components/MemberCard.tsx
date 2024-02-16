@@ -40,18 +40,16 @@ const MemberCard = ({
     }
   };
 
-  const HandleRoleChange= async(event:ChangeEvent<HTMLSelectElement>)=>{
-    
-    const new_role= event.target.value
-    if(token&&spaceName&&orgMembers&&new_role!=role){
-    
+  const HandleRoleChange = async (event: ChangeEvent<HTMLSelectElement>) => {
+    const new_role = event.target.value;
+    if (token && spaceName && orgMembers && new_role != role) {
+      const func = async () => {
+        const res = await changeOrgMembersStatus(token, spaceName, {
+          [name]: new_role,
+        });
+        orgMembers[name] = new_role;
+        setOrgMembers(orgMembers);
 
-        const func= async()=>{
-    
-          const res= await changeOrgMembersStatus(token, spaceName,{[name]:new_role})
-          orgMembers[name]=new_role
-          setOrgMembers(orgMembers)
-        
         toast.promise(func(), {
           loading: 'Changing Role',
           success: <b>Role changed</b>,
