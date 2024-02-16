@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { searchAction } from 'features/home/slices/projectSearchSlice';
+import { searchAction } from 'features/workspace/slices/projectSearchSlice';
 import search_icon from 'app/assets/images/search_icon.svg';
 import './index.scss';
 
@@ -12,7 +12,7 @@ const SearchBar = () => {
   };
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (search !== '') dispatch(searchAction(search));
+    dispatch(searchAction(search));
   };
 
   return (

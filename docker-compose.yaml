@@ -1,11 +1,15 @@
-version: '3.3'
+version: '3.8'
+
 services:
-  api:
-   build: 
-     context: ./
-     dockerfile: local.Dockerfile 
-   volumes:
-     - ./:/app
-     - ./.m2:/root/.m2
-   working_dir: /app 
-   command: sh run.sh
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8081:3000"
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true

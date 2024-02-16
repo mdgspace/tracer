@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { timeRangeModel } from 'features/project/components/contributorCard/types';
 import { weekAction, monthAction } from './timeRangeSlice';
 import './index.scss';
+import { clearConfigCache } from 'prettier';
 
-const TimeRangeSwitch = () => {
-  const dispatch = useDispatch();
-  const isWeekly = useSelector((state: timeRangeModel) => state.isWeekly.value);
+interface Props {
+  weekly: boolean;
+  setWeekly: (bool: boolean) => void;
+}
 
+const TimeRangeSwitch: React.FC<Props> = ({ weekly, setWeekly }) => {
+  // const dispatch = useDispatch();
+  // const isWeekly = useSelector((state: timeRangeModel) => state.isWeekly.value);
+ useEffect(()=>{
+
+ },[weekly, setWeekly])
   return (
     <div className='timerange-cont'>
       <button
-        onClick={() => dispatch(weekAction())}
-        className={isWeekly ? 'active' : ''}
+        onClick={() => setWeekly(true)}
+        className={weekly ? 'active' : ''}
+        style={weekly ? {} : { background: 'transparent' }}
       >
         Weekly{' '}
       </button>
       <button
-        onClick={() => dispatch(monthAction())}
-        className={isWeekly ? '' : 'active'}
+        onClick={() => setWeekly(false)}
+        className={weekly ? '' : 'active'}
+        style={weekly ? { background: 'transparent' } : {}}
       >
         Monthly{' '}
       </button>

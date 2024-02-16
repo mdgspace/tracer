@@ -1,38 +1,48 @@
-import axios,{AxiosResponse} from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { BACKEND_URL } from 'envConstants';
 
-
-
-
-export interface UserData{
-  message: string
+export interface UserData {
+  message: string;
 }
 
+export interface UserOrgs {
+  userOrgs: UserOrgDetails;
+}
 
+export interface UserOrgDetails {
+  [key: string]: {
+    bookmark: string;
+    role: string;
+    archeive: string;
+  };
+}
 
-export interface AllUserData{
+export interface AllUserData {
   users: {
-    id: number,
-    username: string
-  }[]
+    id: number;
+    username: string;
+  }[];
 }
 
-export const getUser= async (authorizationToken: string):Promise<AxiosResponse<UserData>> => {
+export const getUser = async (
+  authorizationToken: string
+): Promise<AxiosResponse<UserData>> => {
   const url = BACKEND_URL + '/api/protected/user/getUser';
 
-    const respnse = await axios.get<UserData>(url, {
-      headers: {
-        Accept: 'application/json',
-  
-        Authorization: `Bearer ${authorizationToken}`,
-      },
-    });
-  
-    return respnse;
+  const respnse = await axios.get<UserData>(url, {
+    headers: {
+      Accept: 'application/json',
 
+      Authorization: `Bearer ${authorizationToken}`,
+    },
+  });
+
+  return respnse;
 };
 
-export const getAllUser = async (authorizationToken: string):Promise<AxiosResponse<AllUserData>> => {
+export const getAllUser = async (
+  authorizationToken: string
+): Promise<AxiosResponse<AllUserData>> => {
   const url = BACKEND_URL + '/api/protected/user/all';
   const respnse = await axios.get<AllUserData>(url, {
     headers: {
@@ -71,7 +81,7 @@ export const setOrgArcheiveStatus = async (
   const respnse = await axios.put(
     url,
     {
-      bookmarkStatus: status,
+      archeiveStatus: status,
     },
     {
       headers: {
@@ -80,18 +90,16 @@ export const setOrgArcheiveStatus = async (
       },
     }
   );
+
   return respnse;
 };
 
 export const getUserOrgs = async (
   authorizationToken: string,
   username: string
-) => {
-  const url =
-    BACKEND_URL +
-    '/api/protected/user/setArcheiveStatus/getUserOrgs/' +
-    username;
-  const respnse = await axios.get(url, {
+): Promise<AxiosResponse<UserOrgs>> => {
+  const url = BACKEND_URL + '/api/protected/user/getUserOrgs/' + username;
+  const respnse = await axios.get<UserOrgs>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,

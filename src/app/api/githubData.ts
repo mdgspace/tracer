@@ -1,42 +1,40 @@
 import axios, { AxiosResponse } from 'axios';
 import { BACKEND_URL } from 'envConstants';
 
-
-
 export interface Contributors {
   [contributorName: string]: {
-    issues: number,
-    pulls: number,
-    commits:number
+    issues: number;
+    pulls: number;
+    commits: number;
   };
 }
 
 export interface ProjectsGithubData {
   [contributorName: string]: {
-    issues: number,
-    pulls: number,
-    commits:number
+    issues: number;
+    pulls: number;
+    commits: number;
   };
 }
 
+export interface OrgRank {
+  contributors: Contributors;
+}
 
-export interface OrgRank{
-  contributors: Contributors
+export interface ProjectStats {
+  contributors: Contributors;
 }
 
 
-// Contributors==project issues commits pull
-export interface OrgProjectGithubData{
-  projects: ProjectsGithubData
+export interface OrgProjectGithubData {
+  projects: ProjectsGithubData;
 }
-
-
 
 export const getOrgGithubData = async (
   authorizationToken: string,
   orgName: string,
   monthly: boolean
-):Promise<AxiosResponse<OrgProjectGithubData>> => {
+): Promise<AxiosResponse<OrgProjectGithubData>> => {
   const url =
     BACKEND_URL + '/api/protected/github/' + orgName + '?monthly=' + monthly;
   const respnse = await axios.get<OrgProjectGithubData>(url, {
@@ -73,7 +71,7 @@ export const getProjectGithubData = async (
   orgName: string,
   projectName: string,
   monthly: boolean
-) => {
+): Promise<AxiosResponse<ProjectStats>> => {
   const url =
     BACKEND_URL +
     '/api/protected/github/' +
@@ -82,7 +80,7 @@ export const getProjectGithubData = async (
     projectName +
     '?monthly=' +
     monthly;
-  const respnse = await axios.get(url, {
+  const respnse = await axios.get<ProjectStats>(url, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${authorizationToken}`,

@@ -1,8 +1,21 @@
-# Activity Leaderboard
+# Activity-leaderboard Frontend
 
-## Setup
+### Activity Leader Board is a open source project which can be used to monitor progress in an Organization .
 
-1. `npm ci`
-2. `npm run prepare`
-3. `npm run lint`
-4. `npm run prettier`
+
+
+## Tech Stack
+
+**Backend:** SpringBoot
+
+**Frontend:** React
+
+**Cloud:** AWS
+
+**Database**: Postgres
+
+**Caching**: Redis
+
+
+### Activity-leaderboard Backend
+[Backend](https://github.com/mdgspace/activity-leaderboard.git)
