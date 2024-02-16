@@ -143,7 +143,7 @@ const ProjectCard: React.FC<Props> = ({
         <>
        
           <div
-            className='workspace-popup-btn'
+            className='workspace-popup-btn pointer'
             onClick={() => setShowPopUp(showPopUp ? false : true)}
           >
             <img
@@ -152,19 +152,19 @@ const ProjectCard: React.FC<Props> = ({
             />
           </div>
           <div className={showPopUp ? 'workspace-popup' : 'hide'}>
-            <div className='pin' onClick={PinHandler}>
+            <div className='pin pointer' onClick={PinHandler}>
               {pin ? 'Unpin' : 'Pin'}
             </div>
-            <div className='archive' onClick={ArchiveHandler}>
+            <div className='archive pointer' onClick={ArchiveHandler}>
               {archive ? 'Unarchive' : 'Archive'}
             </div>
             <div
-              className='pin'
+              className='pin pointer'
               onClick={() => navigate(`/editProject/${orgName}/${projectName}`)}
             >
               Edit
             </div>
-            <div className='delete' onClick={DeleteHandler}>
+            <div className='delete pointer' onClick={DeleteHandler}>
               Delete
             </div>
           </div>
@@ -187,7 +187,7 @@ const ProjectCard: React.FC<Props> = ({
 
       {orgName && !orgName.endsWith('-userspace') && (
         <div
-          className='image-stack'
+          className='image-stack pointer'
           onClick={() => navigate(`/projectMembers/${orgName}/${projectName}`)}
         >
           {projectMembers && projectMembers.length > 0 ? (
@@ -204,9 +204,10 @@ const ProjectCard: React.FC<Props> = ({
         </div>
       )}
       {orgName && !orgName.endsWith('-userspace') && (
-        <div className='workspace-details-btn'>
+        <div className='workspace-details-btn '>
           <img
             src={rightNavbtn}
+            className='pointer'
             onClick={() => navigate(`/project/${orgName}/${projectName}`)}
             alt=''
           />
