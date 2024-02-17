@@ -1,20 +1,21 @@
-FROM node:latest as build 
+FROM node:18-alpine
 
-WORKDIR /app 
+WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Copy package.json and package-lock.json
+COPY package*.json /
 
-RUN npm install 
+# Install dependencies
+RUN npm ci
 
-COPY . ./ 
+# Copy the rest of the code
+COPY . .
 
-RUN npm run build 
+# Build the app
+RUN npm run build
 
+# Expose the port the app runs on
+EXPOSE 3000
 
-FROM nginx:alpine 
-
-COPY --from=build /app/build /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Start the application
+CMD ["npm", "run","start"]

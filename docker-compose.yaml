@@ -11,5 +11,3 @@ services:
       - "8081:3000"
     volumes:
       - .:/app
-    stdin_open: true
-    tty: true
