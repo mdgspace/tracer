@@ -1,0 +1,38 @@
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  width: 40%;
+  background: var(--home-page-card-bg);
+  border-radius: 1em;
+}
+
+.search-container .search-input {
+  flex-grow: 1;
+  margin-left: 1em;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: white;
+}
+
+.search-container:focus-within {
+  border-bottom: 0.1em solid white;
+  border-radius: 0;
+}
+
+@media only screen and (max-width: 860px) {
+  .search-container {
+    width: 60%;
+    margin-bottom: 0.8em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .search-container {
+    width: 80%;
+    margin-bottom: 0.8em;
+  }
+}

@@ -1,0 +1,22 @@
+.timerange-cont {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+}
+
+.timerange-cont button {
+  border: none;
+  outline: none;
+  margin-right: 1em;
+  padding: 0.7em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  border-radius: 2em;
+  background: transparent;
+  color: white;
+}
+
+.timerange-cont button.active {
+  background: var(--timerange-switch-btn-bg);
+}

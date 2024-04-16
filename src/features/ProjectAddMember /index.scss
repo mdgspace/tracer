@@ -1,0 +1,189 @@
+$breakpoint-tablet: 768px;
+.main_aworkspace_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: max-content;
+  padding: 2rem;
+  .addworkspace-form-container {
+    background: linear-gradient(110.51deg, #141432 0.9%, #2a2a4b 101.51%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem 1rem;
+    border-radius: 1.25rem;
+    gap: 2rem;
+    .submit {
+      display: flex;
+      padding: 1rem 2rem;
+      align-self: flex-end;
+      font-size: 1.5rem;
+      border-radius: 0.875rem;
+      background: #402aa4;
+      color: white;
+      outline: none;
+      border: none;
+    }
+  }
+
+  .single-form-element-container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    .member-search-result {
+      position: absolute;
+      border: 2px solid #8989ce;
+      top: 6rem;
+      background-color: #1414325b;
+      gap: 1rem;
+      width: fit-content;
+      backdrop-filter: blur(25px);
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1rem;
+      z-index: 1000;
+      p {
+        color: #8989ce;
+        width: fit-content;
+        font-size: 1.25rem;
+        font-weight: 900;
+        padding: 0.1rem 1rem;
+        border-radius: 1rem;
+      }
+      P:hover {
+        color: #8181ff;
+        cursor: pointer;
+        background-color: black;
+      }
+    }
+    .label {
+      color: #8181ff;
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+  }
+}
+
+.custom-input {
+  box-sizing: border-box;
+  border: 0.8px solid #402aa4;
+  border-radius: 14px;
+  background-color: transparent;
+  align-items: flex-start;
+  color: rgba(173, 173, 255, 0.75);
+  padding: 1.5rem 1rem;
+  font-size: 1.25rem;
+  font-family: 'Poppins';
+  outline: none;
+}
+
+.custom-input::placeholder {
+  color: rgba(173, 173, 255, 0.75);
+  font-family: Poppins;
+  font-size: 1.25rem;
+  font-weight: 100;
+  line-height: normal;
+}
+
+.file-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 30rem;
+  padding: 2rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    138deg,
+    rgba(20, 20, 50, 0.7) 5.19%,
+    rgba(20, 20, 50, 0.7) 97.11%
+  );
+  backdrop-filter: blur(25px);
+
+  .custom-file-input {
+    visibility: hidden;
+  }
+  .file-label {
+    width: fit-content;
+    padding: 0.4375rem 0.5625rem;
+    border-radius: 1.75rem;
+    background: #402aa4;
+    color: white;
+  }
+}
+
+.add-member-container {
+  position: relative;
+  box-sizing: border-box;
+  border: 0.8px solid #402aa4;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: row;
+  outline: #141432;
+  .custom-input {
+    display: flex;
+    width: 100%;
+    border: none;
+    outline: none;
+  }
+  button {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    margin: 0.75rem 1rem;
+    color: white;
+    width: 7rem;
+    font-weight: 100 !important;
+    border-radius: 2.3125rem;
+    background: #402aa4;
+  }
+}
+
+.added-members {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+  .member-card {
+    display: inline-flex;
+    padding: 0.4375rem 0.875rem 0.625rem 0.875rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5625rem;
+    color: #8989ce;
+    border-radius: 0.75rem;
+    background: #26264e;
+    .member-avatar {
+      width: 40px;
+      height: 40px;
+    }
+    .btn-cross {
+      appearance: none;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-tablet) {
+  .main_aworkspace_container {
+    padding: 2rem 5rem;
+    .addworkspace-form-container {
+      padding: 2rem 5rem;
+    }
+  }
+}

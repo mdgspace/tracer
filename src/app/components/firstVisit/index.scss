@@ -1,0 +1,32 @@
+.modal-footer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5rem;
+  font-weight: 600;
+  a {
+    text-decoration: none;
+  }
+}
+
+.firstvisit-btn {
+  background-color: #402aa4;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5rem;
+  border: 1px solid #402aa4;
+  font-size: 1rem;
+}
+
+.firstvisit-btn:hover {
+  background-color: whitesmoke;
+  border: none;
+  color: #402aa4;
+  padding: 0.5rem 1rem;
+  border-radius: 5rem;
+  border: 1px solid #402aa4;
+  font-size: 1rem;
+}

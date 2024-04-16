@@ -42,3 +42,10 @@ docker-compose.yaml
 Dockerfile
 README.md
 run.sh
+build
+.github
+node_modules
+.eslintignore
+.eslintrc.json
+.prettierignore
+.prettierrc

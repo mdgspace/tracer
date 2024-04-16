@@ -1,0 +1,56 @@
+.contributor-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(
+    137.9deg,
+    rgba(20, 20, 50, 0.7) 5.19%,
+    rgba(20, 20, 50, 0.7) 97.11%
+  );
+  backdrop-filter: blur(25px);
+  border-radius: 20px;
+  padding: 1em;
+  width: 17vw;
+  position: relative;
+}
+
+.contributor-card .contributor-image {
+  position: absolute;
+  margin-top: -50px;
+  height: 90px;
+  width: 90px;
+}
+
+.contributor-card .contributor-name {
+  margin-top: 2.6em;
+  font-weight: 400;
+  margin-bottom: 1em;
+}
+
+.contributor-card .contributor-status {
+  align-self: stretch;
+}
+
+.contributor-card .contributor-status div {
+  background: linear-gradient(180deg, #26264e 0%, rgba(38, 38, 78, 0) 100%);
+  padding-left: 0.5em;
+  border-radius: 0.8em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: small;
+  margin-bottom: 0.6em;
+}
+
+.contributor-card .contributor-status div span:last-child {
+  border: 1px solid #402aa4;
+  padding: 1em;
+  border-radius: 0.8em;
+  margin-left: 0.5em;
+}
+
+@media only screen and (max-width: 860px) {
+  .contributor-card {
+    width: 60vw;
+  }
+}
