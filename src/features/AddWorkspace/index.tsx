@@ -134,11 +134,14 @@ const AddWorkspace = () => {
           description: description,
         });
 
-        try {
+
           if (selectedFile != null) {
-            const fileRes = uploadIcon(token, name, selectedFile);
+            try{
+              const fileRes = await uploadIcon(token, name, selectedFile);
+            }catch (e){            
+            }
           }
-        } catch (e) {}
+
         if (members.length > 0) {
           try {
             const addMmebersRes = await addOrgMembers(token, name, members);

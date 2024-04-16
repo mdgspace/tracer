@@ -119,11 +119,15 @@ const EditWorkspace = () => {
           description: description,
         });
 
-        try {
+
           if (selectedFile != null) {
-            const fileRes = uploadIcon(token, name, selectedFile);
+           try{
+            const fileRes = await uploadIcon(token, name, selectedFile);
+           }catch(e){
+
+           }
           }
-        } catch (e) {}
+
 
         navigate('/');
       };
