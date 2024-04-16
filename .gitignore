@@ -1,6 +1,10 @@
 HELP.md
 
-target/
+target
+
+.m2
+
+bin
 
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -8,6 +12,9 @@ target/
 
 !**/src/test/**/target/
 
+**.jpeg
+**.png
+**.jpg
 ### STS ###
 
 .apt_generated

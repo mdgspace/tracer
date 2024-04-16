@@ -2,8 +2,11 @@ version: '3.3'
 networks:
   network:
     driver: bridge
+    name: tracer-network
 services:
+  
 
+  
   postgres:
     image: postgres:latest
     networks:

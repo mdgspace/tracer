@@ -8,11 +8,11 @@ body:
     attributes:
       label: Search before creation
       description: >
-        Please make sure to search in the [issues](https://github.com/mdgspace/activity-leaderboard-backend/issues)
+        Please make sure to search in the [issues](https://github.com/mdgspace/Tracer/issues)
         first to see whether the same issue was reported already.
       options:
         - label: >
-            I had searched in the [issues](https://github.com/mdgspace/activity-leaderboard-backend/issues) and found
+            I had searched in the [issues](https://github.com/mdgspace/Tracer/issues) and found
             no similar issues.
           required: true
 

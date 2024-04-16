@@ -8,10 +8,10 @@ body:
       label: Before Creating the Bug Report
       options:
         - label: >
-            I found a bug, not just asking a question, which should be created in [GitHub Discussions](https://github.com/mdgspace/activity-leaderboard-backend/discussions).
+            I found a bug, not just asking a question, which should be created in [GitHub Discussions](https://github.com/mdgspace/Tracer/discussions).
           required: true
         - label: >
-            I have searched the [GitHub Issues](https://github.com/mdgspace/activity-leaderboard-backend/issues) and [GitHub Discussions](https://github.com/mdgspace/activity-leaderboard-backend/discussions)  of this repository and believe that this is not a duplicate.
+            I have searched the [GitHub Issues](https://github.com/mdgspace/Tracer/issues) and [GitHub Discussions](https://github.com/mdgspace/Tracer/discussions)  of this repository and believe that this is not a duplicate.
           required: true
         - label: >
             I have confirmed that this bug belongs to the current repository, not other repositories of RocketMQ.
