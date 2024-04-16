@@ -1,5 +1,5 @@
 {
-  "name": "activity-leaderboard",
+  "name": "tracer-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -40,8 +40,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {

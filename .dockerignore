@@ -37,6 +37,8 @@ build/
 
 # Postgresql Data
 .postgresql_data/
+postgres
+files
 
 docker-compose.yaml
 Dockerfile
@@ -49,3 +51,5 @@ node_modules
 .eslintrc.json
 .prettierignore
 .prettierrc
+package-lock.json
+

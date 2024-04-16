@@ -2,11 +2,38 @@ version: '3.3'
 networks:
   network:
     driver: bridge
-    name: tracer-network
-services:
-  
 
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: tracer-backend
+    networks:
+      - network
+    ports:
+      - "8080:8080" 
+    env_file:
+      - env.list
+    depends_on:
+      - redis
+      - postgres 
+    restart: unless-stopped 
   
+  frontend:
+    build: 
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: tracer-frontend
+    network_mode: host
+    env_file: 
+      - env.list
+    ports:
+      - "3000:3000" 
+    restart: unless-stopped
+    volumes:
+      - .:/app
+
   postgres:
     image: postgres:latest
     networks:
