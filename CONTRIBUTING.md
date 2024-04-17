@@ -114,10 +114,8 @@ rfac: Get UserApi (backend)
 ## File Structure
 
 - **src/main:** Contains all the backend code 
-- **src/test:** Contains all the backend tests
-- **src/app:** Contains all the frontend application configurations
-- **src/features:** Contains all the frontend features
-- **src/utils:** Contains all the frontend utilities
+- **src/test:** Contains all the tests
+- **src/frontend:** Contains all the frontend code
 
 ## Backend API'S
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from 'app';
+import App from 'frontend/app';
 import reportWebVitals from 'reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { store } from 'app/state/store';
+import { store } from 'frontend/app/state/store';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import UserState from 'app/context/user/userState';
+import UserState from 'frontend/app/context/user/userState';
 
 const queryClient = new QueryClient();
 
