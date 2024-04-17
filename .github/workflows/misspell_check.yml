@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
   push:
-    branches: [main]
+    branches: [master, main]
 jobs:
   misspell-check:
     runs-on: ubuntu-latest

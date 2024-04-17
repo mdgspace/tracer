@@ -1,11 +1,11 @@
 name: CI Workflow
 on: 
  pull_request:
-    branches: [ main ]
+    branches: [ masterm main ]
     paths:
         - 'src/**'
  push:
-    branches: [main]
+    branches: [master, main]
     paths:
         - 'src/**'
 jobs:
