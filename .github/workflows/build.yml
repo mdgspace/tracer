@@ -1,13 +1,13 @@
 name: CI Workflow
 on: 
  pull_request:
-    branches: [ masterm main ]
+    branches: [ master, main ]
     paths:
-        - 'src/**'
+        - 'backend/src/**'
  push:
     branches: [master, main]
     paths:
-        - 'src/**'
+        - 'backend/src/**'
 jobs:
     build:
         runs-on: ubuntu-latest

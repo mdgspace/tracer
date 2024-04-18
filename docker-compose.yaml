@@ -32,7 +32,7 @@ services:
       "
   backend:
     build: 
-      context: .
+      context: ./backend
       dockerfile: Dockerfile.backend
     container_name: tracer-backend
     networks:
@@ -48,7 +48,7 @@ services:
   
   frontend:
     build: 
-      context: .
+      context: ./frontend
       dockerfile: Dockerfile.frontend
     container_name: tracer-frontend
     network_mode: host

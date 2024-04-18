@@ -42,6 +42,7 @@ npm ci
 
 ```
 source env.sh
+cd frontend
 npm start
 ```
 
@@ -49,6 +50,7 @@ npm start
 
 ```
 source env.sh
+cd backend
 mvn spring-boot:run -DskipTests
 ```
 
@@ -110,12 +112,6 @@ chor: Chnge project colour (frontend)
 
 rfac: Get UserApi (backend)
 ```
-
-## File Structure
-
-- **src/main:** Contains all the backend code 
-- **src/test:** Contains all the tests
-- **src/frontend:** Contains all the frontend code
 
 ## Backend API'S
 
