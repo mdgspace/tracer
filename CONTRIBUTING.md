@@ -27,18 +27,18 @@ git clone https://github.com/mdgspace/Tracer.git
 ```
 cd Tracer
 ```
-### Start postgres and redis servers
+#### Start postgres and redis servers
 
-### Create postgresql user, password and database
+#### Create postgresql user, password and database
 
-### Create env.sh from env.sh.example
+#### Create env.sh from env.sh.example
 
 
-### Install node-modules
+#### Install node-modules
 ```
 npm ci
 ```
-### Run Frontend
+#### Run Frontend
 
 ```
 source env.sh
@@ -46,7 +46,7 @@ cd frontend
 npm start
 ```
 
-### Run backend
+#### Run backend
 
 ```
 source env.sh
@@ -54,13 +54,14 @@ cd backend
 mvn spring-boot:run -DskipTests
 ```
 
-### Testing
+#### Testing
 
 Tests for backend is written ./src/test Directories
 
-#### Run tests
+#### Run backend tests
 
 ```
+cd backend
 mvn test
 ```
 
@@ -83,9 +84,9 @@ git clone https://github.com/mdgspace/Tracer.git
 cd Tracer
 ```
 
-### Create env.list file using env.list.example
+#### Create env.list file using env.list.example
 
-### Run docker compose
+#### Run docker compose
 ```
 docker compose up
 ```
