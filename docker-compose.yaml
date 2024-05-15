@@ -51,14 +51,14 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.frontend
     container_name: tracer-frontend
-    network_mode: host
+    networks:
+      - network
     env_file: 
       - env.list
     ports:
       - "3000:3000" 
     restart: unless-stopped
-    volumes:
-      - .:/app
+
 
   postgres:
     image: postgres:latest

@@ -34,15 +34,14 @@ cd Tracer
 #### Create env.sh from env.sh.example
 
 
-#### Install node-modules
-```
-npm ci
-```
+
 #### Run Frontend
 
 ```
 source env.sh
 cd frontend
+# only first time to install node-modules
+npm ci
 npm start
 ```
 
