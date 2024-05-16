@@ -6,8 +6,8 @@ import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 import loader from '../../app/assets/gifs/loader.gif';
 
-// import heroImg from 'app/assets/images/login2.png';
-// import github from 'app/assets/images/github.png';
+import heroImg from 'app/assets/images/login2.png';
+import github from 'app/assets/images/github.png';
 import './index.scss';
 import { useContext } from 'react';
 import UserContext from 'app/context/user/userContext';
@@ -51,6 +51,7 @@ const Login = () => {
     <>
       <div className='login_wrapper'>
         <div className='hero_image'>
+          <img src={heroImg} alt='' />
         </div>
         <div className='hero_content'>
           <h1>ACTIVITY LEADERBOARD</h1>
@@ -60,7 +61,7 @@ const Login = () => {
           </h3>
 
           <button onClick={loginWithGithub}>
-             Login Witth Github
+            <img src={github} alt='' /> Login Witth Github
           </button>
         </div>
       </div>

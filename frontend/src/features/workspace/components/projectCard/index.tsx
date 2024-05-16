@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import { deleteProject, getMembers, getProject } from 'app/api/project';
 import { FaBookmark } from "react-icons/fa";

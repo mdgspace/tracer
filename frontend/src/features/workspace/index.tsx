@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import SearchBar from 'app/components/search';
 import TimeRangeSwitch from 'app/components/timeRangeSwitch';
 import ProjectCardCont from './components/projectCardContainer';
@@ -94,11 +94,10 @@ const Workspace = () => {
     } catch (e) {}
   };
   useEffect(() => {
+    fetchData();
     fetchOrgProjects();
     fetchWeeklyData();
     fetchMonthlyData();
-    fetchData();
-    console.log(userContext)
   }, [weekly,spaceName]);
 
   return (

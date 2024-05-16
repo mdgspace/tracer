@@ -3,7 +3,7 @@ import  { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import WorkspaceCard from './workspace-card';
 import UserContext from 'app/context/user/userContext';
-import { UserOrgDetails, UserOrgs, getUserOrgs } from 'app/api/user';
+import {  UserOrgs, getUserOrgs } from 'app/api/user';
 import loader from '../../app/assets/gifs/loader.gif';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -31,6 +31,9 @@ const WorkspaceView = () => {
         userContext?.setUserOrgs(userOrgs.data);
         setUserOrgs(userOrgs.data);
         setIsLoad(false);
+        // console.log(userContext)
+        // console.log(userOrgs)
+
      
       } catch (e) {}
 
@@ -38,7 +41,6 @@ const WorkspaceView = () => {
     }
   };
   useEffect(() => {
-    
     fetchData();
   }, [
     userContext?.username,
@@ -64,7 +66,7 @@ const WorkspaceView = () => {
           onClick={() => setArcheives(!archeives)}
           style={archeives ? { background: '#141432' } : {}}
         >
-          Archeives
+          Archives
         </button>
 
         <button onClick={() => navigate('/addWorkspace')}>
