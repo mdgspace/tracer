@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import  { ChangeEvent, useEffect, useState } from 'react';
 import './index.scss';
 import tick from '../../app/assets/images/tick.png';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -131,7 +131,8 @@ const AddProject = () => {
             'Description length should not be greater than 200'}
         </form>
         <button className='add-project-btn' onClick={SubmitHandler}>
-          <img src={tick} alt='' /> Done
+          <img src={tick} alt='' />
+           Done
         </button>
       </div>
     </div>

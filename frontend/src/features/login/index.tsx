@@ -9,8 +9,10 @@ import loader from '../../app/assets/gifs/loader.gif';
 import heroImg from 'app/assets/images/login2.png';
 import github from 'app/assets/images/github.png';
 import './index.scss';
-
+import { useContext } from 'react';
+import UserContext from 'app/context/user/userContext';
 const Login = () => {
+  const userContext = useContext(UserContext);
   const [searchParam] = useSearchParams();
   const navigate = useNavigate();
   const loginFunc = async () => {
@@ -19,6 +21,7 @@ const Login = () => {
         const code: string = searchParam.get('code')!;
         const loginData = await login(code);
         const token = loginData.data.token;
+        userContext?.setUsername(loginData.data.username);
         localStorage.setItem('token', token);
         toast.success('Login success');
         navigate('/');
@@ -51,7 +54,7 @@ const Login = () => {
           <img src={heroImg} alt='' />
         </div>
         <div className='hero_content'>
-          <h1>Tracer</h1>
+          <h1>ACTIVITY LEADERBOARD</h1>
           <h3>
             Track your progress, healthy competition in organization others, and
             unleash your GitHub potential"

@@ -28,8 +28,10 @@ interface members {
   [username: string]: string;
 }
 
-const WorkspaceCard = (props: workspaceCardProps) => {
-  const { workspaceName, role, archeive, bookmark, archeives } = props;
+const WorkspaceCard = ({ workspaceName, role, archeive, bookmark, archeives }: { workspaceName:string, role:string, archeive:boolean, bookmark:boolean, archeives:boolean }) => {
+  // const { workspaceName, role, archeive, bookmark, archeives } = props;
+  const [localArchive,setLocalArchive] = useState(archeive)
+  const [localBookmark,setLocalBookmark] = useState(bookmark)
   const [description, setDescription] = useState<null | string>(null);
   const [showPopUp, setShowPopUp] = useState(false);
   const token = localStorage.getItem('token');
@@ -105,6 +107,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
           userContext?.setUserOrgs(orgs);
         }
       };
+      setLocalBookmark(!localBookmark)
       if (initBmk) {
         toast.promise(func(), {
           loading: 'Unpinning',
@@ -137,6 +140,7 @@ const WorkspaceCard = (props: workspaceCardProps) => {
           orgs.userOrgs[workspaceName].archeive = (!archeive).toString();
           userContext?.setUserOrgs(orgs);
         }
+        setLocalArchive(!localArchive)
       };
       if (!initArc) {
         toast.promise(func(), {
@@ -159,11 +163,11 @@ const WorkspaceCard = (props: workspaceCardProps) => {
 
   return (
     <>
-      {archeive == archeives && (
+      {localArchive == archeives && (
         <div className='workspace-card'>
           
           <div className='workspace-card-body'>
-            {bookmark&&<FaBookmark/>}
+            {localBookmark&&<FaBookmark/>}
             <div
               className='workspace-popup-btn pointer'
               onClick={() => setShowPopUp(showPopUp ? false : true)}

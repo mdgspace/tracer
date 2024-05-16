@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import SearchBar from 'app/components/search';
 import TimeRangeSwitch from 'app/components/timeRangeSwitch';
 import ProjectCardCont from './components/projectCardContainer';
@@ -15,9 +15,12 @@ import { ProjectsGithubData } from 'app/api/githubData';
 import { Contributors } from 'app/api/githubData';
 import loader from '../../app/assets/gifs/loader.gif';
 import UserContext from 'app/context/user/userContext';
+import { getUserOrgs } from 'app/api/user';
+import { useSelector } from 'react-redux';
 
 
 const Workspace = () => {
+  const searchValue = useSelector((state: any) => state.searchKeyword.value);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const userContext = useContext(UserContext);
@@ -39,7 +42,8 @@ const Workspace = () => {
     if (token && spaceName) {
       try {
         const orgProjects = await getOrgProjects(token, spaceName);
-        setOrgProjects(orgProjects.data.projects);
+        const temp = Object.entries(orgProjects.data.projects).filter(([key]) => key.toLowerCase().includes(searchValue.toLowerCase()));
+        setOrgProjects(Object.fromEntries(temp))
       } catch (e) {
         navigate('/');
       }
@@ -63,6 +67,20 @@ const Workspace = () => {
     } catch (e) {}
   };
 
+  const fetchData = async () => {
+    if (token && userContext?.username) {
+      try {
+        const userOrgs = await getUserOrgs(
+          token,
+          userContext?.username.toString()
+        );
+        userContext?.setUserOrgs(userOrgs.data);
+     
+      } catch (e) {}
+
+    }
+  };
+
   const fetchMonthlyData = async () => {
     try {
       if (token && spaceName) {
@@ -77,12 +95,12 @@ const Workspace = () => {
       }
     } catch (e) {}
   };
-
   useEffect(() => {
+    fetchData();
     fetchOrgProjects();
     fetchWeeklyData();
     fetchMonthlyData();
-  }, [weekly, userContext?.setUsername, userContext?.setUserOrgs]);
+  }, [weekly,spaceName,searchValue]);
 
   return (
     <>

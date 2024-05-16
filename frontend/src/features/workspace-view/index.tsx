@@ -3,7 +3,7 @@ import  { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import WorkspaceCard from './workspace-card';
 import UserContext from 'app/context/user/userContext';
-import { UserOrgDetails, getUserOrgs } from 'app/api/user';
+import {  UserOrgs, getUserOrgs } from 'app/api/user';
 import loader from '../../app/assets/gifs/loader.gif';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -14,8 +14,10 @@ const WorkspaceView = () => {
   const userContext = useContext(UserContext);
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [archeives, setArcheives] = useState<boolean>(false);
+  const [userOrgs, setUserOrgs] = useState<UserOrgs>();
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
+  const searchValue = useSelector((state: any) => state.searchKeyword.value);
   const fetchData = async () => {
     if (token && userContext?.username) {
       setIsLoad(true);
@@ -25,22 +27,19 @@ const WorkspaceView = () => {
           userContext?.username.toString()
         );
         userContext?.setUserOrgs(userOrgs.data);
-     
+        setUserOrgs(userOrgs.data);
+        setIsLoad(false);
       } catch (e) {}
-
       setIsLoad(false);
     }
   };
-  const searchValue = useSelector((state: any) => state.searchKeyword.value);
-
   useEffect(() => {
     fetchData();
   }, [
-    userContext?.setUsername,
     userContext?.username,
     navigate,
-    userContext?.setUserOrgs,
     searchValue,
+
   ]);
 
   const LogoutHandler = async () => {
@@ -60,7 +59,7 @@ const WorkspaceView = () => {
           onClick={() => setArcheives(!archeives)}
           style={archeives ? { background: '#141432' } : {}}
         >
-          Archeives
+          Archives
         </button>
 
         <button onClick={() => navigate('/addWorkspace')}>
@@ -73,8 +72,8 @@ const WorkspaceView = () => {
         {isLoad ? (
           <img src={loader} className='loader' />
         ) : (
-          userContext?.userOrgs &&
-          Object.entries(userContext.userOrgs.userOrgs)
+          userOrgs &&
+          Object.entries(userOrgs.userOrgs)
             .filter(([key, value]) => {
               if (key.toLowerCase().includes(searchValue.toLowerCase()))
                 return [key, value];

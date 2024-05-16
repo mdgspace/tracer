@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import { deleteProject, getMembers, getProject } from 'app/api/project';
 import { FaBookmark } from "react-icons/fa";
@@ -10,6 +10,7 @@ import { setArcheiveStatus, setBookmarkStatus } from 'app/api/organization';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import rightNavbtn from '../../../../app/assets/images/right_navigation_button.svg';
+import { UserOrgs, getUserOrgs } from 'app/api/user';
 interface Props {
   projectName: string;
   orgName: string;
@@ -41,7 +42,7 @@ const ProjectCard: React.FC<Props> = ({
   const [projectMembers, setProjectMembers] = useState<
     { key: string; value: string }[]
   >([]);
-
+  const [userOrgs, setUserOrgs] = useState<UserOrgs>({} as UserOrgs);
   const fetchProjectData = async () => {
     if (token != null) {
       const project_data = await getProject(token, projectName, orgName);
@@ -68,6 +69,22 @@ const ProjectCard: React.FC<Props> = ({
           [projectName]: !pin,
         });
         setPin(!pin);
+        status.bookmark = !pin;
+        const temp = userOrgs;
+        Object.entries(temp.userOrgs).map(([org]) => {
+          if (org === orgName) {
+            if (temp.userOrgs[org].bookmark === "true" ) {
+              temp.userOrgs[org].bookmark = "false";
+            }
+            else {
+              temp.userOrgs[org].bookmark = "true";
+            }
+          }
+        });
+        setUserOrgs(userOrgs => {
+          return userOrgs = {...temp}
+        });
+        userContext?.setUserOrgs(userOrgs);
       };
 
       if (initial) {
@@ -85,7 +102,7 @@ const ProjectCard: React.FC<Props> = ({
       }
     }
   };
-
+  
   const ArchiveHandler = async () => {
     if (token && orgName) {
       let initial = archive;
@@ -93,7 +110,25 @@ const ProjectCard: React.FC<Props> = ({
         const res = await setArcheiveStatus(token, orgName, {
           [projectName]: !archive,
         });
+        
         setArchive(!archive);
+        status.archeive = !archive;
+        const temp = userOrgs;
+        Object.entries(temp.userOrgs).map(([org]) => {
+          if (org === orgName) {
+            if (temp.userOrgs[org].archeive === "true" ) {
+              temp.userOrgs[org].archeive = "false";
+            }
+            else {
+              temp.userOrgs[org].archeive = "true";
+            }
+          }
+        });
+        setUserOrgs(userOrgs => {
+          return userOrgs = {...temp}
+        });
+        userContext?.setUserOrgs(userOrgs);
+        
       };
 
       if (initial) {
@@ -107,16 +142,20 @@ const ProjectCard: React.FC<Props> = ({
           loading: 'On progress',
           success: <b>Project archived</b>,
           error: <b>Unable to arhive</b>,
+          
         });
       }
     }
   };
-
   const DeleteHandler = async () => {
     if (token && orgName) {
       const func = async () => {
         const res = await deleteProject(token, projectName, orgName);
-      };
+        // TODO update local state
+        if (userOrgs) {Object.entries(userOrgs.userOrgs)
+            .map(([org]) =>{
+          })
+      };}
       toast.promise(func(), {
         loading: 'On progress',
         success: <b>Successfully deleted</b>,
@@ -124,10 +163,28 @@ const ProjectCard: React.FC<Props> = ({
       });
     }
   };
+  const fetchData = async () => {
+    if (token && userContext?.username) {
+      try {
+        const userOrgs = await getUserOrgs(
+          token,
+          userContext?.username.toString()
+        );
+        userContext?.setUserOrgs(userOrgs.data);
+        setUserOrgs(userOrgs.data);
+     
+      } catch (e) {}
+
+    }
+  };
   useEffect(() => {
     fetchProjectData();
     fetchProjectMembers();
-  }, [userContext?.setUsername, userContext?.setUserOrgs]);
+    fetchData();
+    
+
+  }, [userOrgs]);
+  
 
   return (
     <div className='projectcard'>
@@ -141,7 +198,6 @@ const ProjectCard: React.FC<Props> = ({
       {(userContext?.userOrgs?.userOrgs[orgName].role === 'admin' ||
         userContext?.userOrgs?.userOrgs[orgName].role === 'manager') && (
         <>
-       
           <div
             className='workspace-popup-btn pointer'
             onClick={() => setShowPopUp(showPopUp ? false : true)}
