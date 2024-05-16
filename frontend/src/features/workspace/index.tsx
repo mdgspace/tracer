@@ -15,12 +15,14 @@ import { ProjectsGithubData } from 'app/api/githubData';
 import { Contributors } from 'app/api/githubData';
 import loader from '../../app/assets/gifs/loader.gif';
 import UserContext from 'app/context/user/userContext';
+import { getUserOrgs } from 'app/api/user';
 
 
 const Workspace = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const userContext = useContext(UserContext);
+  // userContext?.setUsername('test');
   const [weekly, setWeekly] = useState<boolean>(true);
   const [orgProjects, setOrgProjects] = useState<Projects | null>(null);
   const [archives, setArcheives] = useState<boolean>(false);
@@ -63,6 +65,20 @@ const Workspace = () => {
     } catch (e) {}
   };
 
+  const fetchData = async () => {
+    if (token && userContext?.username) {
+      try {
+        const userOrgs = await getUserOrgs(
+          token,
+          userContext?.username.toString()
+        );
+        userContext?.setUserOrgs(userOrgs.data);
+     
+      } catch (e) {}
+
+    }
+  };
+
   const fetchMonthlyData = async () => {
     try {
       if (token && spaceName) {
@@ -77,12 +93,13 @@ const Workspace = () => {
       }
     } catch (e) {}
   };
-
   useEffect(() => {
     fetchOrgProjects();
     fetchWeeklyData();
     fetchMonthlyData();
-  }, [weekly, userContext?.setUsername, userContext?.setUserOrgs]);
+    fetchData();
+    console.log(userContext)
+  }, [weekly,spaceName]);
 
   return (
     <>
