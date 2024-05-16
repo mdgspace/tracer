@@ -6,11 +6,13 @@ import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 import loader from '../../app/assets/gifs/loader.gif';
 
-import heroImg from 'app/assets/images/login2.png';
-import github from 'app/assets/images/github.png';
+// import heroImg from 'app/assets/images/login2.png';
+// import github from 'app/assets/images/github.png';
 import './index.scss';
-
+import { useContext } from 'react';
+import UserContext from 'app/context/user/userContext';
 const Login = () => {
+  const userContext = useContext(UserContext);
   const [searchParam] = useSearchParams();
   const navigate = useNavigate();
   const loginFunc = async () => {
@@ -19,6 +21,7 @@ const Login = () => {
         const code: string = searchParam.get('code')!;
         const loginData = await login(code);
         const token = loginData.data.token;
+        userContext?.setUsername(loginData.data.username);
         localStorage.setItem('token', token);
         toast.success('Login success');
         navigate('/');
@@ -48,17 +51,16 @@ const Login = () => {
     <>
       <div className='login_wrapper'>
         <div className='hero_image'>
-          <img src={heroImg} alt='' />
         </div>
         <div className='hero_content'>
-          <h1>Tracer</h1>
+          <h1>ACTIVITY LEADERBOARD</h1>
           <h3>
             Track your progress, healthy competition in organization others, and
             unleash your GitHub potential"
           </h3>
 
           <button onClick={loginWithGithub}>
-            <img src={github} alt='' /> Login Witth Github
+             Login Witth Github
           </button>
         </div>
       </div>
