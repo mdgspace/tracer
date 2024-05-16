@@ -22,20 +22,14 @@ const ProjectCardCont: React.FC<Props> = ({
   weeklyOrgProjectsData,
   archives,
 }) => {
-  const searchValue = useSelector((state: any) => state.searchKeyword.value);
-
-  useEffect(() => {}, [weekly, searchValue]);
+  useEffect(() => {
+    return;
+  }, [weekly]);
 
   return (
-    <>
       <div className='projectcard-cont'>
         {orgProjects &&
-          Object.entries(orgProjects)
-            .filter(([key, value]) => {
-              if (key.toLowerCase().includes(searchValue.toLowerCase()))
-                return [key, value];
-            })
-            .map(([key, value]) => {
+          Object.entries(orgProjects).map(([key, value]) => {
               return (
                 archives === value.archeive && (
                   <ProjectCard
@@ -53,7 +47,6 @@ const ProjectCardCont: React.FC<Props> = ({
               );
             })}
       </div>
-    </>
   );
 };
 

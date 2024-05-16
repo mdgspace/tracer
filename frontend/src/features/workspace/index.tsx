@@ -16,13 +16,14 @@ import { Contributors } from 'app/api/githubData';
 import loader from '../../app/assets/gifs/loader.gif';
 import UserContext from 'app/context/user/userContext';
 import { getUserOrgs } from 'app/api/user';
+import { useSelector } from 'react-redux';
 
 
 const Workspace = () => {
+  const searchValue = useSelector((state: any) => state.searchKeyword.value);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const userContext = useContext(UserContext);
-  // userContext?.setUsername('test');
   const [weekly, setWeekly] = useState<boolean>(true);
   const [orgProjects, setOrgProjects] = useState<Projects | null>(null);
   const [archives, setArcheives] = useState<boolean>(false);
@@ -41,7 +42,8 @@ const Workspace = () => {
     if (token && spaceName) {
       try {
         const orgProjects = await getOrgProjects(token, spaceName);
-        setOrgProjects(orgProjects.data.projects);
+        const temp = Object.entries(orgProjects.data.projects).filter(([key]) => key.toLowerCase().includes(searchValue.toLowerCase()));
+        setOrgProjects(Object.fromEntries(temp))
       } catch (e) {
         navigate('/');
       }
@@ -98,7 +100,7 @@ const Workspace = () => {
     fetchOrgProjects();
     fetchWeeklyData();
     fetchMonthlyData();
-  }, [weekly,spaceName]);
+  }, [weekly,spaceName,searchValue]);
 
   return (
     <>

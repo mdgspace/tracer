@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchAction } from 'features/workspace/slices/projectSearchSlice';
 import search_icon from 'app/assets/images/search_icon.svg';
@@ -6,9 +6,9 @@ import './index.scss';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  let search = '';
+  const [search,setSearch] = useState('')
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    search = e.target.value;
+    setSearch(e.target.value);
   };
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
