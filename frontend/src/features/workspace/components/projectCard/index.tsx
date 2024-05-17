@@ -28,7 +28,6 @@ interface Props {
 const ProjectCard: React.FC<Props> = ({
   projectName,
   orgName,
-
   status,
   githubData,
 }) => {
@@ -166,13 +165,12 @@ const ProjectCard: React.FC<Props> = ({
   const fetchData = async () => {
     if (token && userContext?.username) {
       try {
-        const userOrgs = await getUserOrgs(
+        const userOrgsRes = await getUserOrgs(
           token,
           userContext?.username.toString()
         );
-        userContext?.setUserOrgs(userOrgs.data);
-        setUserOrgs(userOrgs.data);
-     
+        userContext?.setUserOrgs(userOrgsRes.data);
+        setUserOrgs(userOrgsRes.data);
       } catch (e) {}
 
     }
@@ -181,33 +179,28 @@ const ProjectCard: React.FC<Props> = ({
     fetchProjectData();
     fetchProjectMembers();
     fetchData();
-    
-
-  }, [userOrgs]);
+  }, []);
   
 
   return (
     <div className='projectcard'>
        
        <div className='pinDiv'>
-       {pin&&<FaBookmark/>}
+       {pin && <FaBookmark/>}
        </div>
       <h1>{projectName}</h1>
       <p>{project ? project.description : <></>}</p>
 
       {(userContext?.userOrgs?.userOrgs[orgName].role === 'admin' ||
         userContext?.userOrgs?.userOrgs[orgName].role === 'manager') && (
-        <>
+          <div>
           <div
             className='workspace-popup-btn pointer'
-            onClick={() => setShowPopUp(showPopUp ? false : true)}
+            onClick={() => setShowPopUp(!showPopUp)}
           >
-            <img
-              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR51T-25-1BBmDvoLRWJYNK3P6AENpJBslAp9n_QDXRnA&usqp=CAU&ec=48665701'
-              alt=''
-            />
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB8ElEQVR4nO3bTS5DUQCG4S6C+N0PaSyEin2YGghiZguKnZTYhJ+aCPLK1TswEc7tPfKF90kkHbRNky85bm/zDgaSJEnSB2Ad2AWugGvgqf1rHl8Co+Y5s2erGmAROABe+N4bcAasOEmdMbaAB8o1rxk6Sr9jjIBXumteu+Mo/YyxOecYn4+wLUeZb4zVjsfUV+6BZUfpPsgp/TtykO6Xti8VBmnec81RygfZo56Rg5QPcllxkLGDlA9yW3GQGwcpH2RacZCpg5QP8lhxkAcHKR/kpuIgEwcpH+Si4iDnDlI+yG7FQbYdJOuL4aqDdAAcVxjk0DE6AlbaG4J9uQOWHGQOwIa338MAOz38QOU/8p5HGXY8vppjarPXD6MZYAHYB55/eDV14g9SvwBYa4+x5svjpL3vNW0fj5vjyUtbSZIkSfrDsA/JgH1IDuxDcmAfkgP7kBzYh2TBPiQH9iFZsA/Jgn1IFuxDsmAfkgX7kCzYh2TBPiQL9iFZsA/Jg31IFuxD8mAfkgf7kDzYh+TBPiQT9iGSJEmS9L9hH5IB+5Ac2IfkwD4kB/YhObAPyYJ9SA7sQ7JgH5IF+5As2IdkwT4kC/YhWbAPyYJ9SBbsQ7JgH5IH+5As2IfkwT4kD/YhebAPyYN9SCbsQyRJkjQo8Q6ntzHvrrTO1wAAAABJRU5ErkJggg==" />
           </div>
-          <div className={showPopUp ? 'workspace-popup' : 'hide'}>
+          {showPopUp && <div className={'workspace-popup'}>
             <div className='pin pointer' onClick={PinHandler}>
               {pin ? 'Unpin' : 'Pin'}
             </div>
@@ -223,8 +216,8 @@ const ProjectCard: React.FC<Props> = ({
             <div className='delete pointer' onClick={DeleteHandler}>
               Delete
             </div>
-          </div>
-        </>
+          </div>}
+      </div>
       )}
       <div className='projectcard-status'>
         <div>
