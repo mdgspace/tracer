@@ -15,7 +15,7 @@ import { ProjectsGithubData } from 'app/api/githubData';
 import { Contributors } from 'app/api/githubData';
 import loader from '../../app/assets/gifs/loader.gif';
 import UserContext from 'app/context/user/userContext';
-import { getUserOrgs } from 'app/api/user';
+import { UserOrgs, getUserOrgs } from 'app/api/user';
 import { useSelector } from 'react-redux';
 
 
@@ -30,6 +30,7 @@ const Workspace = () => {
   const [monthlyOrgRank, setMonthlyOrgRank] = useState<Contributors | null>(
     null
   );
+  const [userOrgs, setUserOrgs] = useState<UserOrgs>({} as UserOrgs);
   const [weeklyOrgRank, setWeeklyOrgRank] = useState<Contributors | null>(null);
   const [monthlyOrgProjectsData, setMOnthyOrgProjectsData] =
     useState<ProjectsGithubData | null>(null);
@@ -68,14 +69,15 @@ const Workspace = () => {
   };
 
   const fetchData = async () => {
+    console.log(userContext?.username)
     if (token && userContext?.username) {
       try {
-        const userOrgs = await getUserOrgs(
+        const userOrgsRes = await getUserOrgs(
           token,
           userContext?.username.toString()
         );
-        userContext?.setUserOrgs(userOrgs.data);
-     
+        userContext?.setUserOrgs(userOrgsRes.data);
+        setUserOrgs(userOrgsRes.data);
       } catch (e) {}
 
     }
@@ -100,7 +102,7 @@ const Workspace = () => {
     fetchOrgProjects();
     fetchWeeklyData();
     fetchMonthlyData();
-  }, [weekly,spaceName,searchValue]);
+  }, [spaceName,searchValue]);
 
   return (
     <>
