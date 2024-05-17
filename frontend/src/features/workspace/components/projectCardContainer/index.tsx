@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ProjectCard from '../projectCard';
 import './index.scss';
 import { Projects } from 'app/api/organization';
 import { ProjectsGithubData } from 'app/api/githubData';
-import { useSelector } from 'react-redux';
 
 interface Props {
   weekly: boolean;
