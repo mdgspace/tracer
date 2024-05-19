@@ -191,7 +191,7 @@ const AddWorkspace = () => {
             onChange={handleNameChange}
             placeholder='workspace name'
           />
-          {!name ? <p>Name feild should not be empty</p> : <></>}
+          {!name ? <p>Name field should not be empty</p> : <></>}
           {!validName && name ? <p>Not a valid name</p> : <></>}
           {!uniqueName && name ? (
             <p>Name already taken. Try another name</p>
@@ -211,7 +211,7 @@ const AddWorkspace = () => {
             onChange={handleDesriptionChange}
             placeholder='workspace description'
           />
-          {!description ? <p>Description feild should not be empty</p> : <></>}
+          {!description ? <p>Description field should not be empty</p> : <></>}
           {!validDescription ? (
             <p>Characters length should be less than 200</p>
           ) : (

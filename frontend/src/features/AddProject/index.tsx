@@ -102,7 +102,7 @@ const AddProject = () => {
             onChange={nameChange}
             value={name ? name : ''}
           />
-          {!name ? 'Name feild should not be empty' : <></>}
+          {!name ? 'Name field should not be empty' : <></>}
           {name && !isValidName(name) && 'Not a valid name'}
           {name && !isUnique(name) && 'This project name already exists'}
           <div className='input-title'>Project link</div>
@@ -112,7 +112,7 @@ const AddProject = () => {
             onChange={linkChange}
             placeholder='Github link of project'
           />
-          {!link ? 'Link feild should not be empty' : <></>}
+          {!link ? 'Link field should not be empty' : <></>}
           {link &&
             !isGitHubRepositoryLink(link) &&
             'Not a valid github repository link'}
@@ -125,7 +125,7 @@ const AddProject = () => {
             }
             placeholder='Details about project'
           />
-          {!description ? 'Description feild should not be empty' : <></>}
+          {!description ? 'Description field should not be empty' : <></>}
           {description &&
             description.length >= 200 &&
             'Description length should not be greater than 200'}

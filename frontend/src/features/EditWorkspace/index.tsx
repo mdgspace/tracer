@@ -173,7 +173,7 @@ const EditWorkspace = () => {
             onChange={handleNameChange}
             placeholder='workspace name'
           />
-          {!name ? <p>Name feild should not be empty</p> : <></>}
+          {!name ? <p>Name field should not be empty</p> : <></>}
           {name != spaceName && !validName && name ? (
             <p>Not a valid name</p>
           ) : (
@@ -197,7 +197,7 @@ const EditWorkspace = () => {
             onChange={handleDesriptionChange}
             placeholder='workspace description'
           />
-          {!description ? <p>Description feild should not be empty</p> : <></>}
+          {!description ? <p>Description field should not be empty</p> : <></>}
           {!validDescription ? (
             <p>Characters length should be less than 200</p>
           ) : (
