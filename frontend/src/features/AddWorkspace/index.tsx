@@ -77,7 +77,7 @@ const AddWorkspace = () => {
     }
   };
 
-  const validate: _VALIDATE_PROPS = (name, value, files) => {
+  const validate: _VALIDATE_PROPS = (name, value) => {
     switch (name) {
       case 'workspace':
         if (!value) {
@@ -86,11 +86,6 @@ const AddWorkspace = () => {
           return 'Workspace Name can only contain alphanumeric characters, hyphens, and underscores';
         } else if (!isUnique(value)) {
           return 'Workspace name already exist';
-        }
-        return '';
-      case 'image':
-        if (!FileList) {
-          return 'File is required';
         }
         return '';
       case 'description':
@@ -122,8 +117,8 @@ const AddWorkspace = () => {
     }
   };
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
-    const error = validate(name, value, files);
+    const { name, value } = e.target;
+    const error = validate(name, value);
     setFormErrors({
       ...formErrors,
       [name]: error,
@@ -132,17 +127,18 @@ const AddWorkspace = () => {
 
   const handleSubmit: _FORM_SUBMIT = (event) => {
     event.preventDefault();
-    const workspace_error = validate('workspace', form.workspace, null);
-    const desc_error = validate('description', form.description, null);
-    const image_error = form.image ? '' : 'Image is required';
+    const workspace_error = validate('workspace', form.workspace);
+    const desc_error = validate('description', form.description);
     setFormErrors({
       ...formErrors,
       workspace: workspace_error,
       description: desc_error,
-      image: image_error,
     });
-    if (workspace_error || desc_error || image_error)
-      toast.error('Check workspace, icon and description fields');
+    if (workspace_error || desc_error) {
+      if (workspace_error)
+        toast.error('Check workspace field');
+      if (desc_error) toast.error("Check description field")
+    }
     else {
       if (token) {
         const newForm = form;
@@ -222,7 +218,7 @@ const AddWorkspace = () => {
       >
         <div className='single-form-element-container'>
           <p className='label'>
-            Add Icon<span style={{ color: 'red', paddingLeft: '4px' }}>*</span>
+            Add Icon
           </p>
           <div className='file-input-container'>
             <label htmlFor='icon-file' className='file-label'>
@@ -242,7 +238,6 @@ const AddWorkspace = () => {
             <p>Supported formats: JPEG, JPG, PNG</p>
             <p>Selected File: {form.image?.name}</p>
           </div>
-          {formErrors.image && <p className='form-error'>{formErrors.image}</p>}
         </div>
         <div className='single-form-element-container'>
           <label className='label' htmlFor='workspace-name'>
@@ -302,8 +297,8 @@ const AddWorkspace = () => {
               type='button'
               disabled={
                 form.member
-                  ? !users.includes(form.member) &&
-                    form.member == userContext?.username
+                  ? (!users.includes(form.member) &&
+                    form.member == userContext?.username)
                   : true
               }
             >

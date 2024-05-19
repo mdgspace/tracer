@@ -20,4 +20,4 @@ export type _WORKSPACE_FORM_CHANGE = (
 
 export type _FORM_SUBMIT = (event: FormEvent<HTMLFormElement>) => void;
 
-export type _VALIDATE_PROPS = (name: string, value: string, files:FileList|null) => string;
+export type _VALIDATE_PROPS = (name: string, value: string) => string;
