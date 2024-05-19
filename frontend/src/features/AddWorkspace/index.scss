@@ -20,6 +20,10 @@ $breakpoint-tablet: 768px;
     gap: 2rem;
     .submit {
       display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
       padding: 1rem 2rem;
       align-self: flex-end;
       font-size: 1.5rem;
@@ -119,6 +123,10 @@ $breakpoint-tablet: 768px;
     font-weight: 100 !important;
     border-radius: 2.3125rem;
     background: #402aa4;
+  }
+  .add-member-button:disabled {
+    background-color: grey;
+
   }
 }
 

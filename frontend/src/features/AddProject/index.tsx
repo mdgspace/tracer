@@ -147,7 +147,7 @@ const AddProject = () => {
         autoComplete='off'
         noValidate
       >
-        <div className='input-title'>Name</div>
+        <div className='input-title'>Name<span style={{color:'red',paddingLeft:'4px'}}>*</span></div>
         <input
           type='text'
           placeholder='Project name'
@@ -158,7 +158,7 @@ const AddProject = () => {
           required
         />
         {formErrors.name && <p className='form-error'>{formErrors.name}</p>}
-        <div className='input-title'>Project link</div>
+        <div className='input-title'>Project link<span style={{color:'red',paddingLeft:'4px'}}>*</span></div>
         <input
           type='text'
           value={form.link}

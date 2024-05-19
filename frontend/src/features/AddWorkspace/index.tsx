@@ -1,5 +1,5 @@
 import { getAllUser } from 'app/api/user';
-import  { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { addOrg, addOrgMembers, getAllOrgs } from 'app/api/organization';
@@ -9,65 +9,33 @@ import './index.scss';
 import UserContext from 'app/context/user/userContext';
 import { AVATAR_URL } from 'app/constants/api';
 import { AVATAR_API } from 'envConstants';
+import Cross from '../../app/assets/icons/cross.svg';
+import {
+  _VALIDATE_PROPS,
+  _WORKSPACE_FORM,
+  _WORKSPACE_FORM_CHANGE,
+  _WORKSPACE_FORM_ERROR,
+} from './types';
 
 const AddWorkspace = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const userContext = useContext(UserContext);
-
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [name, SetName] = useState<string | null>(null);
-  const [description, setDiscription] = useState<string | null>(null);
-  const [validDescription, setValidDescription] = useState<boolean>(true);
-  const [validName, setValidName] = useState<boolean>(false);
-  const [uniqueName, setUniqueName] = useState<boolean>(false);
-  const [members, setMembers] = useState<string[]>([]);
-  const [memberName, setMemberName] = useState<string | null>(null);
+  const [form, setForm] = useState<_WORKSPACE_FORM>({
+    workspace: '',
+    description: '',
+    members: [],
+    image: undefined,
+    member: '',
+  });
+  const [formErrors, setFormErrors] = useState<_WORKSPACE_FORM_ERROR>(
+    {} as _WORKSPACE_FORM_ERROR
+  );
 
   const [users, setUsers] = useState<string[]>([]);
   const [orgs, setOrgs] = useState<string[]>([]);
 
-  const dataFetch = async () => {
-    try {
-      if (token) {
-        const users_aray: string[] = [];
-        const org_aray: string[] = [];
-        const allUser = await getAllUser(token);
-        const allOrgs = await getAllOrgs(token);
-        allUser.data.users.forEach((user) => {
-          users_aray.push(user.username);
-        });
-
-        allOrgs.data.organizations.forEach((org) => {
-          org_aray.push(org.name);
-        });
-
-        setUsers(users_aray);
-        setOrgs(org_aray);
-      }
-    } catch (e) {}
-  };
-
-  useEffect(() => {
-    dataFetch();
-  }, []);
-
-  const allowedFieTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-
-    if (file) {
-      if (allowedFieTypes.includes(file.type)) {
-        setSelectedFile(file);
-      } else {
-        setSelectedFile(null);
-        toast.error('Invalid file type');
-      }
-    }
-  };
-
-  function valid_name(str: string): boolean {
+  function isValidName(str: string): boolean {
     // Define a regular expression for special characters (excluding letters, digits, and spaces)
     const specialCharacters = /^[a-zA-Z0-9_-]+$/;
 
@@ -75,76 +43,123 @@ const AddWorkspace = () => {
     return specialCharacters.test(str) && !str.endsWith('-userspace');
   }
 
-  function isUniqueName(str: string): boolean {
+  function isUnique(str: string): boolean {
     return !orgs.includes(str);
   }
 
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    SetName(event.target.value);
-    setUniqueName(() => isUniqueName(event.target.value));
-    setValidName(() => valid_name(event.target.value));
-  };
-
-  const handleDesriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setDiscription(event.target.value);
-    if (description?.length) {
-      setValidDescription(description.length < 200);
-    }
-  };
-
   const addMembers = () => {
-    if (memberName) {
+    if (form.member) {
       if (
-        users.includes(memberName) &&
-        memberName != userContext?.username &&
-        !members.includes(memberName)
+        users.includes(form.member) &&
+        form.member != userContext?.username &&
+        !form.members.includes(form.member)
       ) {
-        setMembers([...members, memberName]);
-        setMemberName(null);
+        setForm({ ...form, members: [...form.members, form.member] });
+        setForm({ ...form, member: '' });
+        console.log(form);
       }
     }
   };
 
   const removeMembers = (member: string) => {
-    const indexToRemove = members.indexOf(member);
+    const indexToRemove = form.members.indexOf(member);
 
     if (indexToRemove !== -1) {
       const updatedMembers = [
-        ...members.slice(0, indexToRemove),
-        ...members.slice(indexToRemove + 1),
+        ...form.members.slice(0, indexToRemove),
+        ...form.members.slice(indexToRemove + 1),
       ];
 
-      setMembers(updatedMembers);
+      setForm({ ...form, members: updatedMembers });
     } else {
       console.warn(`Member "${member}" not found in the members array.`);
     }
   };
+
+  const validate: _VALIDATE_PROPS = (name, value,files) => {
+    switch (name) {
+      case 'workspace':
+        if (!value) {
+          return 'Workspace Name is required';
+        } else if (!isValidName(value)) {
+          return 'Workspace Name can only contain alphanumeric characters, hyphens, and underscores';
+        } else if (!isUnique(value)) {
+          return 'Workspace name already exist';
+        }
+        return '';
+      case 'image':
+        if (!FileList) {
+          return "File is required"
+        }
+        return ''
+      case 'description':
+        if (value.length>200) {
+          return "Description should be less then 200 characters"
+        }
+        return ''
+      default:
+        return '';
+    }
+  };
+
+  const handleChange: _WORKSPACE_FORM_CHANGE = (event) => {
+    const { name, value } = event.target;
+    switch (name) {
+      case 'image':
+        const file = event.target.files?.[0];
+        setForm({ ...form, image: file });
+        break;
+      case 'workspace':
+        setForm({ ...form, workspace: value });
+        break;
+      case 'description':
+        setForm({ ...form, description: value });
+        break;
+      case 'member':
+        setForm({ ...form, member: value });
+        break;
+    }
+  };
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value,files } = e.target;
+    const error = validate(name, value,files);
+    setFormErrors({
+      ...formErrors,
+      [name]: error,
+    });
+  };
+
+  const handleSubmit = () => {};
+
   const SubmitHandler = async (): Promise<void> => {
     if (
-      description &&
+      form.description &&
       token &&
-      name &&
-      validName &&
-      uniqueName &&
-      validDescription
+      form.workspace
+      // &&
+      // validName &&
+      // uniqueName &&
+      // validDescription
     ) {
       const func = async (): Promise<void> => {
         const dataRes = await addOrg(token, {
-          name: name,
-          description: description,
+          name: form.workspace,
+          description: form.description,
         });
 
-
-          if (selectedFile != null) {
-            try{
-              const fileRes = await uploadIcon(token, name, selectedFile);
-            }catch (e){            
-            }
-          }
-
-        if (members.length > 0) {
+        if (form.image) {
           try {
-            const addMmebersRes = await addOrgMembers(token, name, members);
+            const fileRes = await uploadIcon(token, form.workspace, form.image);
+          } catch (e) {}
+        }
+
+        if (form.members.length > 0) {
+          try {
+            const addMmebersRes = await addOrgMembers(
+              token,
+              form.workspace,
+              form.members
+            );
           } catch (e) {}
         }
         navigate('/');
@@ -159,12 +174,40 @@ const AddWorkspace = () => {
       toast.error('Invalid inputs');
     }
   };
+  const dataFetch = async () => {
+    try {
+      if (token) {
+        const users_arr: string[] = [];
+        const org_arr: string[] = [];
+        const allUser = await getAllUser(token);
+        const allOrgs = await getAllOrgs(token);
+        allUser.data.users.forEach((user) => {
+          users_arr.push(user.username);
+        });
 
+        allOrgs.data.organizations.forEach((org) => {
+          org_arr.push(org.name);
+        });
+        setUsers(users_arr);
+        setOrgs(org_arr);
+      }
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    dataFetch();
+  }, []);
   return (
     <div className='main_aworkspace_container'>
-      <div className='addworkspace-form-container'>
+      <form
+        className='addworkspace-form-container'
+        onSubmit={handleSubmit}
+        autoFocus={true}
+        autoComplete='off'
+        noValidate
+      >
         <div className='single-form-element-container'>
-          <label className='label'>Add Icon</label>
+          <p className='label'>Add Icon<span style={{color:'red',paddingLeft:'4px'}}>*</span></p>
           <div className='file-input-container'>
             <label htmlFor='icon-file' className='file-label'>
               Choose image files here
@@ -173,31 +216,33 @@ const AddWorkspace = () => {
               type='file'
               id='icon-file'
               className='custom-file-input'
-              onChange={handleFileChange}
+              accept="image/jpeg', image/jpg, image/png"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              required
+              max={1}
+              name='image'
             />
             <p>Supported formats: JPEG, JPG, PNG</p>
-            <p>Selected File: {selectedFile?.name}</p>
+            <p>Selected File: {form.image?.name}</p>
           </div>
+          {formErrors.image && <p className='form-error'>{formErrors.image}</p>}
         </div>
         <div className='single-form-element-container'>
           <label className='label' htmlFor='workspace-name'>
-            Name
+            Workspace Name<span style={{color:'red',paddingLeft:'4px'}}>*</span>
           </label>
           <input
             type='text'
             className='custom-input'
             id='workspace-name'
-            value={name ? name : ''}
-            onChange={handleNameChange}
+            name='workspace'
+            value={form.workspace}
+            onBlur={handleBlur}
+            onChange={handleChange}
             placeholder='workspace name'
           />
-          {!name ? <p>Name field should not be empty</p> : <></>}
-          {!validName && name ? <p>Not a valid name</p> : <></>}
-          {!uniqueName && name ? (
-            <p>Name already taken. Try another name</p>
-          ) : (
-            <></>
-          )}
+          {formErrors.workspace && <p className='form-error'>{formErrors.workspace}</p>}
         </div>
         <div className='single-form-element-container'>
           <label className='label' htmlFor='workspace-description'>
@@ -207,34 +252,38 @@ const AddWorkspace = () => {
             id='workspace-description'
             type='text'
             className='custom-input'
-            value={description ? description : ''}
-            onChange={handleDesriptionChange}
+            name='description'
+            value={form.description}
+            onChange={handleChange}
+            onBlur={handleBlur}
             placeholder='workspace description'
+            maxLength={201}
           />
-          {!description ? <p>Description field should not be empty</p> : <></>}
+          {formErrors.description && <p className='form-error'>{formErrors.description}</p>}
+          {/* {!description ? <p>Description field should not be empty</p> : <></>}
           {!validDescription ? (
             <p>Characters length should be less than 200</p>
           ) : (
             <></>
-          )}
+          )} */}
           <div className='add-member-container'>
             <input
               type='text'
               id='add-member'
               className='custom-input'
-              value={memberName ? memberName : ''}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setMemberName(e.target.value);
-              }}
+              value={form.member}
+              name='member'
+              onChange={handleChange}
               placeholder='Github ID of user'
             />
             <button
               onClick={addMembers}
               className='add-member-button'
+              type='button'
               disabled={
-                memberName
-                  ? !users.includes(memberName) &&
-                    memberName == userContext?.username
+                form.member
+                  ? !users.includes(form.member) &&
+                    form.member == userContext?.username
                   : true
               }
             >
@@ -242,43 +291,28 @@ const AddWorkspace = () => {
             </button>
           </div>
         </div>
-        <div className='added-members'>
-          {members.map((member, index) => {
-            return (
-              <div className='member-card' key={index}>
-                <img
-                  className='member-avatar'
-                  src={AVATAR_URL + '/' + member + '.png?apikey=' + AVATAR_API}
-                />{' '}
-                <p className='member-name'>{member}</p>{' '}
-                <button
-                  onClick={() => {
-                    removeMembers(member);
-                  }}
-                  className='btn-cross'
-                >
-                  <svg
-                    width='25'
-                    height='24'
-                    viewBox='0 0 25 24'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      d='M16.566 8.99502C16.6377 8.92587 16.6948 8.84314 16.7342 8.75165C16.7735 8.66017 16.7943 8.56176 16.7952 8.46218C16.7961 8.3626 16.7772 8.26383 16.7395 8.17164C16.7018 8.07945 16.6462 7.99568 16.5758 7.92523C16.5054 7.85478 16.4217 7.79905 16.3295 7.7613C16.2374 7.72354 16.1386 7.70452 16.0391 7.70534C15.9395 7.70616 15.841 7.7268 15.7495 7.76606C15.658 7.80532 15.5752 7.86242 15.506 7.93402L12.5 10.939L9.495 7.93402C9.42634 7.86033 9.34354 7.80123 9.25154 7.76024C9.15954 7.71925 9.06022 7.69721 8.95952 7.69543C8.85882 7.69365 8.75879 7.71218 8.6654 7.7499C8.57201 7.78762 8.48718 7.84376 8.41596 7.91498C8.34474 7.9862 8.2886 8.07103 8.25087 8.16442C8.21315 8.25781 8.19463 8.35784 8.19641 8.45854C8.19818 8.55925 8.22022 8.65856 8.26122 8.75056C8.30221 8.84256 8.36131 8.92536 8.435 8.99402L11.438 12L8.433 15.005C8.30052 15.1472 8.22839 15.3352 8.23182 15.5295C8.23525 15.7238 8.31396 15.9092 8.45138 16.0466C8.58879 16.1841 8.77417 16.2628 8.96847 16.2662C9.16278 16.2696 9.35082 16.1975 9.493 16.065L12.5 13.06L15.505 16.066C15.6472 16.1985 15.8352 16.2706 16.0295 16.2672C16.2238 16.2638 16.4092 16.1851 16.5466 16.0476C16.684 15.9102 16.7627 15.7248 16.7662 15.5305C16.7696 15.3362 16.6975 15.1482 16.565 15.006L13.562 12L16.566 8.99502Z'
-                      fill='#8989CE'
-                    />
-                  </svg>{' '}
-                </button>
-              </div>
-            );
-          })}
-        </div>
 
-        <button className='submit' onClick={SubmitHandler}>
-          Done
-        </button>
-      </div>
+        <div className='added-members'>
+          {form.members.map((member, index) => (
+            <div className='member-card' key={index}>
+              <img
+                className='member-avatar'
+                src={AVATAR_URL + '/' + member + '.png?apikey=' + AVATAR_API}
+              />
+              <p className='member-name'>{member}</p>
+              <button
+                onClick={() => {
+                  removeMembers(member);
+                }}
+                className='btn-cross'
+              >
+                <img style={{ width: 20, height: 20 }} src={Cross} alt='' />
+              </button>
+            </div>
+          ))}
+        </div>
+        <button className='submit'>Done</button>
+      </form>
     </div>
   );
 };
