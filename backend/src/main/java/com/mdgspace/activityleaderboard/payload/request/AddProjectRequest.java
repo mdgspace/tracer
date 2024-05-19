@@ -16,7 +16,7 @@ public class AddProjectRequest implements Serializable{
     @Size(min=3,max=10)
     private String name;
 
-    @NotBlank
+
     @Size(min=5,max=30)
     private String description;
 

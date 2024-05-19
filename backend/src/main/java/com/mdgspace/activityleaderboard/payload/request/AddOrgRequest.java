@@ -20,7 +20,6 @@ public class AddOrgRequest implements Serializable {
     @Size(min=3,max=15)
     private String name;
 
-    @NotBlank
     @Size(min=5, max=30)
     private String description;
 }
