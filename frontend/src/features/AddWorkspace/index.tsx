@@ -260,13 +260,11 @@ const AddWorkspace = () => {
             maxLength={201}
           />
           {formErrors.description && <p className='form-error'>{formErrors.description}</p>}
-          {/* {!description ? <p>Description field should not be empty</p> : <></>}
-          {!validDescription ? (
-            <p>Characters length should be less than 200</p>
-          ) : (
-            <></>
-          )} */}
-          <div className='add-member-container'>
+          
+        </div>
+        <div className='single-form-element-container'>
+          <label className='label' htmlFor="add-member">Add Members</label>
+        <div className='add-member-container'>
             <input
               type='text'
               id='add-member'
@@ -291,7 +289,6 @@ const AddWorkspace = () => {
             </button>
           </div>
         </div>
-
         <div className='added-members'>
           {form.members.map((member, index) => (
             <div className='member-card' key={index}>
