@@ -1,15 +1,10 @@
-import  { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import './index.scss';
 // import tick from '../../app/assets/images/tick.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import {
-  getProject,
-  updateProject,
-} from 'app/api/project';
-import {  Projects, getOrgProjects } from 'app/api/organization';
-
-
+import { getProject, updateProject } from 'app/api/project';
+import { Projects, getOrgProjects } from 'app/api/organization';
 
 const EditProject = () => {
   const navigate = useNavigate();
@@ -111,7 +106,7 @@ const EditProject = () => {
             onChange={nameChange}
             value={name ? name : ''}
           />
-          {!name ? 'Name feild should not be empty' : <></>}
+          {!name ? 'Name field should not be empty' : <></>}
           {name && !isValidName(name) && 'Not a valid name'}
           {name &&
             name != projectName &&
@@ -124,7 +119,7 @@ const EditProject = () => {
             onChange={linkChange}
             placeholder='Github link of project'
           />
-          {!link ? 'Link feild should not be empty' : <></>}
+          {!link ? 'Link field should not be empty' : <></>}
           {link &&
             !isGitHubRepositoryLink(link) &&
             'Not a valid github repository link'}
@@ -137,14 +132,14 @@ const EditProject = () => {
             }
             placeholder='Details about project'
           />
-          {!description ? 'Description feild should not be empty' : <></>}
+          {!description ? 'Description field should not be empty' : <></>}
           {description &&
             description.length >= 200 &&
             'Description length should not be greater than 200'}
         </form>
         <button className='add-project-btn' onClick={SubmitHandler}>
           {/* <img src={tick} alt='' /> */}
-           Done
+          Done
         </button>
       </div>
     </div>

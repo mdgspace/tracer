@@ -1,15 +1,12 @@
-import  { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SearchBar from 'app/components/search';
 import TimeRangeSwitch from 'app/components/timeRangeSwitch';
 import ProjectCardCont from './components/projectCardContainer';
 import LeaderBoard from './components/leaderboard';
 import './index.scss';
-import {  useNavigate, useParams } from 'react-router-dom';
-import {  getOrgProjects } from 'app/api/organization';
-import {
-  getOrgGithubData,
-  getOrgRank,
-} from 'app/api/githubData';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getOrgProjects } from 'app/api/organization';
+import { getOrgGithubData, getOrgRank } from 'app/api/githubData';
 import { Projects } from 'app/api/organization';
 import { ProjectsGithubData } from 'app/api/githubData';
 import { Contributors } from 'app/api/githubData';
@@ -17,7 +14,6 @@ import loader from '../../app/assets/gifs/loader.gif';
 import UserContext from 'app/context/user/userContext';
 import { UserOrgs, getUserOrgs } from 'app/api/user';
 import { useSelector } from 'react-redux';
-
 
 const Workspace = () => {
   const searchValue = useSelector((state: any) => state.searchKeyword.value);
@@ -43,8 +39,10 @@ const Workspace = () => {
     if (token && spaceName) {
       try {
         const orgProjects = await getOrgProjects(token, spaceName);
-        const temp = Object.entries(orgProjects.data.projects).filter(([key]) => key.toLowerCase().includes(searchValue.toLowerCase()));
-        setOrgProjects(Object.fromEntries(temp))
+        const temp = Object.entries(orgProjects.data.projects).filter(([key]) =>
+          key.toLowerCase().includes(searchValue.toLowerCase())
+        );
+        setOrgProjects(Object.fromEntries(temp));
       } catch (e) {
         navigate('/');
       }
@@ -69,7 +67,7 @@ const Workspace = () => {
   };
 
   const fetchData = async () => {
-    console.log(userContext?.username)
+    console.log(userContext?.username);
     if (token && userContext?.username) {
       try {
         const userOrgsRes = await getUserOrgs(
@@ -79,7 +77,6 @@ const Workspace = () => {
         userContext?.setUserOrgs(userOrgsRes.data);
         setUserOrgs(userOrgsRes.data);
       } catch (e) {}
-
     }
   };
 
@@ -102,18 +99,13 @@ const Workspace = () => {
     fetchOrgProjects();
     fetchWeeklyData();
     fetchMonthlyData();
-  }, [spaceName,searchValue]);
+  }, [spaceName, searchValue]);
 
   return (
     <>
       <div className='home-header'>
         <SearchBar />
-        <button
-          
-          onClick={()=>navigate('/')}
-        >
-         Home
-        </button>
+        <button onClick={() => navigate('/')}>Home</button>
         <button
           style={archives ? { background: 'var(--home-page-card-bg)' } : {}}
           onClick={() => setArcheives(!archives)}

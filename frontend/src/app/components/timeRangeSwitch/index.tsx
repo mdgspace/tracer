@@ -13,9 +13,7 @@ interface Props {
 const TimeRangeSwitch: React.FC<Props> = ({ weekly, setWeekly }) => {
   // const dispatch = useDispatch();
   // const isWeekly = useSelector((state: timeRangeModel) => state.isWeekly.value);
- useEffect(()=>{
-
- },[weekly, setWeekly])
+  useEffect(() => {}, [weekly, setWeekly]);
   return (
     <div className='timerange-cont'>
       <button

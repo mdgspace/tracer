@@ -1,12 +1,9 @@
-
-import  { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AVATAR_API } from 'envConstants';
 import { AVATAR_URL } from 'app/constants/api';
 import toast from 'react-hot-toast';
-import {
-  getOrgMembers,
-} from 'app/api/organization';
+import { getOrgMembers } from 'app/api/organization';
 
 import './index.scss';
 import UserContext from 'app/context/user/userContext';

@@ -1,4 +1,3 @@
-
 import './index.scss';
 import contributorPropTypes from 'app/models/contributorPropTypes';
 import { AVATAR_API } from 'envConstants';

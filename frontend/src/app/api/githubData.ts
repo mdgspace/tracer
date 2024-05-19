@@ -25,7 +25,6 @@ export interface ProjectStats {
   contributors: Contributors;
 }
 
-
 export interface OrgProjectGithubData {
   projects: ProjectsGithubData;
 }

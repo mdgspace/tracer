@@ -1,18 +1,25 @@
 .add-project-container {
-  width: 70vw;
-  height: 76.5vh;
-  margin: 60px auto;
+  width: 80% !important;
+  margin: 60px auto !important;
   background: linear-gradient(110.51deg, #141432 0.9%, #2a2a4b 101.51%);
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  max-height: 60vh;
+}
+
+.add-project-form {
+  width: 100%;
+  padding: 2rem 4rem;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .add-project-form input {
   box-sizing: border-box;
-
+  width: 100%;
   /* Auto layout */
   border: 0.8px solid #402aa4;
   border-radius: 14px;
@@ -29,7 +36,10 @@
   line-height: 30px;
   /* identical to box height */
 
-  color: rgba(173, 173, 255, 0.75);
+  color: rgba(173, 173, 255, 0.957);
+}
+.add-project-form input::placeholder {
+  color: rgba(173, 173, 255, 0.957);
 }
 
 .input-title {
@@ -43,33 +53,29 @@
   color: #8181ff;
 }
 
-.add-project-btn {
+.add-project-btnn {
   position: absolute;
   right: 66px;
-  bottom: 44px;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 22px;
-  /* identical to box height */
-
-  display: flex;
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 10px 16px;
-  gap: 2px;
-  flex: none;
-  order: 1;
-  flex-grow: 0;
+  bottom: 14px;
+  outline: none;
+  border: none;
+  padding: 1rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  padding: 1rem 2rem;
   background: #402aa4;
-  border-radius: 14px;
   color: #ffffff;
 }
 
 .add-project-btn img {
   padding-top: 3px;
   padding-right: 4px;
+}
+
+.form-error {
+  color: red;
+  font-size: 14px; /* Adjust as necessary */
+  word-wrap: break-word; /* Allows breaking long words */
+  white-space: normal; /* Ensures normal word wrapping */
+  margin-top: 5px; /* Adds some spacing above the error message */
 }

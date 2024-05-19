@@ -5,8 +5,7 @@ import { deleteOrg, getOrg, getOrgMembers } from 'app/api/organization';
 import { deleteFile, getIcon, getIconName } from 'app/api/file';
 import UserContext from 'app/context/user/userContext';
 import toast from 'react-hot-toast';
-import { FaBookmark } from "react-icons/fa";
-
+import { FaBookmark } from 'react-icons/fa';
 
 import {
   UserOrgDetails,
@@ -28,10 +27,22 @@ interface members {
   [username: string]: string;
 }
 
-const WorkspaceCard = ({ workspaceName, role, archeive, bookmark, archeives }: { workspaceName:string, role:string, archeive:boolean, bookmark:boolean, archeives:boolean }) => {
+const WorkspaceCard = ({
+  workspaceName,
+  role,
+  archeive,
+  bookmark,
+  archeives,
+}: {
+  workspaceName: string;
+  role: string;
+  archeive: boolean;
+  bookmark: boolean;
+  archeives: boolean;
+}) => {
   // const { workspaceName, role, archeive, bookmark, archeives } = props;
-  const [localArchive,setLocalArchive] = useState(archeive)
-  const [localBookmark,setLocalBookmark] = useState(bookmark)
+  const [localArchive, setLocalArchive] = useState(archeive);
+  const [localBookmark, setLocalBookmark] = useState(bookmark);
   const [description, setDescription] = useState<null | string>(null);
   const [showPopUp, setShowPopUp] = useState(false);
   const token = localStorage.getItem('token');
@@ -107,7 +118,7 @@ const WorkspaceCard = ({ workspaceName, role, archeive, bookmark, archeives }: {
           userContext?.setUserOrgs(orgs);
         }
       };
-      setLocalBookmark(!localBookmark)
+      setLocalBookmark(!localBookmark);
       if (initBmk) {
         toast.promise(func(), {
           loading: 'Unpinning',
@@ -140,7 +151,7 @@ const WorkspaceCard = ({ workspaceName, role, archeive, bookmark, archeives }: {
           orgs.userOrgs[workspaceName].archeive = (!archeive).toString();
           userContext?.setUserOrgs(orgs);
         }
-        setLocalArchive(!localArchive)
+        setLocalArchive(!localArchive);
       };
       if (!initArc) {
         toast.promise(func(), {
@@ -165,9 +176,8 @@ const WorkspaceCard = ({ workspaceName, role, archeive, bookmark, archeives }: {
     <>
       {localArchive == archeives && (
         <div className='workspace-card'>
-          
           <div className='workspace-card-body'>
-            {localBookmark&&<FaBookmark/>}
+            {localBookmark && <FaBookmark />}
             <div
               className='workspace-popup-btn pointer'
               onClick={() => setShowPopUp(showPopUp ? false : true)}
@@ -193,7 +203,7 @@ const WorkspaceCard = ({ workspaceName, role, archeive, bookmark, archeives }: {
                     delete
                   </div>
                 )}
-                
+
               {members &&
                 userContext?.username &&
                 members[userContext?.username.toString()] === 'admin' && (
@@ -222,7 +232,10 @@ const WorkspaceCard = ({ workspaceName, role, archeive, bookmark, archeives }: {
                     ? "USER's WORKSPACE"
                     : workspaceName}
                 </div>
-                <div className='members-view-container pointer' onClick={()=>navigate(`/workspaceMembers/${workspaceName}`)}>
+                <div
+                  className='members-view-container pointer'
+                  onClick={() => navigate(`/workspaceMembers/${workspaceName}`)}
+                >
                   <div className='workspace-members-imgs'>
                     <div className='image-stack'>
                       {membersArray.length > 0 ? (
