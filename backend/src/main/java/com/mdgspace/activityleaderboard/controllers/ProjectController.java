@@ -188,7 +188,7 @@ public class ProjectController {
         return ResponseEntity.badRequest().body("User is not the admin or manager of the org");
       }
 
-      Boolean isValidLink=githubService.isValidLink(addProjectRequest.getLink(),user.getAccesstoken());
+      Boolean isValidLink=githubService.isValidLink(updateProjectRequest.getLink(),user.getAccesstoken());
       if(!isValidLink){
         return ResponseEntity.badRequest().body("Invalid link provided by the user");
       }
