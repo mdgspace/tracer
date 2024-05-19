@@ -88,7 +88,7 @@ const EditProject = () => {
       toast.promise(func(), {
         loading: 'Saving Project',
         success: <b>Project saved</b>,
-        error: <b>Could not save</b>,
+        error: <b>Invalid link</b>,
       });
     } else {
       toast.error('Invalid inputs');

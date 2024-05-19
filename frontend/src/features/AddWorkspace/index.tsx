@@ -57,7 +57,6 @@ const AddWorkspace = () => {
       ) {
         setForm({ ...form, members: [...form.members, form.member] });
         setForm({ ...form, member: '' });
-        console.log(form);
       }
     }
   };

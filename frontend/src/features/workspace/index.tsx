@@ -67,7 +67,6 @@ const Workspace = () => {
   };
 
   const fetchData = async () => {
-    console.log(userContext?.username);
     if (token && userContext?.username) {
       try {
         const userOrgsRes = await getUserOrgs(

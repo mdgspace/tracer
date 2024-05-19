@@ -19,7 +19,6 @@ const AddProject = () => {
   const token = localStorage.getItem('token');
   const { spaceName } = useParams();
   const [orgProject, setOrgProjects] = useState<Projects | null>(null);
-
   const isUnique = (name: string) => {
     if (orgProject && name in orgProject) {
       return false;
@@ -107,14 +106,13 @@ const AddProject = () => {
             updatedForm.description = ' ';
           }
           const res = await addProject(token, spaceName, updatedForm);
-          // console.log(res);
           // TODO: Update some stuff if the link is case sensitive
           navigate(`/workspace/${spaceName}`);
         };
         toast.promise(func(), {
           loading: 'Saving Project',
           success: <b>Project saved</b>,
-          error: <b>Could not save</b>,
+          error: <b>Invalid link</b>,
         });
       } else {
         toast.error('Invalid inputs');
@@ -122,7 +120,6 @@ const AddProject = () => {
     } else {
       toast.error('Form contains errors');
     }
-    console.log('sanas');
   };
 
   const fetchData = async () => {
