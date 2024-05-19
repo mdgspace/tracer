@@ -1,9 +1,6 @@
 import { changeOrgMembersStatus, removeOrgMembers } from 'app/api/organization';
 import UserContext from 'app/context/user/userContext';
-import {
-  ChangeEvent,
-  useContext,
-} from 'react';
+import { ChangeEvent, useContext } from 'react';
 import toast from 'react-hot-toast';
 
 const MemberCard = ({

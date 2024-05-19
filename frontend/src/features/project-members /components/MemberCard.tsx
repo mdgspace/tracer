@@ -1,13 +1,9 @@
-
 import {
   changeProjectMembersStatus,
   removeProjectMembers,
 } from 'app/api/project';
 import UserContext from 'app/context/user/userContext';
-import {
-  ChangeEvent,
-  useContext,
-} from 'react';
+import { ChangeEvent, useContext } from 'react';
 import toast from 'react-hot-toast';
 
 const MemberCard = ({

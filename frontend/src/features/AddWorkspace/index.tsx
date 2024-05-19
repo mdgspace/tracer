@@ -135,15 +135,13 @@ const AddWorkspace = () => {
       description: desc_error,
     });
     if (workspace_error || desc_error) {
-      if (workspace_error)
-        toast.error('Check workspace field');
-      if (desc_error) toast.error("Check description field")
-    }
-    else {
+      if (workspace_error) toast.error('Check workspace field');
+      if (desc_error) toast.error('Check description field');
+    } else {
       if (token) {
         const newForm = form;
         if (!form.description) {
-          newForm.description = " "
+          newForm.description = ' ';
         }
         const func = async (): Promise<void> => {
           const dataRes = await addOrg(token, {
@@ -217,9 +215,7 @@ const AddWorkspace = () => {
         noValidate
       >
         <div className='single-form-element-container'>
-          <p className='label'>
-            Add Icon
-          </p>
+          <p className='label'>Add Icon</p>
           <div className='file-input-container'>
             <label htmlFor='icon-file' className='file-label'>
               Choose image files here
@@ -297,8 +293,8 @@ const AddWorkspace = () => {
               type='button'
               disabled={
                 form.member
-                  ? (!users.includes(form.member) &&
-                    form.member == userContext?.username)
+                  ? !users.includes(form.member) &&
+                    form.member == userContext?.username
                   : true
               }
             >

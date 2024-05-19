@@ -11,13 +11,6 @@ export interface IconNameRes {
   message: string;
 }
 
-
-
-
-
-
-
-
 export const uploadIcon = async (
   authorizationToken: string,
   orgName: string,
@@ -35,10 +28,6 @@ export const uploadIcon = async (
   return respnse;
 };
 
-
-
-
-
 export const getIcon = async (authorizationToken: string, orgName: string) => {
   const url = BACKEND_URL + '/api/protected/file/getIcon/' + orgName;
   const response = await axios.get(
@@ -55,8 +44,6 @@ export const getIcon = async (authorizationToken: string, orgName: string) => {
   return response;
 };
 
-
-
 export const deleteFile = async (
   authorizationToken: string,
   fileName: string
@@ -70,9 +57,6 @@ export const deleteFile = async (
   });
   return respnse;
 };
-
-
-
 
 export const getIconName = async (
   authorizationToken: string,

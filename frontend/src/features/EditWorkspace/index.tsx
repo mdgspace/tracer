@@ -1,13 +1,8 @@
 import { getAllUser, getUser } from 'app/api/user';
-import  { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import {
-
-  getAllOrgs,
-  getOrg,
-  updateOrg,
-} from 'app/api/organization';
+import { getAllOrgs, getOrg, updateOrg } from 'app/api/organization';
 import { uploadIcon } from 'app/api/file';
 
 import './index.scss';
@@ -24,7 +19,6 @@ const EditWorkspace = () => {
   const [validDescription, setValidDescription] = useState<boolean>(true);
   const [validName, setValidName] = useState<boolean>(false);
   const [uniqueName, setUniqueName] = useState<boolean>(false);
-
 
   const [users, setUsers] = useState<string[]>([]);
   const [orgs, setOrgs] = useState<string[]>([]);
@@ -119,15 +113,11 @@ const EditWorkspace = () => {
           description: description,
         });
 
-
-          if (selectedFile != null) {
-           try{
+        if (selectedFile != null) {
+          try {
             const fileRes = await uploadIcon(token, name, selectedFile);
-           }catch(e){
-
-           }
-          }
-
+          } catch (e) {}
+        }
 
         navigate('/');
       };

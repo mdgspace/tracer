@@ -6,7 +6,7 @@ import './index.scss';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const [search,setSearch] = useState('')
+  const [search, setSearch] = useState('');
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };

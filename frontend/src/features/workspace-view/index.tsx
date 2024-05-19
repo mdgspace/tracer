@@ -1,9 +1,9 @@
 import SearchBar from 'app/components/search';
-import  { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import WorkspaceCard from './workspace-card';
 import UserContext from 'app/context/user/userContext';
-import {  UserOrgs, getUserOrgs } from 'app/api/user';
+import { UserOrgs, getUserOrgs } from 'app/api/user';
 import loader from '../../app/assets/gifs/loader.gif';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -35,12 +35,7 @@ const WorkspaceView = () => {
   };
   useEffect(() => {
     fetchData();
-  }, [
-    userContext?.username,
-    navigate,
-    searchValue,
-
-  ]);
+  }, [userContext?.username, navigate, searchValue]);
 
   const LogoutHandler = async () => {
     try {

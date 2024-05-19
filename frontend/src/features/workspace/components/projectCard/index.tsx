@@ -1,7 +1,7 @@
-import  { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './index.scss';
 import { deleteProject, getMembers, getProject } from 'app/api/project';
-import { FaBookmark } from "react-icons/fa";
+import { FaBookmark } from 'react-icons/fa';
 import { GetProject } from 'app/api/project';
 import { AVATAR_URL } from 'app/constants/api';
 import { AVATAR_API } from 'envConstants';
@@ -72,16 +72,15 @@ const ProjectCard: React.FC<Props> = ({
         const temp = userOrgs;
         Object.entries(temp.userOrgs).map(([org]) => {
           if (org === orgName) {
-            if (temp.userOrgs[org].bookmark === "true" ) {
-              temp.userOrgs[org].bookmark = "false";
-            }
-            else {
-              temp.userOrgs[org].bookmark = "true";
+            if (temp.userOrgs[org].bookmark === 'true') {
+              temp.userOrgs[org].bookmark = 'false';
+            } else {
+              temp.userOrgs[org].bookmark = 'true';
             }
           }
         });
-        setUserOrgs(userOrgs => {
-          return userOrgs = {...temp}
+        setUserOrgs((userOrgs) => {
+          return (userOrgs = { ...temp });
         });
         userContext?.setUserOrgs(userOrgs);
       };
@@ -101,7 +100,7 @@ const ProjectCard: React.FC<Props> = ({
       }
     }
   };
-  
+
   const ArchiveHandler = async () => {
     if (token && orgName) {
       let initial = archive;
@@ -109,25 +108,23 @@ const ProjectCard: React.FC<Props> = ({
         const res = await setArcheiveStatus(token, orgName, {
           [projectName]: !archive,
         });
-        
+
         setArchive(!archive);
         status.archeive = !archive;
         const temp = userOrgs;
         Object.entries(temp.userOrgs).map(([org]) => {
           if (org === orgName) {
-            if (temp.userOrgs[org].archeive === "true" ) {
-              temp.userOrgs[org].archeive = "false";
-            }
-            else {
-              temp.userOrgs[org].archeive = "true";
+            if (temp.userOrgs[org].archeive === 'true') {
+              temp.userOrgs[org].archeive = 'false';
+            } else {
+              temp.userOrgs[org].archeive = 'true';
             }
           }
         });
-        setUserOrgs(userOrgs => {
-          return userOrgs = {...temp}
+        setUserOrgs((userOrgs) => {
+          return (userOrgs = { ...temp });
         });
         userContext?.setUserOrgs(userOrgs);
-        
       };
 
       if (initial) {
@@ -141,7 +138,6 @@ const ProjectCard: React.FC<Props> = ({
           loading: 'On progress',
           success: <b>Project archived</b>,
           error: <b>Unable to arhive</b>,
-          
         });
       }
     }
@@ -151,10 +147,10 @@ const ProjectCard: React.FC<Props> = ({
       const func = async () => {
         const res = await deleteProject(token, projectName, orgName);
         // TODO update local state
-        if (userOrgs) {Object.entries(userOrgs.userOrgs)
-            .map(([org]) =>{
-          })
-      };}
+        if (userOrgs) {
+          Object.entries(userOrgs.userOrgs).map(([org]) => {});
+        }
+      };
       toast.promise(func(), {
         loading: 'On progress',
         success: <b>Successfully deleted</b>,
@@ -172,7 +168,6 @@ const ProjectCard: React.FC<Props> = ({
         userContext?.setUserOrgs(userOrgsRes.data);
         setUserOrgs(userOrgsRes.data);
       } catch (e) {}
-
     }
   };
   useEffect(() => {
@@ -180,44 +175,44 @@ const ProjectCard: React.FC<Props> = ({
     fetchProjectMembers();
     fetchData();
   }, []);
-  
 
   return (
     <div className='projectcard'>
-       
-       <div className='pinDiv'>
-       {pin && <FaBookmark/>}
-       </div>
+      <div className='pinDiv'>{pin && <FaBookmark />}</div>
       <h1>{projectName}</h1>
       <p>{project ? project.description : <></>}</p>
 
       {(userContext?.userOrgs?.userOrgs[orgName].role === 'admin' ||
         userContext?.userOrgs?.userOrgs[orgName].role === 'manager') && (
-          <div>
+        <div>
           <div
             className='workspace-popup-btn pointer'
             onClick={() => setShowPopUp(!showPopUp)}
           >
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB8ElEQVR4nO3bTS5DUQCG4S6C+N0PaSyEin2YGghiZguKnZTYhJ+aCPLK1TswEc7tPfKF90kkHbRNky85bm/zDgaSJEnSB2Ad2AWugGvgqf1rHl8Co+Y5s2erGmAROABe+N4bcAasOEmdMbaAB8o1rxk6Sr9jjIBXumteu+Mo/YyxOecYn4+wLUeZb4zVjsfUV+6BZUfpPsgp/TtykO6Xti8VBmnec81RygfZo56Rg5QPcllxkLGDlA9yW3GQGwcpH2RacZCpg5QP8lhxkAcHKR/kpuIgEwcpH+Si4iDnDlI+yG7FQbYdJOuL4aqDdAAcVxjk0DE6AlbaG4J9uQOWHGQOwIa338MAOz38QOU/8p5HGXY8vppjarPXD6MZYAHYB55/eDV14g9SvwBYa4+x5svjpL3vNW0fj5vjyUtbSZIkSfrDsA/JgH1IDuxDcmAfkgP7kBzYh2TBPiQH9iFZsA/Jgn1IFuxDsmAfkgX7kCzYh2TBPiQL9iFZsA/Jg31IFuxD8mAfkgf7kDzYh+TBPiQT9iGSJEmS9L9hH5IB+5Ac2IfkwD4kB/YhObAPyYJ9SA7sQ7JgH5IF+5As2IdkwT4kC/YhWbAPyYJ9SBbsQ7JgH5IH+5As2IfkwT4kD/YhebAPyYN9SCbsQyRJkjQo8Q6ntzHvrrTO1wAAAABJRU5ErkJggg==" />
+            <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB8ElEQVR4nO3bTS5DUQCG4S6C+N0PaSyEin2YGghiZguKnZTYhJ+aCPLK1TswEc7tPfKF90kkHbRNky85bm/zDgaSJEnSB2Ad2AWugGvgqf1rHl8Co+Y5s2erGmAROABe+N4bcAasOEmdMbaAB8o1rxk6Sr9jjIBXumteu+Mo/YyxOecYn4+wLUeZb4zVjsfUV+6BZUfpPsgp/TtykO6Xti8VBmnec81RygfZo56Rg5QPcllxkLGDlA9yW3GQGwcpH2RacZCpg5QP8lhxkAcHKR/kpuIgEwcpH+Si4iDnDlI+yG7FQbYdJOuL4aqDdAAcVxjk0DE6AlbaG4J9uQOWHGQOwIa338MAOz38QOU/8p5HGXY8vppjarPXD6MZYAHYB55/eDV14g9SvwBYa4+x5svjpL3vNW0fj5vjyUtbSZIkSfrDsA/JgH1IDuxDcmAfkgP7kBzYh2TBPiQH9iFZsA/Jgn1IFuxDsmAfkgX7kCzYh2TBPiQL9iFZsA/Jg31IFuxD8mAfkgf7kDzYh+TBPiQT9iGSJEmS9L9hH5IB+5Ac2IfkwD4kB/YhObAPyYJ9SA7sQ7JgH5IF+5As2IdkwT4kC/YhWbAPyYJ9SBbsQ7JgH5IH+5As2IfkwT4kD/YhebAPyYN9SCbsQyRJkjQo8Q6ntzHvrrTO1wAAAABJRU5ErkJggg==' />
           </div>
-          {showPopUp && <div className={'workspace-popup'}>
-            <div className='pin pointer' onClick={PinHandler}>
-              {pin ? 'Unpin' : 'Pin'}
+          {showPopUp && (
+            <div className={'workspace-popup'}>
+              <div className='pin pointer' onClick={PinHandler}>
+                {pin ? 'Unpin' : 'Pin'}
+              </div>
+              <div className='archive pointer' onClick={ArchiveHandler}>
+                {archive ? 'Unarchive' : 'Archive'}
+              </div>
+              <div
+                className='pin pointer'
+                onClick={() =>
+                  navigate(`/editProject/${orgName}/${projectName}`)
+                }
+              >
+                Edit
+              </div>
+              <div className='delete pointer' onClick={DeleteHandler}>
+                Delete
+              </div>
             </div>
-            <div className='archive pointer' onClick={ArchiveHandler}>
-              {archive ? 'Unarchive' : 'Archive'}
-            </div>
-            <div
-              className='pin pointer'
-              onClick={() => navigate(`/editProject/${orgName}/${projectName}`)}
-            >
-              Edit
-            </div>
-            <div className='delete pointer' onClick={DeleteHandler}>
-              Delete
-            </div>
-          </div>}
-      </div>
+          )}
+        </div>
       )}
       <div className='projectcard-status'>
         <div>

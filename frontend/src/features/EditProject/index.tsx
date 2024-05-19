@@ -1,15 +1,10 @@
-import  { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import './index.scss';
 // import tick from '../../app/assets/images/tick.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import {
-  getProject,
-  updateProject,
-} from 'app/api/project';
-import {  Projects, getOrgProjects } from 'app/api/organization';
-
-
+import { getProject, updateProject } from 'app/api/project';
+import { Projects, getOrgProjects } from 'app/api/organization';
 
 const EditProject = () => {
   const navigate = useNavigate();
@@ -144,7 +139,7 @@ const EditProject = () => {
         </form>
         <button className='add-project-btn' onClick={SubmitHandler}>
           {/* <img src={tick} alt='' /> */}
-           Done
+          Done
         </button>
       </div>
     </div>

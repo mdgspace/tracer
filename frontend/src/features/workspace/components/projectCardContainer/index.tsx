@@ -26,26 +26,26 @@ const ProjectCardCont: React.FC<Props> = ({
   }, [weekly]);
 
   return (
-      <div className='projectcard-cont'>
-        {orgProjects &&
-          Object.entries(orgProjects).map(([key, value]) => {
-              return (
-                archives === value.archeive && (
-                  <ProjectCard
-                    key={key}
-                    orgName={orgName}
-                    projectName={key}
-                    status={value}
-                    githubData={
-                      weekly
-                        ? weeklyOrgProjectsData && weeklyOrgProjectsData[key]
-                        : monthlyOrgProjectsData && monthlyOrgProjectsData[key]
-                    }
-                  />
-                )
-              );
-            })}
-      </div>
+    <div className='projectcard-cont'>
+      {orgProjects &&
+        Object.entries(orgProjects).map(([key, value]) => {
+          return (
+            archives === value.archeive && (
+              <ProjectCard
+                key={key}
+                orgName={orgName}
+                projectName={key}
+                status={value}
+                githubData={
+                  weekly
+                    ? weeklyOrgProjectsData && weeklyOrgProjectsData[key]
+                    : monthlyOrgProjectsData && monthlyOrgProjectsData[key]
+                }
+              />
+            )
+          );
+        })}
+    </div>
   );
 };
 
