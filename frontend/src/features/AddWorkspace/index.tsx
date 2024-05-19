@@ -11,6 +11,7 @@ import { AVATAR_URL } from 'app/constants/api';
 import { AVATAR_API } from 'envConstants';
 import Cross from '../../app/assets/icons/cross.svg';
 import {
+  _FORM_SUBMIT,
   _VALIDATE_PROPS,
   _WORKSPACE_FORM,
   _WORKSPACE_FORM_CHANGE,
@@ -76,7 +77,7 @@ const AddWorkspace = () => {
     }
   };
 
-  const validate: _VALIDATE_PROPS = (name, value,files) => {
+  const validate: _VALIDATE_PROPS = (name, value, files) => {
     switch (name) {
       case 'workspace':
         if (!value) {
@@ -89,14 +90,14 @@ const AddWorkspace = () => {
         return '';
       case 'image':
         if (!FileList) {
-          return "File is required"
+          return 'File is required';
         }
-        return ''
+        return '';
       case 'description':
-        if (value.length>200) {
-          return "Description should be less then 200 characters"
+        if (value.length > 200) {
+          return 'Description should be less then 200 characters';
         }
-        return ''
+        return '';
       default:
         return '';
     }
@@ -121,59 +122,72 @@ const AddWorkspace = () => {
     }
   };
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { name, value,files } = e.target;
-    const error = validate(name, value,files);
+    const { name, value, files } = e.target;
+    const error = validate(name, value, files);
     setFormErrors({
       ...formErrors,
       [name]: error,
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit: _FORM_SUBMIT = (event) => {
+    event.preventDefault();
+    const workspace_error = validate('workspace', form.workspace, null);
+    const desc_error = validate('description', form.description, null);
+    const image_error = form.image ? '' : 'Image is required';
+    setFormErrors({
+      ...formErrors,
+      workspace: workspace_error,
+      description: desc_error,
+      image: image_error,
+    });
+    if (workspace_error || desc_error || image_error)
+      toast.error('Check workspace, icon and description fields');
+    else {
+      if (token) {
+        const newForm = form;
+        if (!form.description) {
+          newForm.description = " "
+        }
+        const func = async (): Promise<void> => {
+          const dataRes = await addOrg(token, {
+            name: newForm.workspace,
+            description: newForm.description,
+          });
 
-  const SubmitHandler = async (): Promise<void> => {
-    if (
-      form.description &&
-      token &&
-      form.workspace
-      // &&
-      // validName &&
-      // uniqueName &&
-      // validDescription
-    ) {
-      const func = async (): Promise<void> => {
-        const dataRes = await addOrg(token, {
-          name: form.workspace,
-          description: form.description,
+          if (form.image) {
+            try {
+              const fileRes = await uploadIcon(
+                token,
+                form.workspace,
+                form.image
+              );
+            } catch (e) {}
+          }
+
+          if (form.members.length > 0) {
+            try {
+              const addMmebersRes = await addOrgMembers(
+                token,
+                form.workspace,
+                form.members
+              );
+            } catch (e) {}
+          }
+          navigate('/');
+        };
+
+        toast.promise(func(), {
+          loading: 'Saving Workspace',
+          success: <b>Workspace saved</b>,
+          error: <b>Something's wrong with your inputs</b>,
         });
-
-        if (form.image) {
-          try {
-            const fileRes = await uploadIcon(token, form.workspace, form.image);
-          } catch (e) {}
-        }
-
-        if (form.members.length > 0) {
-          try {
-            const addMmebersRes = await addOrgMembers(
-              token,
-              form.workspace,
-              form.members
-            );
-          } catch (e) {}
-        }
-        navigate('/');
-      };
-
-      toast.promise(func(), {
-        loading: 'Saving Workspace',
-        success: <b>Workspace saved</b>,
-        error: <b>Could not save</b>,
-      });
-    } else {
-      toast.error('Invalid inputs');
+      } else {
+        toast.error(`Something's wrong with your inputs`);
+      }
     }
   };
+
   const dataFetch = async () => {
     try {
       if (token) {
@@ -207,7 +221,9 @@ const AddWorkspace = () => {
         noValidate
       >
         <div className='single-form-element-container'>
-          <p className='label'>Add Icon<span style={{color:'red',paddingLeft:'4px'}}>*</span></p>
+          <p className='label'>
+            Add Icon<span style={{ color: 'red', paddingLeft: '4px' }}>*</span>
+          </p>
           <div className='file-input-container'>
             <label htmlFor='icon-file' className='file-label'>
               Choose image files here
@@ -230,7 +246,8 @@ const AddWorkspace = () => {
         </div>
         <div className='single-form-element-container'>
           <label className='label' htmlFor='workspace-name'>
-            Workspace Name<span style={{color:'red',paddingLeft:'4px'}}>*</span>
+            Workspace Name
+            <span style={{ color: 'red', paddingLeft: '4px' }}>*</span>
           </label>
           <input
             type='text'
@@ -242,7 +259,9 @@ const AddWorkspace = () => {
             onChange={handleChange}
             placeholder='workspace name'
           />
-          {formErrors.workspace && <p className='form-error'>{formErrors.workspace}</p>}
+          {formErrors.workspace && (
+            <p className='form-error'>{formErrors.workspace}</p>
+          )}
         </div>
         <div className='single-form-element-container'>
           <label className='label' htmlFor='workspace-description'>
@@ -259,12 +278,15 @@ const AddWorkspace = () => {
             placeholder='workspace description'
             maxLength={201}
           />
-          {formErrors.description && <p className='form-error'>{formErrors.description}</p>}
-          
+          {formErrors.description && (
+            <p className='form-error'>{formErrors.description}</p>
+          )}
         </div>
         <div className='single-form-element-container'>
-          <label className='label' htmlFor="add-member">Add Members</label>
-        <div className='add-member-container'>
+          <label className='label' htmlFor='add-member'>
+            Add Members
+          </label>
+          <div className='add-member-container'>
             <input
               type='text'
               id='add-member'
